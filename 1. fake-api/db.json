@@ -1,0 +1,116 @@
+{
+  "desert": [
+    {
+      "id": 1,
+      "productName": "Berry Desserts",
+      "price": 10000,
+      "desc": "Berry Tiramisu with Strawberry Marshmallow & Cracker Cake",
+      "img": "../project-akhir/src/fotoku/berryDessert.jpeg"
+    },
+    {
+      "id": 2,
+      "productName": "Sweet Manggo",
+      "price": 15000,
+      "desc": "Homemade Coconut Mango-Pineapple Sorbet",
+      "img": "../project-akhir/src/fotoku/sweetManggo.jpeg"
+    }
+  ],
+  "mainCourse": [
+    {
+      "id": 1,
+      "productName": "Bebek Tumis",
+      "price": 30000,
+      "desc": "Tumis Daging Bebek Peking Iris dengan Tauge"
+    },
+    {
+      "id": 2,
+      "productName": "Sup Ikan",
+      "price": 30000,
+      "desc": "Sup Kepala Ikan dengan Tahu dan Sayur Asin"
+    }
+  ],
+  "healty": [
+
+  ],
+  "readyToCook": [
+
+  ],
+  "breakfast": [
+
+  ],
+  "lunch": [
+
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "password",
+      "role": "admin",
+      "id": "1"
+    },
+    {
+      "username": "eva",
+      "email": "eva@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "FCSHL2k"
+    },
+    {
+      "username": "monic",
+      "email": "monic@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "rlhVQCX"
+    },
+    {
+      "username": "seto",
+      "email": "seto@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "wZ-PK_Y"
+    },
+    {
+      "username": "dini",
+      "email": "dini@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "yTjFycR"
+    },
+    {
+      "username": "andre",
+      "email": "andre@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "wxGW8lH"
+    },
+    {
+      "username": "seno",
+      "email": "seno@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "MQuF1x-"
+    },
+    {
+      "username": "retno",
+      "email": "retno@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "F5bNIiz"
+    },
+    {
+      "username": "andi",
+      "email": "andi@mail.com",
+      "password": "password",
+      "repeatPassword": "password",
+      "role": "users",
+      "id": "YjmnZNR"
+    }
+  ]
+}

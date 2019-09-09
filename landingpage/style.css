@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0
+}
+
+.navbar {
+    background-color: white; opacity: 0.9; filter: alpha(opacity=50);
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link:hover {
+    background:#dcdde1;
+    text-decoration: underline;
+}
+
+.tagline {
+    position: relative;
+    background: url('bgLanding.jpeg');
+    background-size:cover;
+    min-height: 100vh;
+    background-position: center;
+    padding: 450px 0 0
+}
+
+@media screen and (max-width : 768px){
+    .lead{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    }
+}
+
+/** extra class buat .card-img-top (bukan overwrite) - START **/
+.card-img-top-new {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 576px){
+    .card-img-top-new {
+        height: 70vw !important;
+    }
+}
+/** extra class buat .card-img-top (bukan overwrite) - END **/

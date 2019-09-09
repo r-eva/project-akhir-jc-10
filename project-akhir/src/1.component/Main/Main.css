@@ -1,0 +1,8 @@
+.tagline {
+    position: relative;
+    background: url('../../fotoku/bgLanding.jpeg');
+    background-size:cover;
+    min-height: 100vh;
+    background-position: center;
+    padding: 450px 0 0
+}
