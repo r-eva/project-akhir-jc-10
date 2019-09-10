@@ -28,16 +28,16 @@ class Main extends Component {
                     <div className="container">
                         <div className="d-md-flex flex-row">
                             <div className="p-2 bg-success">
-                                <h5>Experience Delicious!</h5>
+                                <h5 className="font-weight-bold">Experience Delicious!</h5>
                             </div>
                         </div>
                         <div className="d-md-flex flex-row">
                             <div className="p-2">
-                                <h6>We respect and appreciate the eating experience. Our mission isn't just
+                                <h6 className="font-weight-bold">We respect and appreciate the eating experience. Our mission isn't just
                                     provide food; it's to give you a full service, worry free dining experience.</h6>
                             </div>
-                            <div className="p-2 text-center text-md-left">
-                                <button className="btn btn-danger btn-md text-uppercase">MULAI LANGGANAN</button>
+                            <div className="p-1 text-center text-md-left">
+                                <MDBBtn color="danger" className="font-weight-bold">MULAI LANGGANAN</MDBBtn>
                             </div>
                         </div>
                     </div>
