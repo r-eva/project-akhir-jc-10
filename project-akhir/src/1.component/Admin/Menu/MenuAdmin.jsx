@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './Style.css'
-import Healty from './Healty';
-import Breakfast from './Breakfast';
-import Lunch from './Lunch';
-import Dessert from './Dessert';
-import Semua from './Semua'
-import ReadyToCook from './ReadyToCook'
+import HealtyAdmin from './HealtyAdmin';
+import BreakfastAdmin from './BreakfastAdmin';
+import LunchAdmin from './LunchAdmin';
+import DessertAdmin from './DessertAdmin';
+import SemuaAdmin from './SemuaAdmin'
+import ReadyToCookAdmin from './ReadyToCookAdmin'
 import { MDBBtn, MDBIcon } from "mdbreact";
 
 class Menu extends Component {
@@ -16,7 +16,7 @@ class Menu extends Component {
     render() {
         return (
             <>
-                <div className="container mt-5 pt-5 justify-content-between">
+                <div className="container mt-5 pt-5 text-center">
                     <br/>
                     <br/>
                     <MDBBtn outline color="danger" onClick={() => this.setState({tabMenu : 1})}><MDBIcon icon="magic" className="mr-1" /> Semua</MDBBtn>
@@ -27,12 +27,12 @@ class Menu extends Component {
                     <MDBBtn outline color="danger" onClick={() => this.setState({tabMenu : 6})}>Ready To Cook</MDBBtn>
                 </div>
                 <div className="container">
-                    {this.state.tabMenu === 1 ? <Semua/> : null}
-                    {this.state.tabMenu === 2 ? <Breakfast/> : null}
-                    {this.state.tabMenu === 3 ? <Lunch/> : null}
-                    {this.state.tabMenu === 4 ? <Healty/> : null}
-                    {this.state.tabMenu === 5 ? <Dessert/> : null}
-                    {this.state.tabMenu === 6 ? <ReadyToCook/> : null}
+                    {this.state.tabMenu === 1 ? <SemuaAdmin/> : null}
+                    {this.state.tabMenu === 2 ? <BreakfastAdmin/> : null}
+                    {this.state.tabMenu === 3 ? <LunchAdmin/> : null}
+                    {this.state.tabMenu === 4 ? <HealtyAdmin/> : null}
+                    {this.state.tabMenu === 5 ? <DessertAdmin/> : null}
+                    {this.state.tabMenu === 6 ? <ReadyToCookAdmin/> : null}
                 </div>
             </>
         );

@@ -58,15 +58,34 @@ class NavbarComp extends Component {
                     {/* Show this on md to lg screen */}
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav className="mr-auto font-weight-bold" navbar>
-                                <NavItem>
-                                    <Link to="/Menu"><NavLink style={{color: 'black'}}>MENU</NavLink></Link>
-                                </NavItem>
-                                <NavItem>
-                                    <Link to="/Langganan"><NavLink style={{color: 'black'}}>LANGGANAN</NavLink></Link>
-                                </NavItem>
-                                <NavItem>
-                                <Link to="/Promo"><NavLink style={{color: 'black'}}>PROMO</NavLink></Link>
-                                </NavItem>
+                            {
+                                 this.props.userObj.username === 'admin'
+                                 ?
+                                 <>
+                                    <NavItem>
+                                        <Link to="/Admin/Menu"><NavLink style={{color: 'black'}}>MENU</NavLink></Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link to="/Admin/Langganan"><NavLink style={{color: 'black'}}>LANGGANAN</NavLink></Link>
+                                    </NavItem>
+                                    <NavItem>
+                                    <Link to="/Admin/Promo"><NavLink style={{color: 'black'}}>PROMO</NavLink></Link>
+                                    </NavItem>
+                                 </>
+                                 
+                                :
+                                <>
+                                    <NavItem>
+                                        <Link to="/Menu"><NavLink style={{color: 'black'}}>MENU</NavLink></Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link to="/Langganan"><NavLink style={{color: 'black'}}>LANGGANAN</NavLink></Link>
+                                    </NavItem>
+                                    <NavItem>
+                                    <Link to="/Promo"><NavLink style={{color: 'black'}}>PROMO</NavLink></Link>
+                                    </NavItem>
+                                </>
+                            }
                         </Nav>
                         <Link to="/"><NavbarBrand className="d-none d-md-block justify-content-between"><img src={logo} width={200} alt='LinkMain'/></NavbarBrand></Link>
                         <Nav className="ml-auto font-weight-bold" navbar>
@@ -75,7 +94,7 @@ class NavbarComp extends Component {
                                 ?
                                 <>
                                     {
-                                        this.props.userObj.username == 'admin'
+                                        this.props.userObj.username === 'admin'
                                         ?
                                         <>
                                         <UncontrolledDropdown nav inNavbar className="font-weight-bold">

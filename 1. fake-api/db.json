@@ -1,32 +1,34 @@
 {
-  "desert": [
+  "dessert": [
     {
       "id": 1,
       "productName": "Berry Desserts",
       "price": 10000,
-      "desc": "Berry Tiramisu with Strawberry Marshmallow & Cracker Cake",
-      "img": "../project-akhir/src/fotoku/berryDessert.jpeg"
+      "desc": "Sandwich with strawberry and blackberry fruits",
+      "img": "https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
     },
     {
       "id": 2,
       "productName": "Sweet Manggo",
       "price": 15000,
-      "desc": "Homemade Coconut Mango-Pineapple Sorbet",
-      "img": "../project-akhir/src/fotoku/sweetManggo.jpeg"
+      "desc": "Manggo cheese with red berries toppings",
+      "img": "https://images.unsplash.com/photo-1547049082-1a12c3bf2366?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
     }
   ],
   "mainCourse": [
     {
       "id": 1,
-      "productName": "Bebek Tumis",
+      "productName": "Dumpling Dishes",
       "price": 30000,
-      "desc": "Tumis Daging Bebek Peking Iris dengan Tauge"
+      "desc": "Three White Prawn and Chicken Dimsum",
+      "img": "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
     },
     {
       "id": 2,
-      "productName": "Sup Ikan",
+      "productName": "Pasta",
       "price": 30000,
-      "desc": "Sup Kepala Ikan dengan Tahu dan Sayur Asin"
+      "desc": "Pesto pasta with sliced tomatoes",
+      "img": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60"
     }
   ],
   "healty": [

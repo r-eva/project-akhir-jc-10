@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 
 class Keranjang extends Component {
     render() {
-        if (this.props.role == '')
+        if (this.props.role === '')
         return <Redirect to="/" exact/>
         return (
             <div>
@@ -20,4 +20,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Keranjang);
+export default connect(mapStateToProps)(Keranjang)

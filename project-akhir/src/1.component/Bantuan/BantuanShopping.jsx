@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 
 class Bantuan extends Component {
     render() {
-        if (this.props.role == '')
+        if (this.props.role === '')
         return <Redirect to="/" exact/>
         return (
             <div>

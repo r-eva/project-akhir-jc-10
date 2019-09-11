@@ -7,7 +7,9 @@ class AdminDashboard extends Component {
         if (this.props.role !== 'admin')
         return <Redirect to="/" exact/>
         return (
-            <div>
+            <div className="container pt-5 mt-5">
+                <br/>
+                <br/>
                 <h1>Admin Dashboard</h1>
             </div>
         );

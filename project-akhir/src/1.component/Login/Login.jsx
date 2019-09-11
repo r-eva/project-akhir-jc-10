@@ -48,7 +48,7 @@ class Auth extends Component {
                                             <MDBInput label="Username" icon="user" type="text" onChange={(e) => this.setState({loginUsername : e.target.value})}/>
                                             <MDBInput label="Password" icon="lock" type="password" onChange={(e) => this.setState({loginPassword : e.target.value})}/>
                                                 {
-                                                this.props.isLoading == true
+                                                this.props.isLoading === true
                                                 ?
                                                 <div className='text-center'>
                                                     <div class="spinner-border text-danger" role="status">

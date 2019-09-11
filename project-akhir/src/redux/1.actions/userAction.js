@@ -6,7 +6,7 @@ export const onLogin = (userObject) => {
     return (dispatch) => {
         dispatch({type: 'ISLOADING'})
 
-        if (userObject.username == '' || userObject.password == '') {
+        if (userObject.username === '' || userObject.password === '') {
             dispatch({type: 'BERHENTI_SWAL'})
             swal({icon: "warning", text: "Mohon lengkapi data username dan password."})
         } else {
@@ -45,13 +45,13 @@ export const onRegister = (userObject) => {
     return (dispatch) => {
 
         dispatch({type: 'ISLOADING'})
-        if (userObject.username == '' || userObject.password == '' || userObject.email == '' || userObject.repeatPassword == '') {
+        if (userObject.username === '' || userObject.password === '' || userObject.email === '' || userObject.repeatPassword === '') {
             dispatch({type: 'BERHENTI_SWAL'})
             swal({icon: "warning", text: "Mohon lengkapi datanya."})
         } else if (userObject.username.length < 4 || userObject.password.length < 4) {
             dispatch({type: 'BERHENTI_SWAL'})
             swal({icon: "warning", text: "Mohon isi username dan password minimal 4 karakter."})
-        } else if (/@/.test(userObject.email) == false) {
+        } else if (/@/.test(userObject.email) === false) {
             dispatch({type: 'BERHENTI_SWAL'})
             swal({icon: "warning", text: "Invalid email."})
         } else if (userObject.password !== userObject.repeatPassword) {

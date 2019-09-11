@@ -50,7 +50,7 @@ class Auth extends Component {
                     <div className="row justify-content-center">
                         <div className="col-5 text-center mb-4 mt-3">
                             {
-                                this.props.isLoading == true
+                                this.props.isLoading === true
                                 ?
                                 <div className="text-center">
                                     <div className="spinner-border text-danger" role="status">

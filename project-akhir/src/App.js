@@ -23,6 +23,9 @@ import Reservasi from './1.component/Reservasi/Reservasi'
 import AdminDashboard from './1.component/Admin/AdminDashboard'
 import BantuanLogin from './1.component/Bantuan/BantuanLogin'
 import History from './1.component/History/History'
+import MenuAdmin from './1.component/Admin/Menu/MenuAdmin'
+import LanggananAdmin from './1.component/Admin/Langganan/LanggananAdmin'
+import PromoAdmin from './1.component/Admin/Promo/PromoAdmin'
 import Cookie from 'universal-cookie'
 import {connect} from 'react-redux'
 import {keepLogin} from './redux/1.actions'
@@ -47,8 +50,11 @@ class App extends Component {
                 <Switch>
                     <Route path='/' component={Main} exact/>
                     <Route path='/Menu' component={Menu} exact/>
+                    <Route path='/Admin/Menu' component={MenuAdmin} exact/>
                     <Route path='/Langganan' component={Langganan} exact/>
+                    <Route path='/Admin/Langganan' component={LanggananAdmin} exact/>
                     <Route path='/Promo' component={Promo} exact/>
+                    <Route path='/Admin/Promo' component={PromoAdmin} exact/>
                     <Route path='/bantuan/shopping' component={BantuanShopping} exact/>
                     <Route path='/Keranjang' component={Keranjang} exact/>
                     <Route path='/History' component={History} exact/>

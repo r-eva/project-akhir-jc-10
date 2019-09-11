@@ -1,6 +1,5 @@
 import React from 'react';
 import { MDBBtn } from "mdbreact";
-import moment from 'moment'
 
 const Calender = (props) => {
     const {mainCourse, desert, calenderTahunIni, calenderBulanIni, calenderHariBulanIni} = props
