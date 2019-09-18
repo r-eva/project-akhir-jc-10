@@ -8,10 +8,10 @@ class Footer extends Component {
         return (
             <div>
                 <section className="bg-light">
-                    <div className="container-fluid pt-4 pb-4 mr-3 ml-3">
+                    <div className="container-fluid pt-4 pb-4">
                         <div className="row">
                             <div className="col-12 col-md-3 mb-md-0 mb-4">
-                                <p className="font-weight-bold">ANNORA RESTAURANT</p>
+                                <p className="font-weight-bold align-self-end">ANNORA RESTAURANT</p>
                                 <div className="row">
                                     <div className="col-5">
                                         <h6>

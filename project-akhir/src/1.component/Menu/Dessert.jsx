@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText } from 'mdbreact'
+import { MDBCardBody, MDBCardTitle, MDBCardText} from 'mdbreact'
+import './Style.css'
 
 class Dessert extends Component {
 
@@ -26,17 +27,35 @@ class Dessert extends Component {
     renderDessert = () => {
         var jsx = this.state.dataDessert.map(val => {
             return (
-                <div className="col-6 col-md-3 mt-4 mb-5">
-                    <MDBCard>
-                        <MDBCardImage className="img-fluid rounded" src={val.img} style={{width: "200px", height: "200px"}} hover zoom />
-                        <MDBCardBody>
-                        <MDBCardTitle><h6>{val.productName}</h6></MDBCardTitle>
-                        <MDBCardText>
-                            Rp. {val.price}
-                        </MDBCardText>
-                        <MDBBtn>ADD TO CART</MDBBtn>
-                        </MDBCardBody>
-                    </MDBCard>
+                <div className="card col-md-3 mb-2" style={{width:'18rem'}}>
+                    <img src={val.img} className="card-img-top img" height='150px' hover zoom alt='imgproduct'></img>
+                    {
+                        val.discount > 0
+                        ?
+                        <div className="discount">{val.discount}%</div>
+                        :
+                        null
+                    }
+                    <MDBCardBody>
+                    <MDBCardTitle><h6>{val.productName}</h6></MDBCardTitle>
+                    <MDBCardText>
+                    {
+                        val.discount > 0
+                        ?
+                        <>
+                        <h6 style={{textDecoration : 'line-through', color:'red', fontSize: '13px'}}>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
+                        <h6>Rp. {new Intl.NumberFormat('id-ID').format(val.price - (val.price * (val.discount/100)))}</h6>
+                        </>
+                        :
+                        <>
+                        <h6>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
+                        </>
+                    }
+                    </MDBCardText>
+                    </MDBCardBody>
+                    <div className="card-footer" style={{backgroundColor:'inherit'}}>
+                        <input type='button' className='btn-success btn-block' value='Add To Cart'/>
+                    </div>
                 </div>
             )
         })
@@ -45,10 +64,8 @@ class Dessert extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    {this.renderDessert()}
-                </div>
+            <div className="container-fluid">
+                {this.renderDessert()}
             </div>
         );
     }

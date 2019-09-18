@@ -40,7 +40,7 @@ class Auth extends Component {
                 <div className="container">
                     <h1 className="text-center mt-2 font-weight-bold">REGISTER</h1>
                     <div className="row justify-content-center">
-                        <div className="col-5">
+                        <div className="col-4">
                             <MDBInput label="Username" icon="user" type="text" onChange={(e) => this.setState({registerUsername: e.target.value})}/>
                             <MDBInput label="Email" icon="envelope" type="email" onChange={(e) => this.setState({registerEmail: e.target.value})}/>
                             <MDBInput label="Password" icon="lock" type="password" onChange={(e) => this.setState({registerPassword: e.target.value})}/>
@@ -48,7 +48,7 @@ class Auth extends Component {
                         </div>
                     </div>
                     <div className="row justify-content-center">
-                        <div className="col-5 text-center mb-4 mt-3">
+                        <div className="col-4 text-center mb-4 mt-3">
                             {
                                 this.props.isLoading === true
                                 ?
