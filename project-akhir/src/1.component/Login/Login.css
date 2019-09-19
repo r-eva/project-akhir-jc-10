@@ -1,4 +1,11 @@
 .container-login {
-    margin-top: 15%;
-    margin-bottom: 15%;
+    margin-top: 11%;
+    margin-bottom: 10%;
+}
+
+.background-image {
+    background: url('https://images.pexels.com/photos/1028599/pexels-photo-1028599.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
 }

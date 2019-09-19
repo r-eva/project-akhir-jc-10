@@ -150,7 +150,7 @@ class NavbarComp extends Component {
                                         <Link to="/Register"><NavLink style={{color: 'black'}}>REGISTER</NavLink></Link>
                                     </NavItem>
                                     <NavItem>
-                                        <Link to="/Login"><NavLink style={{color: 'black'}}>LOGIN</NavLink></Link>
+                                        <Link to="/Login"><NavLink style={{color: 'black'}}>SIGN IN</NavLink></Link>
                                     </NavItem>
                                     <NavItem>
                                         <Link to="/bantuan/login"><NavLink style={{color: 'black'}}>BANTUAN</NavLink></Link>

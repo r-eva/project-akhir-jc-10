@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './Register.css'
 import {onRegister} from '../../redux/1.actions'
 import {connect} from 'react-redux'
-import {MDBInput, MDBBtn} from "mdbreact"
+import {MDBInput, MDBBtn, MDBCol, MDBCard, MDBCardBody} from "mdbreact"
 import Cookie from 'universal-cookie'
 import {Redirect} from 'react-router-dom'
 
@@ -36,45 +36,51 @@ class Auth extends Component {
         }
 
         return (
-            <div className="container container-register">
-                <div className="container">
-                    <h1 className="text-center mt-2 font-weight-bold">REGISTER</h1>
-                    <div className="row justify-content-center">
-                        <div className="col-4">
-                            <MDBInput label="Username" icon="user" type="text" onChange={(e) => this.setState({registerUsername: e.target.value})}/>
-                            <MDBInput label="Email" icon="envelope" type="email" onChange={(e) => this.setState({registerEmail: e.target.value})}/>
-                            <MDBInput label="Password" icon="lock" type="password" onChange={(e) => this.setState({registerPassword: e.target.value})}/>
-                            <MDBInput label="Repeat Password" icon="exclamation-circle" type="password" onChange={(e) => this.setState({repeatPassword: e.target.value})}/>
-                        </div>
-                    </div>
-                    <div className="row justify-content-center">
-                        <div className="col-4 text-center mb-4 mt-3">
-                            {
-                                this.props.isLoading === true
-                                ?
-                                <div className="text-center">
-                                    <div className="spinner-border text-danger" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                    </div>
-                                </div>
-                                :
-                                <>
-                                   <MDBBtn color="unique" type="submit" onClick={this.onRegisterBtnHandler}>REGISTER</MDBBtn>
-                                </>
-                            }
+            <div className="container-fluid background-register">
+               <div className="row justify-content-center">
+                    <div className="col-12 col-md-5 container-login">
+                        <MDBCol>
+                            <div className="row justify-content-center">
+                                    <MDBCard>
+                                        <MDBCardBody style={{ width: "23rem" }}>
+                                            <div className='row justify-content-center mb-3'>                               
+                                                <h1 className="my-3 font-weight-bold text-center">Register</h1>
+                                            </div>
+                                            <MDBInput label="Username" icon="user" type="text" onChange={(e) => this.setState({registerUsername: e.target.value})}/>
+                                                <MDBInput label="Email" icon="envelope" type="email" onChange={(e) => this.setState({registerEmail: e.target.value})}/>
+                                                <MDBInput label="Password" icon="lock" type="password" onChange={(e) => this.setState({registerPassword: e.target.value})}/>
+                                                <MDBInput label="Repeat Password" icon="exclamation-circle" type="password" onChange={(e) => this.setState({repeatPassword: e.target.value})}/>
+                                                {
+                                                    this.props.isLoading === true
+                                                    ?
+                                                    <div className="text-center">
+                                                        <div className="spinner-border text-danger" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>
+                                                    :
+                                                    <>  
+                                                        <div className="text-center">
+                                                            <MDBBtn color="unique" type="submit" onClick={this.onRegisterBtnHandler}>REGISTER</MDBBtn>
+                                                        </div>
+                                                    </>
+                                                }
 
-                            {
-                                this.props.message !== ''
-                                ?
-                                <>
-                                    <h3 className='text-center'>{this.props.message}</h3>
-                                </>
-                                :
-                                null
-                            }
-                        </div>
+                                                {
+                                                    this.props.message !== ''
+                                                    ?
+                                                    <>
+                                                        <h3 className='text-center'>{this.props.message}</h3>
+                                                    </>
+                                                    :
+                                                    null
+                                                }
+                                        </MDBCardBody>
+                                    </MDBCard>
+                            </div>
+                        </MDBCol>
                     </div>
-                </div>
+                </div>     
             </div>
         );
     }

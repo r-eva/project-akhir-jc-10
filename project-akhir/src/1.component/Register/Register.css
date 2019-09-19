@@ -2,3 +2,10 @@
     margin-top: 15%;
     margin-bottom: 15%
 }
+
+.background-register {
+    background: url('https://images.pexels.com/photos/2395249/pexels-photo-2395249.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
+}
