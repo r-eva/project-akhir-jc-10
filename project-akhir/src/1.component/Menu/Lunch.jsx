@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
-import { MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText } from 'mdbreact'
+import { MDBCardImage, MDBCardTitle, MDBCard } from 'mdbreact'
 
 class Lunch extends Component {
 
@@ -26,36 +26,32 @@ class Lunch extends Component {
     renderMainCourse = () => {
         var jsx = this.state.dataMainCourse.map(val => {
             return (
-                <div className="card col-6 col-md-3 mx-1 my-5 p-1" style={{width:'18rem'}}>
-                <MDBCardImage src={val.img} className="card-img-top img" height='200px' hover zoom />
-                {
-                    val.discount > 0
-                    ?
-                    <div className="discount">{val.discount}%</div>
-                    :
-                    null
-                }
-                <MDBCardBody>
-                <MDBCardTitle><h6>{val.productName}</h6></MDBCardTitle>
-                <MDBCardText>
-                {
-                    val.discount > 0
-                    ?
-                    <>
-                    <h6 style={{textDecoration : 'line-through', color:'red', fontSize: '3'}}>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
-                    <h6 className="card-text">Rp. {new Intl.NumberFormat('id-ID').format(val.price - (val.price * (val.discount/100)))}</h6>
-                    </>
-                    :
-                    <>
-                    <h6>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
-                    </>
-                }
-                </MDBCardText>
-                </MDBCardBody>
-                <div className="card-footer" style={{backgroundColor:'inherit'}}>
-                    <input type='button' className='d-block btn btn-success btn-block' value='Add To Cart'/>
-                </div>
-            </div>
+                <MDBCard className="ml-3">
+                    <MDBCardImage src={val.img} alt='imgproduct' style={{
+                        width:'200px', height: '200px', borderRadius: '4px', padding: '5px'
+                        }}>
+                </MDBCardImage>
+                    {
+                        val.discount > 0
+                        ?
+                        <div className="discount">{val.discount}%</div>
+                        :
+                        null
+                    }
+                    <MDBCardTitle className="product-name"><h5 className="font-weight-bolder">{val.productName}</h5></MDBCardTitle>
+                    {
+                        val.discount > 0
+                        ?
+                        <>
+                        <h6 style={{color:'grey', fontSize: '15px', paddingLeft: '10px'}}>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
+                        <h6 style={{color:'red', fontSize: '15px', paddingRight: '10px', textAlign: 'right'}}>Now Rp. {new Intl.NumberFormat('id-ID').format(val.price - (val.price * (val.discount/100)))}</h6>
+                        </>
+                        :
+                        <>
+                        <h6 style={{color:'grey', fontSize: '15px', paddingLeft: '10px', paddingBottom: '28px'}}>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
+                        </>
+                    }
+                </MDBCard>
             )
         })
         return jsx
@@ -63,11 +59,9 @@ class Lunch extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="row">
-                    {this.renderMainCourse()}
-                </div>
-            </div>
+            <>
+                {this.renderMainCourse()}
+            </>
         );
     }
 }

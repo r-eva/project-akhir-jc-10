@@ -2,19 +2,35 @@
   "dessert": [
     {
       "id": 1,
-      "productName": "Berry Desserts",
+      "productName": "Bannana Smooties",
       "price": 10000,
       "discount": 10,
-      "desc": "Cupcakes with strawberry and blackberry fruits",
-      "img": "https://cdn.pixabay.com/photo/2014/03/27/13/41/szederkrem-299494__340.jpg"
+      "desc": "Bannana Smooties with Nuts in Round White Bowl",
+      "img": "https://images.pexels.com/photos/2161650/pexels-photo-2161650.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
     },
     {
       "id": 2,
-      "productName": "Sweet Manggo",
+      "productName": "Special Nastar",
       "price": 15000,
       "discount": 0,
-      "desc": "Manggo cheese with red berries toppings",
-      "img": "https://cdn.pixabay.com/photo/2016/03/27/22/38/cake-1284548__340.jpg"
+      "desc": "Pineaple Nastar with cheese toppings",
+      "img": "https://images.pexels.com/photos/2611824/pexels-photo-2611824.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    },
+    {
+      "productName": "Chiffon Cake",
+      "price": 20000,
+      "discount": 10,
+      "desc": "Meyer Lemon Chiffon Cake",
+      "img": "https://images.pexels.com/photos/2928377/pexels-photo-2928377.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "id": 3
+    },
+    {
+      "productName": "Ice Cream",
+      "price": 15000,
+      "discount": 0,
+      "desc": "Strawbery Ice Cream",
+      "img": "https://images.pexels.com/photos/2161643/pexels-photo-2161643.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "id": 4
     }
   ],
   "mainCourse": [
@@ -30,7 +46,7 @@
       "id": 2,
       "productName": "Pasta",
       "price": 30000,
-      "discount": 20,
+      "discount": 0,
       "desc": "Pesto pasta with sliced tomatoes",
       "img": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60"
     }

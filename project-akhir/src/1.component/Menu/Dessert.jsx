@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
-import { MDBCardBody, MDBCardTitle, MDBCardText} from 'mdbreact'
+import { MDBCardImage, MDBCardTitle, MDBCard } from 'mdbreact'
 import './Menu.css'
 
 class Dessert extends Component {
@@ -27,8 +27,11 @@ class Dessert extends Component {
     renderDessert = () => {
         var jsx = this.state.dataDessert.map(val => {
             return (
-                <div className="card col-md-3 mb-2" style={{width:'18rem'}}>
-                    <img src={val.img} className="card-img-top img" height='150px' hover zoom alt='imgproduct'></img>
+                <MDBCard className="ml-3">
+                    <MDBCardImage src={val.img} alt='imgproduct' style={{
+                        width:'200px', height: '200px', borderRadius: '4px', padding: '5px'
+                        }}>
+                    </MDBCardImage>
                     {
                         val.discount > 0
                         ?
@@ -36,27 +39,20 @@ class Dessert extends Component {
                         :
                         null
                     }
-                    <MDBCardBody>
-                    <MDBCardTitle><h6>{val.productName}</h6></MDBCardTitle>
-                    <MDBCardText>
+                    <MDBCardTitle className="product-name"><h5 className="font-weight-bolder">{val.productName}</h5></MDBCardTitle>
                     {
                         val.discount > 0
                         ?
                         <>
-                        <h6 style={{textDecoration : 'line-through', color:'red', fontSize: '13px'}}>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
-                        <h6>Rp. {new Intl.NumberFormat('id-ID').format(val.price - (val.price * (val.discount/100)))}</h6>
+                        <h6 style={{color:'grey', fontSize: '15px', paddingLeft: '10px'}}>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
+                        <h6 style={{color:'red', fontSize: '15px', paddingRight: '10px', textAlign: 'right'}}>Now Rp. {new Intl.NumberFormat('id-ID').format(val.price - (val.price * (val.discount/100)))}</h6>
                         </>
                         :
                         <>
-                        <h6>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
+                        <h6 style={{color:'grey', fontSize: '15px', paddingLeft: '10px', paddingBottom: '28px'}}>Rp. {new Intl.NumberFormat('id-ID').format(val.price)}</h6>
                         </>
                     }
-                    </MDBCardText>
-                    </MDBCardBody>
-                    <div className="card-footer" style={{backgroundColor:'inherit'}}>
-                        <input type='button' className='btn-success btn-block' value='Add To Cart'/>
-                    </div>
-                </div>
+                </MDBCard>
             )
         })
         return jsx
@@ -64,9 +60,9 @@ class Dessert extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
+            <>
                 {this.renderDessert()}
-            </div>
+            </>
         );
     }
 }
