@@ -16,7 +16,7 @@ class Menu extends Component {
     }
 
     render() {
-        if(this.props.role == 'admin')
+        if(this.props.role === 'admin')
         return <Redirect to="/" exact/>
         return (
             <>

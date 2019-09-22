@@ -8,8 +8,7 @@ import {
     MDBView,
     MDBMask,
     MDBContainer
-} from
-"mdbreact";
+} from "mdbreact";
 import CarouselImg1 from '../../fotoku/RTC1.jpeg'
 import CarouselImg2 from '../../fotoku/RTC2.jpeg'
 import CarouselImg3 from '../../fotoku/RTC3.jpeg'
@@ -17,6 +16,10 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, 
 import HealtyImg1 from '../../fotoku/vegan.jpeg'
 import HealtyImg2 from '../../fotoku/noncolesterol.jpeg'
 import HealtyImg3 from '../../fotoku/lowcarb.jpeg'
+import BreakfastBox from '../../fotoku/breakfastBox.jpeg'
+import LunchBox from '../../fotoku/nasiMeatBall.jpeg'
+import BerryDessert from '../../fotoku/berryDessert.jpeg'
+import SweetManggo from '../../fotoku/sweetManggo.jpg'
 
 class Main extends Component {
 
@@ -170,6 +173,96 @@ class Main extends Component {
                 </section>
 
                 {/* END HEALTY FOOD */}
+
+               {/* MENU UTAMA HARI INI DAN MENU LAIN */}
+                <section className="jumbotron bg-light">
+                    <div className="container mb-sm-2 mb-md-4">
+                        {/* BARIS PERTAMA */}
+                        <div className="row d-flex flex-column-reverse flex-sm-row justify-content-sm-center">
+                        <div className="col-12 col-md-4 mb-4 mb-sm-0">
+                            <div className="card">
+                            <img className="card-img-top card-img-top-new" src={LunchBox} alt="Lunch box" style={{
+                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
+                        }}/>
+                            <div className="card-body text-center">
+                                <MDBCardTitle><h5>Lunch Box</h5></MDBCardTitle>
+                                <MDBCardText><h6>Rp. 30.000,-</h6></MDBCardText>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4 mb-4 mb-sm-0">
+                            <div className="card">
+                            <img className="card-img-top card-img-top-new" src={BreakfastBox} alt="bunCha" style={{
+                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
+                        }}/>
+                            <div className="card-body text-center">
+                                <MDBCardTitle><h5>Breakfast Box</h5></MDBCardTitle>
+                                <MDBCardText><h6>Rp. 30.000,-</h6></MDBCardText>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4 text-center text-sm-left mb-4 mb-sm-0">
+                            <div className="card-body m-2 p-0 m-sm-2 m-sm-0">
+                            <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>MENU LANGGANAN
+                            </h5>
+                            <ul className="list-unstyled" style={{fontSize: '16px'}}>
+                                <li>Tumis Daging Bebek Peking Iris dengan Tauge</li>
+                                <li>Sup Kepala Ikan dengan Tahu dan Sayur Asin</li>
+                                <li>Teppan Iga Sapi dengan Saus Lada Hitam</li>
+                                <li>Goreng Jamur dengan Bubuk Bawang Putih</li>
+                                <li>Teppan Iga Sapi dengan Saus Lada Hitam</li>
+                                <li>Tim Bakpao dengan Kuning Telur</li>
+                                <li>Timun Segar Ala "Chongqing"</li>
+                            </ul>
+                            <input type="button" defaultValue="LIHAT MENU LAINNYA" className="btn btn-success" />
+                            </div>
+                        </div>
+                        </div>
+                    </div>{/* END BARIS PERTAMA */}
+                    <div className="container">
+                        {/* BARIS KEDUA */}
+                        <div className="row d-flex flex-column-reverse flex-sm-row justify-content-sm-center">
+                        <div className="col-12 col-md-4 mb-4 mb-sm-0">
+                            <div className="card">
+                            <img className="card-img-top card-img-top-new" src={BerryDessert} alt="Berry Dessert" style={{
+                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
+                        }}/>
+                            <div className="card-body text-center">
+                                <MDBCardTitle><h5>Coffee and Milk</h5></MDBCardTitle>
+                                <MDBCardText><h6>Rp. 15.000,-</h6></MDBCardText>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4 mb-4 mb-sm-0">
+                            <div className="card">
+                            <img className="card-img-top card-img-top-new" src={SweetManggo} alt="bunCha" style={{
+                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
+                        }}/>
+                            <div className="card-body text-center">
+                                <MDBCardTitle><h5>Traditional Dessert</h5></MDBCardTitle>
+                                <MDBCardText><h6>Rp. 20.000,-</h6></MDBCardText>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4 text-center text-sm-left mb-4 mb-sm-0">
+                            <div className="card-body m-2 p-0 m-sm-2 m-sm-0">
+                            <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>SWEET AND OTHERS
+                            </h5>
+                            <ul className="list-unstyled" style={{fontSize: '16px'}}>
+                                <li>Traditional Apple Pie</li>
+                                <li>Mollen Lava Cake</li>
+                                <li>Flourless Chocolate Espresso Cake</li>
+                                <li>Pina Colada</li>
+                                <li>Baklava</li>
+                            </ul>
+                            <input type="button" className="btn btn-success" defaultValue="LIHAT MENU LAINNYA" />
+                            </div>
+                        </div>
+                        </div>
+                    </div>{/* END BARIS KEDUA */}
+                </section>
+                {/* END MENU UTAMA HARI INI DAN MENU LAIN */}
+
 
                 {/* CAROUSEL READYTOCOOK */}
                 <MDBContainer className='mb-5'>

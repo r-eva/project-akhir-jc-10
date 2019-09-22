@@ -134,7 +134,7 @@ class DessertAdmin extends Component {
                                 <div className="row">
                                     <div className="col-12 text-center">
                                         {
-                                            this.state.page == 0
+                                            this.state.page === 0
                                             ?
                                             <input type="button" className='disabled' value="<<Previous Page"/>
                                             :

@@ -49,11 +49,68 @@
       "discount": 0,
       "desc": "Pesto pasta with sliced tomatoes",
       "img": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60"
+    },
+    {
+      "productName": "Lamb Steak",
+      "price": 50000,
+      "discount": null,
+      "desc": "Annora Lamb Steak",
+      "img": "https://cdn.pixabay.com/photo/2015/09/02/12/43/meal-918639_960_720.jpg",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "productName": "Roasted Seafood",
+      "price": 50000,
+      "discount": null,
+      "desc": "Udang dan Ikan Panggang Saus Madu",
+      "img": "https://cdn.pixabay.com/photo/2017/08/30/04/23/food-2695883__340.jpg"
+    },
+    {
+      "productName": "Burger",
+      "price": 47000,
+      "discount": "",
+      "desc": "Burger Daging Sapi Asap",
+      "img": "https://cdn.pixabay.com/photo/2014/10/23/18/05/burger-500054_960_720.jpg",
+      "id": 5
     }
   ],
   "healty": [],
   "readyToCook": [],
-  "breakfast": [],
+  "breakfast": [
+    {
+      "productName": "Farm Fresh Egg",
+      "price": 20000,
+      "discount": 10,
+      "desc": "Fress Egg with Bacon, Sausage and Mushroom",
+      "img": "https://images.pexels.com/photos/2935022/pexels-photo-2935022.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "id": 1
+    },
+    {
+      "productName": "Healty Oatmeal",
+      "price": 20000,
+      "discount": null,
+      "desc": "Oat with spiced Peach",
+      "img": "https://images.pexels.com/photos/2103949/pexels-photo-2103949.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "id": 2
+    },
+    {
+      "productName": "Smorrebrod",
+      "price": 150000,
+      "discount": 10,
+      "desc": "Smorrebrod with Bacon Salad",
+      "img": "https://images.pexels.com/photos/2351274/pexels-photo-2351274.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "id": 3
+    },
+    {
+      "productName": "Fried Pork",
+      "price": 150000,
+      "discount": null,
+      "desc": "Fried Pork Sliced wand Egg",
+      "img": "https://images.pexels.com/photos/2689421/pexels-photo-2689421.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "id": 4
+    }
+  ],
   "lunch": [],
   "users": [
     {
