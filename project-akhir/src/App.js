@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import Navigation from './1.component/Navbar/Navigation';
 import Footer from './1.component/Footer/Footer';
 import Main from './1.component/Main/Main';
@@ -47,12 +47,12 @@ class App extends Component {
         return (
             <div>
                 <Navigation/>
-                <Switch>
-                    <Route path='/' component={Main} exact/>
+                <div>
+                    <Route exact path='/' component={Main}/>
                     <Route path='/Menu' component={Menu} exact/>
                     <Route path='/Admin/Menu' component={MenuAdmin} exact/>
                     <Route path='/Langganan' component={Langganan} exact/>
-                    <Route path='/Admin/Langganan' component={LanggananAdmin} exact/>
+                    <Route exact path='/Admin/Langganan' component={LanggananAdmin}/>
                     <Route path='/Promo' component={Promo} exact/>
                     <Route path='/Admin/Promo' component={PromoAdmin} exact/>
                     <Route path='/bantuan/shopping' component={BantuanShopping} exact/>
@@ -70,11 +70,11 @@ class App extends Component {
                     <Route path='/RestaurantGalery' component={RestaurantGalery} exact/>
                     <Route path='/admin/dashboard' component={AdminDashboard} exact/>
                     <Route path='/bantuan/login' component={BantuanLogin} exact/>
-                </Switch>
+                </div>
                 <Footer/>
             </div>
         );
     }
 }
 
-export default connect(null, {keepLogin})(withRouter(App));
+export default connect(null, {keepLogin})(App);

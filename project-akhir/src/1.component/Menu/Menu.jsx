@@ -21,10 +21,10 @@ class Menu extends Component {
         return (
             <>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/767081/pexels-photo-767081.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260)` }}>
+                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260` }}>
                     <MDBCol className="py-5">
                         <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">RESTAURANT MENU</MDBCardTitle>
-                        <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere.The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                        <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
                         </p>
                     </MDBCol>
                     </MDBCol>

@@ -132,7 +132,7 @@ class Main extends Component {
                                 <MDBCard className="mb-4 mb-md-0">
                                     <MDBCardImage className="img-fluid" src={HealtyImg1} style={{width: '150'}} waves/>
                                     <MDBCardBody>
-                                    <MDBCardTitle><h5>High Protein Vegan Meal</h5></MDBCardTitle>
+                                    <MDBCardTitle>High Protein Vegan Meal</MDBCardTitle>
                                     <MDBCardText>
                                         Buat kamu yang berhenti makan daging, kamu bisa pesan sayur sayuran aja.
                                     </MDBCardText>
@@ -146,7 +146,7 @@ class Main extends Component {
                                 <MDBCard className="mb-4 mb-md-0">
                                     <MDBCardImage className="img-fluid" src={HealtyImg2} style={{width: '150'}} waves/>
                                     <MDBCardBody>
-                                    <MDBCardTitle><h5>Non-Collesterol</h5></MDBCardTitle>
+                                    <MDBCardTitle>Non-Collesterol</MDBCardTitle>
                                     <MDBCardText>
                                         Kamu juga bisa pesan menu lezat tanpa khawatir kolesterol tinggimu kambuh.
                                     </MDBCardText>
@@ -160,7 +160,7 @@ class Main extends Component {
                                 <MDBCard className="mb-4 mb-md-0">
                                     <MDBCardImage className="img-fluid" src={HealtyImg3} style={{width: '150'}} waves/>
                                     <MDBCardBody>
-                                    <MDBCardTitle><h5>Low-Carb</h5></MDBCardTitle>
+                                    <MDBCardTitle>Low-Carb</MDBCardTitle>
                                     <MDBCardText>
                                         Kalau kamu lagi diet, kurangin karbohidrat dan banyakin protein dan sayurnya aja ya.
                                     </MDBCardText>
@@ -181,23 +181,19 @@ class Main extends Component {
                         <div className="row d-flex flex-column-reverse flex-sm-row justify-content-sm-center">
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={LunchBox} alt="Lunch box" style={{
-                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
-                        }}/>
+                            <img className="card-img-top card-img-top-new" src={LunchBox} alt="Lunch box" style={{width: '150'}}/>
                             <div className="card-body text-center">
-                                <MDBCardTitle><h5>Lunch Box</h5></MDBCardTitle>
-                                <MDBCardText><h6>Rp. 30.000,-</h6></MDBCardText>
+                                <h5>Lunch Box</h5>
+                                <h6>Rp. 30.000,-</h6>
                             </div>
                             </div>
                         </div>
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={BreakfastBox} alt="bunCha" style={{
-                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
-                        }}/>
+                            <img className="card-img-top card-img-top-new" src={BreakfastBox} alt="bunCha" style={{width: '150'}}/>
                             <div className="card-body text-center">
-                                <MDBCardTitle><h5>Breakfast Box</h5></MDBCardTitle>
-                                <MDBCardText><h6>Rp. 30.000,-</h6></MDBCardText>
+                                <h5>Breakfast Box</h5>
+                                <h6>Rp. 30.000,-</h6>
                             </div>
                             </div>
                         </div>
@@ -224,23 +220,19 @@ class Main extends Component {
                         <div className="row d-flex flex-column-reverse flex-sm-row justify-content-sm-center">
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={BerryDessert} alt="Berry Dessert" style={{
-                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
-                        }}/>
+                            <img className="card-img-top card-img-top-new" src={BerryDessert} alt="Berry Dessert" style={{width: '150'}}/>
                             <div className="card-body text-center">
-                                <MDBCardTitle><h5>Coffee and Milk</h5></MDBCardTitle>
-                                <MDBCardText><h6>Rp. 15.000,-</h6></MDBCardText>
+                                <h5>Coffee and Milk</h5>
+                                <h6>Rp. 15.000,-</h6>
                             </div>
                             </div>
                         </div>
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={SweetManggo} alt="bunCha" style={{
-                        width:'350px', height: '300px', borderRadius: '4px', padding: '5px'
-                        }}/>
+                            <img className="card-img-top card-img-top-new" src={SweetManggo} alt="bunCha" style={{width: '150'}}/>
                             <div className="card-body text-center">
-                                <MDBCardTitle><h5>Traditional Dessert</h5></MDBCardTitle>
-                                <MDBCardText><h6>Rp. 20.000,-</h6></MDBCardText>
+                                <h5>Traditional Dessert</h5>
+                                <h6>Rp. 20.000,-</h6>
                             </div>
                             </div>
                         </div>

@@ -1,79 +1,24 @@
 import React, { Component } from 'react';
-import Calender from './Calender';
-import Axios from 'axios';
-import {urlApi} from '../../helpers/database';
-
+import './Langganan.css';
+import {Redirect} from 'react-router-dom'
+import { MDBJumbotron, MDBCol, MDBCardTitle} from "mdbreact";
 
 class Langganan extends Component {
-    state = {
-        mainCourse: [],
-        desert: [],
-        kirimTahunIni: '',
-        kirimBulanIni: '',
-        kirimHariBulanIni: 0
-    }
- 
-    componentDidMount() {
-        this.getDataApi()
-    }
-
-    getDataApi = () => {
-       Axios.get(urlApi + 'mainCourse')
-       .then((res) => {
-            this.setState({mainCourse: res.data})
-            
-       })
-
-       .catch((err) => {
-           console.log(err)
-       })
-
-       Axios.get(urlApi + 'desert')
-        .then((res) => {
-             this.setState({desert: res.data})
-        })
- 
-        .catch((err) => {
-            console.log(err)
-        })
-
-        this.prosesHariBulan()
-    }
-
-    prosesHariBulan = () => {
-        var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-        var hariBulan = [31, '', 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        var d = new Date ()
-
-        var tahunIni = d.getFullYear()
-        this.setState({kirimTahunIni: tahunIni})
-        var bulanIniAngka = d.getMonth()
-        var bulanIni = bulan[bulanIniAngka]
-        this.setState({kirimBulanIni: bulanIni})
-
-        if (bulanIni === 'Februari') {
-            if (Number(tahunIni) % 4 === Number(0)) {
-                this.setState({kirimHariBulanIni: 29})
-            } else {
-                var hariBulanIni = 28
-                this.setState({kirimHariBulanIni: 28})
-            }
-        } else {
-            hariBulanIni = hariBulan[bulanIniAngka]
-            this.setState({kirimHariBulanIni: hariBulanIni})
-        }
-    }
-
     render() {
+        if(this.props.role === 'admin')
+        return <Redirect to="/" exact/>
         return (
-            <div className="mt-5 pt-5">
-                <Calender
-        mainCourse = {this.state.mainCourse}
-        desert = {this.state.desert}
-        calenderTahunIni = {this.state.kirimTahunIni}
-        calenderBulanIni = {this.state.kirimBulanIni}
-        calenderHariBulanIni = {this.state.kirimHariBulanIni}
-        />
+            <div>
+                <MDBJumbotron style={{ padding: 0 }}>
+                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1405762/pexels-photo-1405762.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260)` }}>
+                    <MDBCol className="py-5">
+                        <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">LANGGANAN</MDBCardTitle>
+                        <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                        </p>
+                    </MDBCol>
+                    </MDBCol>
+                </MDBJumbotron>
+                
             </div>
         );
     }

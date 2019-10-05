@@ -22,13 +22,6 @@
     cursor: pointer
 }
 
-.styling-imageawal {
-    background: url('https://images.pexels.com/photos/2748756/pexels-photo-2748756.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-    background-position: center;
-    background-size: 700px;
-    padding: 150px 0 0
-}
-
-.pagination-eva {
-    position: fixed;
+.food-container {
+    height: 80vmax
 }

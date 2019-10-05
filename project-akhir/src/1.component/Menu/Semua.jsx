@@ -47,7 +47,6 @@ class Semua extends Component {
         .catch(err => {
             console.log(err)
         })
-        console.log(tempAllData)
         this.setState({allMenu: tempAllData})
     }
 
@@ -67,7 +66,7 @@ class Semua extends Component {
                         :
                         null
                     }
-                    <MDBCardTitle className="product-name"><h5 className="font-weight-bolder text-white bg-success">&nbsp;{val.productName}</h5></MDBCardTitle>
+                    <MDBCardTitle className="product-name font-weight-bolder text-white bg-success">&nbsp;{val.productName}</MDBCardTitle>
                     {
                         val.discount > 0
                         ?
@@ -90,7 +89,7 @@ class Semua extends Component {
         return (
             <>
                 {this.renderDessert()}
-                <div className="col-12 text-center mt-3 mb-3 pagination-eva">
+                <div className="col-12 text-center mt-3 mb-3">
                     {
                         this.state.page === 0
                         ?
