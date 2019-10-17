@@ -9,9 +9,9 @@ import moment from 'moment'
 class productDetail extends Component {
 
     state = {
-        dataPaketLangganan: [],
-        dataJadwalPaketLangganan: [],
-        jadwalSebulanPaketIni: [],
+        dataPaketLangganan: '',
+        dataJadwalPaketLangganan: '',
+        jadwalSebulanPaketIni: '',
         wishlist : false,
         jumlahHariBulanIni: 0
     }
@@ -31,38 +31,30 @@ class productDetail extends Component {
         Axios.get(urlApi + 'jadwal/getJadwalByIdPaket/' + this.props.match.params.id)
         .then((res) => {
             this.setState({dataJadwalPaketLangganan: res.data})
-            console.log(this.state.dataJadwalPaketLangganan)
-            this.setState({jumlahHariBulanIni: moment().daysInMonth()})
-            console.log(this.state.jumlahHariBulanIni)
-
-            var jadwalSebulan = []
-            for (var i = 0; i < Math.ceil(this.state.jumlahHariBulanIni / this.state.dataJadwalPaketLangganan); i++) {
-                for (var j = 0; j < this.state.dataJadwalPaketLangganan.length; j++) {
-                    jadwalSebulan.push(this.state.dataJadwalPaketLangganan[j])
-                }
-            }
-            this.setState({jadwalSebulanPaketIni: jadwalSebulan})
-            console.log(this.state.jadwalSebulanPaketIni)
-
          }).catch((err)=>{
              console.log(err)
          })
     }
 
-    jadwalMenuBulanIni = () => {
-        
+    susunJadwalBulanIni = () => {
+
+        var jumlahHariBulanIni = moment().daysInMonth()
+        var jadwalSebulan = []
+            for (var i = 0; i < Math.ceil(jumlahHariBulanIni / this.state.dataJadwalPaketLangganan.length); i++) {
+                for (var j = 0; j < this.state.dataJadwalPaketLangganan.length; j++) {
+                    jadwalSebulan.push(this.state.dataJadwalPaketLangganan[j])
+                }
+            }
+        console.log(jadwalSebulan)
     }
 
     render() {
         return (
             <div>
-                <div>
-                    {this.jadwalMenuBulanIni()}
-                </div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1938262/pexels-photo-1938262.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/890507/pexels-photo-890507.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
                     <MDBCol className="py-5">
-                        <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">Langganan</MDBCardTitle>
+                        <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">Detail Produk</MDBCardTitle>
                         <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
                         </p>
                     </MDBCol>
@@ -73,6 +65,17 @@ class productDetail extends Component {
                         <div className='col-md-7'>
                             <div>
                                 <img src={this.state.dataPaketLangganan.imagePath} className="rounded float-left" alt="Gambar Paket" style={{height: '600px', width: '750px'}}/>
+                            </div>
+                            <div>
+                                    {
+                                        this.state.dataJadwalPaketLangganan !== '' && this.state.dataPaketLangganan !== ''
+                                        ?
+                                        <>
+                                            {this.susunJadwalBulanIni()}
+                                        </>
+                                        :
+                                        null
+                                    }
                             </div>
                         </div>
                         <div className='col-md-5'>
@@ -87,7 +90,7 @@ class productDetail extends Component {
                             {
                                 this.state.dataPaketLangganan.discount === null || this.state.dataJadwalPaketLangganan === ''
                                 ?
-                                <div style={{backgroundColor:'#D50000', 
+                                <div style={{backgroundColor:'green', 
                                     width:"100px",
                                     height:'22px',
                                     color:'white',

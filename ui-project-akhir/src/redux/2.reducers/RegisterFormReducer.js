@@ -12,15 +12,15 @@ const INITIAL_STATE = {
     error: '',
     registerSuccess: false,
     emailSuccess: '',
-    userChecker: false,
+    userChecker: false
 }
 
 export default (state=INITIAL_STATE, action) => {
     switch(action.type) {
         case 'REGISTER_LOADING' :
-            return { ...state, loading: true, error: '' }
+            return { ...state, loading: true, error: '', userChecker: true }
         case REGISTER_FAILED :
-            return { ...state, loading: false, error: action.payload }
+            return { ...state, loading: false, error: action.payload, userChecker: true }
         case REGISTER_SUCCESS :
             return { ...INITIAL_STATE, registerSuccess: true, userChecker: true, emailSuccess: action.payload }
         default :

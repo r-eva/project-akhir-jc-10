@@ -36,3 +36,11 @@ export const userLogout = () => {
         type: USER_LOGOUT
     }
 }
+
+export const checkLocalStorage = () => {
+    return (dispatch) => {
+        dispatch({
+            type: 'CHECK_LOCALSTORAGE'
+        })
+    }
+}

@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux'
-import {keepLogin} from './redux/1.actions/userAction'
+import {keepLogin, checkLocalStorage} from './redux/1.actions/userAction'
 import Navigation from './1.component/Navbar/Navigation';
 import Footer from './1.component/Footer/Footer';
 import Main from './1.component/Main/Main';
@@ -24,17 +24,21 @@ class App extends Component {
     
     componentDidMount() {
         var token = localStorage.getItem('token')
-        this.props.keepLogin(token)  
+        if (token) {
+            this.props.keepLogin(token)
+        } else {
+            this.props.checkLocalStorage()
+        }
     }
 
     render() {
-        // if (this.props.user.userChecker) {
-        //     return (
-        //         <div className="spinner-border" role="status">
-        //             <span className="sr-only">Loading...</span>
-        //         </div>
-        //     )
-        // }
+        if (!this.props.user.userChecker) {
+            return (
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
+        }
         return (
             <div>
                 <Navigation/>
@@ -66,4 +70,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {keepLogin})(App);
+export default connect(mapStateToProps, {keepLogin, checkLocalStorage})(App);

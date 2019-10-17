@@ -14,7 +14,9 @@ export default (state=INITIAL_STATE, action) => {
         case LOGIN_SUCCESS:
             return {...action.payload, userChecker: true}
         case USER_LOGOUT:
-            return {...INITIAL_STATE}
+            return {...INITIAL_STATE, userChecker: true}
+        case 'CHECK_LOCALSTORAGE':
+            return {...state, userChecker: true}
         default:
             return state
     }
