@@ -2,39 +2,34 @@ const express = require('express')
 const mysql = require('mysql')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const {uploader} = require('./helpers/uploader')
+const fs = require('fs')
+const nodemailer = require('nodemailer')
+const crypto = require('crypto')
+const {createJwtToken} = require('./helpers/jwt')
+const {auth} = require('./helpers/auth')
+const bearerToken = require('express-bearer-token')
 
 const app = express()
-const port = process.env.PORT || 1998
+const port = process.env.PORT || 1997
+
+// //////////////////////////////////MIDDLEWARE////////////////////////////////////////////////////
 
 app.use(bodyParser.json())
+app.use(bearerToken())
 app.use(cors())
+app.use(express.static('public'))
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'reginaeva',
-    password: 'abc123',
-    database: 'final_project',
-    port: 3306,
-    multipleStatements: true
-})
-
-///////////////////////////////// MASUK API ///////////////////////////////////////////////////
+// /////////////////////////////// MASUK API ///////////////////////////////////////////////////
 
 app.get('/', (req, res) => {
     res.status(200).send('<h1>Welcome to API Annora</h1>')
 })
 
-///////////////////////////////// GET DATA LANGGANAN //////////////////////////////////////////
+const { userRouter, langgananRouter, jadwalRouter } = require('./routers')
 
-app.get('/getLangganan', (req, res) => {
-    var sql = `SELECT * from menu_langganan`
-    db.query(sql, (err, result) => {
-        if (err) {
-            return res.status(500).send(err)
-        }
-        res.status(200).send(result)
-    })
-
-})
+app.use('/user', userRouter)
+app.use('/langganan', langgananRouter)
+app.use('/jadwal', jadwalRouter)
 
 app.listen(port, () => console.log(`API aktif di port ${port}`))
