@@ -35,7 +35,7 @@ class Langganan extends Component {
                 <div className="col-4" key={val.id}>
                     <MDBCard className="my-3">
                         <Link to={"product-detail/" + val.id}><MDBCardImage src={val.imagePath} alt='imgproduct' style={{
-                            width:'250px', height: '200px', borderRadius: '4px', padding: '5px'
+                            width:'250px', height: '200px', borderRadius: '4px', padding: '5px' 
                             }}>
                         </MDBCardImage></Link>
                             {
@@ -141,7 +141,7 @@ class Langganan extends Component {
                                 <div className="row">
                                     <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold py-0'><img src='https://www.pngtube.com/myfile/detail/494-4942817_indian-dinner-of-dreams-vietnamese-food-icons-png.png' alt='Meal Menu Icon' style={{width: '50px'}}></img>&nbsp;Meal Box</MDBBtn>                                
                                     <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold py-0'><img src='https://i.pinimg.com/originals/63/0d/96/630d96bbb40088587c50e1fc7307c10a.png' alt='Snack Menu Icon' style={{width: '50px'}}></img>&nbsp;Snack Time</MDBBtn>
-                                    <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold px-2'><img src='https://www.pngrepo.com/png/52058/170/dessert.png' alt='Dessert Menu Icon' style={{width: '50px'}}></img>&nbsp;Dessert and Beverages</MDBBtn>
+                                    <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold px-2'><img src='https://cdn2.iconfinder.com/data/icons/sweet-and-dessert-line-color-patisserie/512/Cupcake-512.png' alt='Dessert Menu Icon' style={{width: '50px'}}></img>&nbsp;Dessert and Beverages</MDBBtn>
                                     <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold px-4'><img src='https://cdn4.iconfinder.com/data/icons/baking-ingredients/100/baking_ingredients_food_color-19-512.png' alt='Other Menu Icon' style={{width: '50px'}}></img>&nbsp;Other</MDBBtn>
                                 </div>
                             </div>

@@ -11,9 +11,12 @@ class productDetail extends Component {
     state = {
         dataPaketLangganan: '',
         dataJadwalPaketLangganan: '',
-        jadwalSebulanPaketIni: '',
+        jadwalPaketSampaiAkhirBulan: [],
         wishlist : false,
-        jumlahHariBulanIni: 0
+        jumlahHariBulanIni: 0,
+        jumlahBox: 1,
+        tanggalHariIni: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
+        inputTanggalMulai: ''
     }
 
     componentDidMount = () => {
@@ -31,21 +34,74 @@ class productDetail extends Component {
         Axios.get(urlApi + 'jadwal/getJadwalByIdPaket/' + this.props.match.params.id)
         .then((res) => {
             this.setState({dataJadwalPaketLangganan: res.data})
+            var jumlahHariBulanIni = moment().daysInMonth()
+
+            var jadwalSebulan = []
+                for (var i = 0; i < Math.ceil(jumlahHariBulanIni / this.state.dataJadwalPaketLangganan.length); i++) {
+                    for (var j = 0; j < this.state.dataJadwalPaketLangganan.length; j++) {
+                        jadwalSebulan.push(this.state.dataJadwalPaketLangganan[j])
+                    }
+                }
+            var slicer = Number(new Date().getDate()) - 1
+            var jadwalSebulanFixed = jadwalSebulan.slice(0, jumlahHariBulanIni)
+            var sisaJadwalBulanIni = jadwalSebulanFixed.slice(slicer)
+
+            var coba = moment().format("dddd, MMMM Do YYYY")
+            var todayDate = moment()
+            
+            for (i = 0; i < sisaJadwalBulanIni.length; i ++) {
+                if (i === 0) {
+                    sisaJadwalBulanIni[0].tanggal = coba
+                } else {
+                    sisaJadwalBulanIni[i].tanggal = todayDate.add(1, 'days').format("dddd, MMMM Do YYYY")
+                }
+                if (sisaJadwalBulanIni[sisaJadwalBulanIni.length - 1].tanggal) {
+                    this.setState({jadwalPaketSampaiAkhirBulan: sisaJadwalBulanIni})
+                }
+            }
+
          }).catch((err)=>{
              console.log(err)
          })
     }
 
     susunJadwalBulanIni = () => {
+        var jsx = this.state.jadwalPaketSampaiAkhirBulan.map(val => {
+            return (
+                <div key={val.urutan}>
+                    <div className="row">
+                        <div className="col-4">
+                            <p style={{fontWeight: 'bolder'}}>{val.tanggal}</p>
+                        </div>
+                        <div className="col-8">
+                            <p className='mb-0 pb-0'>{val.Menu}</p>
+                            <p className="mt-0 pb-0">{val.Deskripsi}</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            )
+        })
+        return jsx   
+    }
 
-        var jumlahHariBulanIni = moment().daysInMonth()
-        var jadwalSebulan = []
-            for (var i = 0; i < Math.ceil(jumlahHariBulanIni / this.state.dataJadwalPaketLangganan.length); i++) {
-                for (var j = 0; j < this.state.dataJadwalPaketLangganan.length; j++) {
-                    jadwalSebulan.push(this.state.dataJadwalPaketLangganan[j])
-                }
-            }
-        console.log(jadwalSebulan)
+    onTambahKeranjangBtnClick = () => {
+
+       if (this.refs.inputDurasi.value.length === 7) {
+           var ubahDurasi = Number(this.refs.inputDurasi.value.slice(0,2))
+       } else {
+           ubahDurasi =  Number(this.refs.inputDurasi.value.slice(0,1))
+       }
+
+        var objKeranjang = {
+            idUser: this.props.user.id,
+            JumlahBox: this.state.jumlahBox,
+            TanggalMulai: this.state.inputTanggalMulai,
+            Durasi: ubahDurasi,
+            idPaket: this.state.dataPaketLangganan.id,
+        }
+        console.log(objKeranjang)
+        console.log(this.props.user)
     }
 
     render() {
@@ -64,7 +120,7 @@ class productDetail extends Component {
                     <div className="row">
                         <div className='col-md-7'>
                             <div>
-                                <img src={this.state.dataPaketLangganan.imagePath} className="rounded float-left" alt="Gambar Paket" style={{height: '600px', width: '750px'}}/>
+                                <img src={this.state.dataPaketLangganan.imagePath} className="rounded float-left mb-5" alt="Gambar Paket" style={{height: '600px', width: '750px'}}/>
                             </div>
                             <div>
                                     {
@@ -135,12 +191,20 @@ class productDetail extends Component {
                             <div>
                                 <div className="row">
                                     <div className="col-5 pr-2 pl-3">
-                                        <input type="text" className="form-control py-0"/>
+                                        <div className="border my-2">
+                                            <p className='ml-2'>{this.state.jumlahBox} Box</p>
+                                        </div>
                                     </div>
                                     <div className="col-4 p-0">
                                         <MDBBtnGroup>
-                                            <MDBBtn outline color="warning" className='btn btn-block ml-0 mr-1' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}}>+</MDBBtn>
-                                            <MDBBtn outline color="warning" className='btn btn-block' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}}>-</MDBBtn>
+                                            <MDBBtn outline color="warning" className='btn btn-block ml-0 mr-1 my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} onClick={() => this.setState({jumlahBox: this.state.jumlahBox + 1})}>+</MDBBtn>
+                                            {
+                                                this.state.jumlahBox === 1 
+                                                ?
+                                                <MDBBtn outline color="secondary" className='btn btn-block my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} disabled>-</MDBBtn>
+                                                :
+                                                <MDBBtn outline color="warning" className='btn btn-block my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} onClick={() => this.setState({jumlahBox: this.state.jumlahBox - 1})}>-</MDBBtn>
+                                            } 
                                         </MDBBtnGroup>
                                     </div>
                                 </div>
@@ -156,10 +220,10 @@ class productDetail extends Component {
                             <div>
                                 <div className="row">
                                     <div className="col-5 pr-2 pl-3">
-                                        <input type="date" className="form-control py-0"/>
+                                        <input type="date" className="form-control py-0" min={this.state.tanggalHariIni} onChange={(e) => this.setState({inputTanggalMulai: e.target.value})}/>
                                     </div>
                                     <div className="col-3 p-0 pr-3">
-                                        <select className="browser-default custom-select">
+                                        <select ref='inputDurasi' className="browser-default custom-select">
                                             <option>Pilih hari</option>
                                             <option value="2 hari">2 hari</option>
                                             <option value="5 hari">5 hari</option>
@@ -169,12 +233,6 @@ class productDetail extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className='col-md-8'>
-                                    <div style={{marginTop:'10px', fontSize:'16px', fontWeight:'700', color:'#606060'}}>Catatan Untuk Penjual (Opsional)</div>
-                                    <input type='text' style={{marginTop:'12px'}} placeholder="Contoh: Extra pedas." className='form-control'/>
-                                </div>
-                            </div>
                             <div className='row mt-4'>
                                 <div className="col-md-8">
                                     {
@@ -182,7 +240,7 @@ class productDetail extends Component {
                                         ?
                                         <input type="button" onClick={this.addToCart} className='btn btn-success btn-block' value="Tambah ke Keranjang"/>
                                         :
-                                        <Link to='/Login' style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block' value="Tambah ke Keranjang"/></Link>
+                                        <Link to='/Login' style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block' value="Tambah ke Keranjang" onClick={this.onTambahKeranjangBtnClick}/></Link>
                                     }
                                 </div>
                             </div>
@@ -196,7 +254,7 @@ class productDetail extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.users
+        user: state.user
     }
 }
 
