@@ -26,10 +26,11 @@ app.get('/', (req, res) => {
     res.status(200).send('<h1>Welcome to API Annora</h1>')
 })
 
-const { userRouter, langgananRouter, jadwalRouter } = require('./routers')
+const { userRouter, langgananRouter, jadwalRouter, cartRouter } = require('./routers')
 
 app.use('/user', userRouter)
 app.use('/langganan', langgananRouter)
 app.use('/jadwal', jadwalRouter)
+app.use('/cart', cartRouter)
 
 app.listen(port, () => console.log(`API aktif di port ${port}`))

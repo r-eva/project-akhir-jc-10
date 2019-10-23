@@ -5,6 +5,8 @@ import { urlApi } from '../../helpers/database';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import moment from 'moment'
+import swal from 'sweetalert'
+import axios from 'axios'
 
 class productDetail extends Component {
 
@@ -45,7 +47,6 @@ class productDetail extends Component {
             var slicer = Number(new Date().getDate()) - 1
             var jadwalSebulanFixed = jadwalSebulan.slice(0, jumlahHariBulanIni)
             var sisaJadwalBulanIni = jadwalSebulanFixed.slice(slicer)
-
             var coba = moment().format("dddd, MMMM Do YYYY")
             var todayDate = moment()
             
@@ -66,9 +67,9 @@ class productDetail extends Component {
     }
 
     susunJadwalBulanIni = () => {
-        var jsx = this.state.jadwalPaketSampaiAkhirBulan.map(val => {
+        var jsx = this.state.jadwalPaketSampaiAkhirBulan.map((val) => {
             return (
-                <div key={val.urutan}>
+                <div key={val.tanggal}>
                     <div className="row">
                         <div className="col-4">
                             <p style={{fontWeight: 'bolder'}}>{val.tanggal}</p>
@@ -86,22 +87,37 @@ class productDetail extends Component {
     }
 
     onTambahKeranjangBtnClick = () => {
+        if (this.state.inputTanggalMulai === '' || this.refs.inputDurasi.value === "Pilih hari") {
+            swal({icon: "warning", text: "Mohon lengkapi seluruh data!"})
+        } else {
+            if (moment(this.state.inputTanggalMulai).format('L') >= moment().format('L')) {
+                var ubahDurasi
+                if (this.refs.inputDurasi.value.length === 7) {
+                    ubahDurasi = Number(this.refs.inputDurasi.value.slice(0,2))
+                } else {
+                    ubahDurasi =  Number(this.refs.inputDurasi.value.slice(0,1))
+                }
+         
+                 var objKeranjang = {
+                     idUser: this.props.user.id,
+                     idPaket: this.state.dataPaketLangganan.id,
+                     TanggalMulai: this.state.inputTanggalMulai,
+                     JumlahBox: this.state.jumlahBox,
+                     Durasi: ubahDurasi,
+                     totalHarga: this.state.dataPaketLangganan.harga * this.state.jumlahBox * ubahDurasi
+                 }
 
-       if (this.refs.inputDurasi.value.length === 7) {
-           var ubahDurasi = Number(this.refs.inputDurasi.value.slice(0,2))
-       } else {
-           ubahDurasi =  Number(this.refs.inputDurasi.value.slice(0,1))
-       }
-
-        var objKeranjang = {
-            idUser: this.props.user.id,
-            JumlahBox: this.state.jumlahBox,
-            TanggalMulai: this.state.inputTanggalMulai,
-            Durasi: ubahDurasi,
-            idPaket: this.state.dataPaketLangganan.id,
+                 axios.post(urlApi + 'cart/addToCart', objKeranjang)
+                 .then(res => {
+                     swal({icon: "success", text: "Produk berhasil ditambahkan ke cart."})
+                 }).catch(err => {
+                     console.log(err)
+                     swal({icon: "warning", text: "Produk gagal ditambahkan."})
+                 })
+            } else {
+                swal({icon: "warning", text: "Mohon input tanggal mulai dari hari ini!"})
+            }    
         }
-        console.log(objKeranjang)
-        console.log(this.props.user)
     }
 
     render() {
@@ -236,11 +252,11 @@ class productDetail extends Component {
                             <div className='row mt-4'>
                                 <div className="col-md-8">
                                     {
-                                        this.props.username
+                                        this.props.user.id !== 0
                                         ?
-                                        <input type="button" onClick={this.addToCart} className='btn btn-success btn-block' value="Tambah ke Keranjang"/>
+                                        <input type="button" onClick={this.onTambahKeranjangBtnClick} className='btn btn-success btn-block' value="Tambah ke Keranjang"/>
                                         :
-                                        <Link to='/Login' style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block' value="Tambah ke Keranjang" onClick={this.onTambahKeranjangBtnClick}/></Link>
+                                        <Link to='/Login' style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block' value="Tambah ke Keranjang"/></Link>
                                     }
                                 </div>
                             </div>
