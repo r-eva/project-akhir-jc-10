@@ -15,7 +15,6 @@ class productDetail extends Component {
         dataJadwalPaketLangganan: '',
         jadwalPaketSampaiAkhirBulan: [],
         wishlist : false,
-        jumlahHariBulanIni: 0,
         jumlahBox: 1,
         tanggalHariIni: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
         inputTanggalMulai: ''
@@ -37,29 +36,30 @@ class productDetail extends Component {
         .then((res) => {
             this.setState({dataJadwalPaketLangganan: res.data})
             var jumlahHariBulanIni = moment().daysInMonth()
-
-            var jadwalSebulan = []
+            var loopingJadwal = []
                 for (var i = 0; i < Math.ceil(jumlahHariBulanIni / this.state.dataJadwalPaketLangganan.length); i++) {
                     for (var j = 0; j < this.state.dataJadwalPaketLangganan.length; j++) {
-                        jadwalSebulan.push(this.state.dataJadwalPaketLangganan[j])
+                        loopingJadwal.push(this.state.dataJadwalPaketLangganan[j])
                     }
                 }
+
+            var tanggalHariIni = moment().format("dddd, MMMM Do YYYY")
             var slicer = Number(new Date().getDate()) - 1
-            var jadwalSebulanFixed = jadwalSebulan.slice(0, jumlahHariBulanIni)
+            var jadwalSebulanFixed = loopingJadwal.slice(0, jumlahHariBulanIni)
             var sisaJadwalBulanIni = jadwalSebulanFixed.slice(slicer)
-            var coba = moment().format("dddd, MMMM Do YYYY")
-            var todayDate = moment()
+            var tempJadwalPaketSampaiAkhirBulan = []
             
-            for (i = 0; i < sisaJadwalBulanIni.length; i ++) {
-                if (i === 0) {
-                    sisaJadwalBulanIni[0].tanggal = coba
+            for (var k = 0; k < sisaJadwalBulanIni.length; k ++) {
+                if (k > 0) {
+                    var arraySelanjutya = {...sisaJadwalBulanIni[k], tanggal: moment().add(k, 'days').format("dddd, MMMM Do YYYY")}
+                    tempJadwalPaketSampaiAkhirBulan.push(arraySelanjutya)
                 } else {
-                    sisaJadwalBulanIni[i].tanggal = todayDate.add(1, 'days').format("dddd, MMMM Do YYYY")
-                }
-                if (sisaJadwalBulanIni[sisaJadwalBulanIni.length - 1].tanggal) {
-                    this.setState({jadwalPaketSampaiAkhirBulan: sisaJadwalBulanIni})
+                    var array1 = {...sisaJadwalBulanIni[0], tanggal: tanggalHariIni}
+                    tempJadwalPaketSampaiAkhirBulan.push(array1)
                 }
             }
+
+            this.setState({jadwalPaketSampaiAkhirBulan: tempJadwalPaketSampaiAkhirBulan})
 
          }).catch((err)=>{
              console.log(err)
@@ -89,6 +89,8 @@ class productDetail extends Component {
     onTambahKeranjangBtnClick = () => {
         if (this.state.inputTanggalMulai === '' || this.refs.inputDurasi.value === "Pilih hari") {
             swal({icon: "warning", text: "Mohon lengkapi seluruh data!"})
+        } else if (moment(this.state.inputTanggalMulai).weekday() === moment().day("Sunday").weekday() || moment(this.state.inputTanggalMulai).weekday() === moment().day("Saturday").weekday()) {
+            swal({icon: "warning", text: "Mohon input tanggal mulai selain weekend!"})
         } else {
             if (moment(this.state.inputTanggalMulai).format('L') >= moment().format('L')) {
                 var ubahDurasi
@@ -97,14 +99,24 @@ class productDetail extends Component {
                 } else {
                     ubahDurasi =  Number(this.refs.inputDurasi.value.slice(0,1))
                 }
+
+                var cnt = 1
+                var tmpDate = moment(this.state.inputTanggalMulai)
+                while (cnt < ubahDurasi) {
+                    tmpDate = tmpDate.add('days', 1);
+                    if (tmpDate.weekday() !== moment().day("Sunday").weekday() && tmpDate.weekday() !== moment().day("Saturday").weekday()) {
+                        cnt = cnt + 1;
+                    }
+                }
          
                  var objKeranjang = {
                      idUser: this.props.user.id,
                      idPaket: this.state.dataPaketLangganan.id,
-                     TanggalMulai: this.state.inputTanggalMulai,
+                     TanggalMulai: moment(this.state.inputTanggalMulai).format("YYYY/MM/DD"),
+                     tanggalBerakhir: moment(tmpDate._d).format("YYYY/MM/DD"),
                      JumlahBox: this.state.jumlahBox,
                      Durasi: ubahDurasi,
-                     totalHarga: this.state.dataPaketLangganan.harga * this.state.jumlahBox * ubahDurasi
+                     totalHarga: (this.state.dataPaketLangganan.harga - ((this.state.dataPaketLangganan.discount / 100) * this.state.dataPaketLangganan.harga)) * this.state.jumlahBox * ubahDurasi
                  }
 
                  axios.post(urlApi + 'cart/addToCart', objKeranjang)

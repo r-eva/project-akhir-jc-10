@@ -1,13 +1,6 @@
 const express = require('express')
-const mysql = require('mysql')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const {uploader} = require('./helpers/uploader')
-const fs = require('fs')
-const nodemailer = require('nodemailer')
-const crypto = require('crypto')
-const {createJwtToken} = require('./helpers/jwt')
-const {auth} = require('./helpers/auth')
 const bearerToken = require('express-bearer-token')
 
 const app = express()
@@ -26,11 +19,12 @@ app.get('/', (req, res) => {
     res.status(200).send('<h1>Welcome to API Annora</h1>')
 })
 
-const { userRouter, langgananRouter, jadwalRouter, cartRouter } = require('./routers')
+const { userRouter, langgananRouter, jadwalRouter, cartRouter, historyRouter } = require('./routers')
 
 app.use('/user', userRouter)
 app.use('/langganan', langgananRouter)
 app.use('/jadwal', jadwalRouter)
 app.use('/cart', cartRouter)
+app.use('/history', historyRouter)
 
 app.listen(port, () => console.log(`API aktif di port ${port}`))
