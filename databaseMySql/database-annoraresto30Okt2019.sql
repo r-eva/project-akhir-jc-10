@@ -66,7 +66,6 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (1,4,4,'2019/11/14','2019/11/20',5,1,75000),(2,4,4,'2019/11/18','2019/11/29',10,1,150000),(3,4,4,'2019/10/31','2019/11/01',2,1,30000);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +118,7 @@ CREATE TABLE `history` (
   `Status` varchar(45) NOT NULL,
   `BatasAkhirBayar` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +127,7 @@ CREATE TABLE `history` (
 
 LOCK TABLES `history` WRITE;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` VALUES (1,'2019-10-30 11:14:32',2,195000,'dawa','saew','dwasa',0,'Belum Dibayar','2019-10-31 11:14:32'),(51,'2019-10-30 11:19:56',2,67500,'sada','dwaxa','dwas',0,'Belum Dibayar','2019-10-31 11:19:56'),(52,'2019-10-30 11:21:01',2,80000,'dw','dw','dwa',0,'Belum Dibayar','2019-10-31 11:21:01'),(53,'2019-10-30 11:23:01',2,71250,'d','de','ea',0,'Belum Dibayar','2019-10-31 11:23:01');
+INSERT INTO `history` VALUES (1,'2019-10-30 11:14:32',2,195000,'dawa','saew','dwasa',0,'Belum Dibayar','2019-10-31 11:14:32'),(51,'2019-10-30 11:19:56',2,67500,'sada','dwaxa','dwas',0,'Belum Dibayar','2019-10-31 11:19:56'),(52,'2019-10-30 11:21:01',2,80000,'dw','dw','dwa',0,'Belum Dibayar','2019-10-31 11:21:01'),(53,'2019-10-30 11:23:01',2,71250,'d','de','ea',0,'Belum Dibayar','2019-10-31 11:23:01'),(54,'2019-10-31 12:01:06',4,255000,'dawa','dwaea','dwaxsa',0,'Belum Dibayar','2019-11-01 12:01:06');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +148,7 @@ CREATE TABLE `history_detailproduct` (
   `JumlahBox` int(11) NOT NULL,
   `TotalHarga` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +157,7 @@ CREATE TABLE `history_detailproduct` (
 
 LOCK TABLES `history_detailproduct` WRITE;
 /*!40000 ALTER TABLE `history_detailproduct` DISABLE KEYS */;
-INSERT INTO `history_detailproduct` VALUES (77,2,8,'2019-10-31','2019-11-06',5,1,127500),(78,2,2,'2019-10-31','2019-11-06',5,1,67500),(79,2,2,'2019-10-31','2019-11-06',5,1,67500),(80,2,7,'2019-10-31','2019-11-01',2,1,80000),(81,2,5,'2019-10-31','2019-11-06',5,1,71250);
+INSERT INTO `history_detailproduct` VALUES (77,2,8,'2019-10-31','2019-11-06',5,1,127500),(78,2,2,'2019-10-31','2019-11-06',5,1,67500),(79,2,2,'2019-10-31','2019-11-06',5,1,67500),(80,2,7,'2019-10-31','2019-11-01',2,1,80000),(81,2,5,'2019-10-31','2019-11-06',5,1,71250),(82,4,4,'2019-11-14','2019-11-20',5,1,75000),(83,4,4,'2019-11-18','2019-11-29',10,1,150000),(84,4,4,'2019-10-31','2019-11-01',2,1,30000);
 /*!40000 ALTER TABLE `history_detailproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,4 +227,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-30 23:38:16
+-- Dump completed on 2019-10-31  0:02:06

@@ -52,5 +52,15 @@ module.exports = {
                 res.status(200).send(results)
             })
         })
+    },
+    getHistoryByIdUser: (req, res) => {
+        var sql = `SELECT * from history
+                    WHERE UserId = ${sqlDB.escape(req.params.id)};`
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
     }
 }
