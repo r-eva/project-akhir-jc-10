@@ -57,7 +57,7 @@ CREATE TABLE `cart` (
   `JumlahBox` int(11) NOT NULL,
   `TotalHarga` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +118,7 @@ CREATE TABLE `history` (
   `Status` varchar(45) NOT NULL,
   `BatasAkhirBayar` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `history` (
 
 LOCK TABLES `history` WRITE;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` VALUES (1,'2019-10-30 11:14:32',2,195000,'dawa','saew','dwasa',0,'Belum Dibayar','2019-10-31 11:14:32'),(51,'2019-10-30 11:19:56',2,67500,'sada','dwaxa','dwas',0,'Belum Dibayar','2019-10-31 11:19:56'),(52,'2019-10-30 11:21:01',2,80000,'dw','dw','dwa',0,'Belum Dibayar','2019-10-31 11:21:01'),(53,'2019-10-30 11:23:01',2,71250,'d','de','ea',0,'Belum Dibayar','2019-10-31 11:23:01'),(54,'2019-10-31 12:01:06',4,255000,'dawa','dwaea','dwaxsa',0,'Belum Dibayar','2019-11-01 12:01:06');
+INSERT INTO `history` VALUES (90,'2019-10-31 22:10:22',3,60000,'e','s','d',0,'Belum Dibayar','2019-11-01 22:11:22'),(91,'2019-10-31 22:10:31',3,150000,'c','d','e',0,'Belum Dibayar','2019-11-01 22:11:31'),(92,'2019-10-31 22:10:51',3,270000,'d','d','a',1,'Canceled By System','2019-10-31 23:10:51'),(93,'2019-10-31 22:10:33',3,135000,'asd','sdwa','daewa',1,'Canceled By System','2019-10-31 23:10:33'),(114,'2019-11-01 01:11:04',3,27000,'Regina Eva','Garden Grove','All clear',0,'Belum Dibayar','2019-11-02 01:11:05'),(115,'2019-11-01 01:11:10',3,48000,'You Are Amazing!!','Yes','You Can Do It!!!',0,'Belum Dibayar','2019-11-02 01:11:10');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,8 +147,9 @@ CREATE TABLE `history_detailproduct` (
   `Durasi` int(11) NOT NULL,
   `JumlahBox` int(11) NOT NULL,
   `TotalHarga` int(11) NOT NULL,
+  `idHistory` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +158,7 @@ CREATE TABLE `history_detailproduct` (
 
 LOCK TABLES `history_detailproduct` WRITE;
 /*!40000 ALTER TABLE `history_detailproduct` DISABLE KEYS */;
-INSERT INTO `history_detailproduct` VALUES (77,2,8,'2019-10-31','2019-11-06',5,1,127500),(78,2,2,'2019-10-31','2019-11-06',5,1,67500),(79,2,2,'2019-10-31','2019-11-06',5,1,67500),(80,2,7,'2019-10-31','2019-11-01',2,1,80000),(81,2,5,'2019-10-31','2019-11-06',5,1,71250),(82,4,4,'2019-11-14','2019-11-20',5,1,75000),(83,4,4,'2019-11-18','2019-11-29',10,1,150000),(84,4,4,'2019-10-31','2019-11-01',2,1,30000);
+INSERT INTO `history_detailproduct` VALUES (125,3,3,'2019-10-31','2019-11-01',2,1,60000,90),(126,3,3,'2019-11-01','2019-11-07',5,1,150000,91),(127,3,3,'2019-10-31','2019-11-06',5,1,150000,92),(128,3,6,'2019-11-01','2019-11-07',5,1,120000,92),(129,3,2,'2019-11-01','2019-11-14',10,1,135000,93),(133,3,2,'2019-11-28','2019-11-29',2,1,27000,114),(134,3,6,'2019-11-01','2019-11-04',2,1,48000,115);
 /*!40000 ALTER TABLE `history_detailproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +215,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadm@yahoo.co.id','Verified','2019-10-10 20:32:46','admin'),(2,'Pak Ogah','9072c1f79fb6bac0e2ea4c60ca6f0c9ac3799b3664ba78f6a9e42a2d805f0bf7','andre@mail.com','Verified','2019-10-11 11:09:44','user'),(3,'reginaeva','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadewi@gmail.com','Verified','2019-10-15 17:12:21','user'),(4,'mandasari','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','r.mandasari@protonmail.com','Verified','2019-10-17 15:35:21','user');
+INSERT INTO `users` VALUES (1,'Bos Anora','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadm@yahoo.co.id','Verified','2019-10-10 20:32:46','admin'),(2,'Pak Ogah','9072c1f79fb6bac0e2ea4c60ca6f0c9ac3799b3664ba78f6a9e42a2d805f0bf7','andre@mail.com','Verified','2019-10-11 11:09:44','user'),(3,'reginaeva','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadewi@gmail.com','Verified','2019-10-15 17:12:21','user'),(4,'mandasari','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','r.mandasari@protonmail.com','Verified','2019-10-17 15:35:21','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -227,4 +228,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-31  0:02:06
+-- Dump completed on 2019-11-01  1:09:29

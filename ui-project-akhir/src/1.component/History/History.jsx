@@ -2,13 +2,66 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import { MDBJumbotron, MDBCol, MDBCardTitle} from "mdbreact";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Axios from 'axios'
+import {urlApi} from '../../helpers/database'
 
 class History extends Component {
 
     state = {
+        history: [],
         inputUang: '',
         kembalianUang: null,
+    }
+
+    componentDidMount() {
+        this.getDataApi(this.props.userId)
+    }
+
+    getDataApi = (userId, idHistory) => {
+        Axios.get(urlApi + `history/getHistoryByIdUser/` + userId)
+        .then((res)=>{
+            this.setState({history: res.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+
+        // Axios.get(urlApi + `history/getHistoryDetailById/` + idHistory)
+        // .then((res)=>{
+        //     this.setState({history: res.data})
+        // })
+        // .catch((err) => {
+        //     console.log(err)
+        // })
+
+        
+    }
+
+    onBtnDeleteHistoryClick = () => {
+
+    }
+
+    renderHistory = () => {
+        var jsx = this.state.history.map((val, idx) => {
+            return (
+                <tr className="text-center" key={val.id}>
+                    <td>{val.TanggalTransaksi}</td>
+                    <td>{val.TotalBelanja}</td>
+                    <td>{val.Status}</td>
+                    <td>{val.BatasAkhirBayar}</td>
+                    <td><input type="button" className="btn btn-info btn-block" value="Detail"/></td>
+                    {
+                        val.Cancel === 0
+                        ?
+                        <td><input type="button" className="btn btn-danger btn-block" value="Cancel" onClick={()=> this.deleteHistory(val.id)}/></td>
+                        :
+                        <td><button type="button" className="btn btn-secondary btn-block" disabled>Cancel</button></td> 
+                    }
+                    <td><input type="button" className="btn btn-success btn-block" value="Bayar"/></td>
+                </tr>
+            )
+        })
+        return jsx
     }
 
     prosesUang = () => {
@@ -27,7 +80,7 @@ class History extends Component {
     }
 
     render() {
-        if (this.props.role === '')
+        if (this.props.role === 'admin' || this.props.role === '')
         return <Redirect to="/" exact/>
         return (
             <div>
@@ -46,16 +99,15 @@ class History extends Component {
                     <tr className="text-center">
                         <th>Tanggal Transaksi</th>
                         <th>Total Tagihan</th>
-                        <th>Nama Penerima</th>
-                        <th>Alamat Penerima</th>
-                        <th>Cancel</th>
                         <th>Status</th>
-                        <th>Durasi</th>
                         <th>Batas Waktu Pembayaran</th>
+                        <th>Detail</th>
+                        <th>Cancel</th>
+                        <th>Bayar</th>
                     </tr>
                     </thead>
                     <tbody>
-                        
+                        {this.renderHistory()}
                     </tbody>
                 </table>
                 <h1 className='align-text-center'>History</h1>
@@ -92,6 +144,8 @@ class History extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        username: state.user.username,
+        userId: state.user.id,
         role: state.user.role
     }
 }

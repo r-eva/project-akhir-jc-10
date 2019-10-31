@@ -139,8 +139,10 @@ class Keranjang extends Component {
     }
 
     resetDanSubmitHistory = () => {
+        var TanggalTransaksi = moment(new Date()).format("YYYY-MM-DD HH:MM:SS").toString()
+        var BatasAkhirBayar = moment(new Date()).add(1, 'days').format("YYYY-MM-DD HH:MM:SS").toString()
         var postingHistory = {
-            TanggalTransaksi: moment(new Date()).format("YYYY-MM-DD h:mm:ss").toString(),
+            TanggalTransaksi: TanggalTransaksi,
             UserId: this.props.user.id,
             TotalBelanja: this.totalBelanjaan(),
             NamaPenerima: this.state.namaPenerima,
@@ -148,36 +150,36 @@ class Keranjang extends Component {
             KodePosPenerima: this.state.kodePosPenerima,
             Cancel: 0,
             Status: 'Belum Dibayar',
-            BatasAkhirBayar: moment(new Date()).add(1, 'days').format("YYYY-MM-DD h:mm:ss").toString()
+            BatasAkhirBayar: BatasAkhirBayar
         }
         Axios.post(urlApi + 'history/addToHistory', postingHistory)
         .then((res) => {
             swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
+            
+            Axios.post(urlApi + 'history/addHistoryDetail/' + this.props.user.id, {idHistory: res.data[0].id})
+            .then((res) => {
+                swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
+                
+                for (var j = 0; j < this.state.cart.length; j++) {
+                    Axios.delete(urlApi + 'cart/deleteCartById/'+ this.state.cart[j].id)
+                    .then((res) => {
+                        swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
+                    })
+                    .catch((err) => {
+                        swal ('Eror', 'Server Error', 'error')
+                    })
+                }
+                return this.setState({cart: [], keluarModal: 0, paymentMode: false})
+            })
+            .catch((err) => {
+                swal ('Eror', 'Server Error', 'error')
+                console.log(err)
+            })      
         })
         .catch((err) => {
             swal ('Eror', 'Server Error', 'error')
             console.log(err.message)
         })
-
-        Axios.post(urlApi + 'history/addHistoryDetail/' + this.props.user.id)
-            .then((res) => {
-                swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
-            })
-            .catch((err) => {
-                swal ('Eror', 'Server Error', 'error')
-                console.log(err)
-            })
-
-        for (var j = 0; j < this.state.cart.length; j++) {
-            Axios.delete(urlApi + 'cart/deleteCartById/'+ this.state.cart[j].id)
-            .then((res) => {
-                swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
-            })
-            .catch((err) => {
-                swal ('Eror', 'Server Error', 'error')
-            })
-        }
-        return this.setState({cart: [], keluarModal: 0, paymentMode: false})
     }
 
     renderCart = () => {
@@ -219,7 +221,7 @@ class Keranjang extends Component {
 
 
     render() {
-        if (this.props.role === '')
+        if (this.props.user.role === 'admin' || this.props.user.role === '')
         return <Redirect to="/" exact/>
         return (
             <div>
@@ -232,114 +234,123 @@ class Keranjang extends Component {
                     </MDBCol>
                     </MDBCol>
                 </MDBJumbotron>
-                <div className="container-fluid">
-                <table className='table mt-3 mb-5'>
-                    <thead>
-                    <tr className="text-center">
-                        <th>Nama Paket</th>
-                        <th>Harga</th>
-                        <th>Diskon</th>
-                        <th>Jumlah Box</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Berakhir</th>
-                        <th>Durasi</th>
-                        <th>Total Harga</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderCart()}
-                    </tbody>
-                </table>
-                <div className="row mb-5">
-                        <div className="col-12 text-center">
-                            {
-                                this.state.cart.length === 0
-                                ?
-                                null
-                                :
-                                <>
-                                <h5 className="font-weight-bold">TOTAL BELANJAAN ANDA: Rp. {this.totalBelanjaan()}</h5>
-                                    <input type="button" className="btn btn-warning" value="CHECKOUT" onClick={() => this.setState({keluarModal: 1, paymentMode: true})}/> 
-                                </>
-                            }
-                        </div>
-                        {
-                            this.state.keluarModal === 1
-                            ?
-                            <div>
-                                <Modal isOpen={this.state.paymentMode}>
-                                    <ModalHeader>
-                                        <p className="font font-weight-bold">SILAKAN MASUKKAN DATA ANDA</p>
-                                    </ModalHeader>
-                                    <ModalBody>
-                                        <div className="row mb-2">
-                                            <div className="col-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="formGroupExampleInput">Nama Penerima:</label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        onChange={(e) => this.setState({namaPenerima: e.target.value})}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row mb-2">
-                                            <div className="col-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="formGroupExampleInput">Alamat Pengiriman:</label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        onChange={(e) => this.setState({alamatPenerima: e.target.value})}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row mb-2">
-                                            <div className="col-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="formGroupExampleInput">Kode POS:</label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        onChange={(e) => this.setState({kodePosPenerima: e.target.value})}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row mb-2">
-                                            <div className="col-12">
-                                                {
-                                                    this.state.messageData === null
-                                                    ?
-                                                    null
-                                                    :
-                                                    <p style={{color: "red"}}>{this.state.messageData}</p>
-                                                }   
-                                            </div>
-                                        </div>
-                                    </ModalBody>
-                                    <ModalFooter>
+                {
+                    this.state.cart.length === 0
+                    ?
+                    <h1 className="text-center mt-5" style={{marginBottom: '500px'}}>CART ANDA KOSONG</h1>
+                    :
+                    <>
+                        <div className="container-fluid">
+                            <table className='table mt-3 mb-5'>
+                                <thead>
+                                <tr className="text-center">
+                                    <th>Nama Paket</th>
+                                    <th>Harga</th>
+                                    <th>Diskon</th>
+                                    <th>Jumlah Box</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Berakhir</th>
+                                    <th>Durasi</th>
+                                    <th>Total Harga</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {this.renderCart()}
+                                </tbody>
+                            </table>
+                            <div className="row mb-5">
+                                    <div className="col-12 text-center">
                                         {
-                                            this.state.dataLengkap
+                                            this.state.cart.length === 0
                                             ?
-                                            <Button color="success" onClick={this.resetDanSubmitHistory}>OK</Button>
+                                            null
                                             :
                                             <>
-                                                <Button color="success" onClick={this.submitHistory}>SUBMIT</Button>
-                                                <Button color="secondary" onClick={() => this.setState({keluarModal: 0, paymentMode: false})}>CANCEL</Button>
+                                            <h5 className="font-weight-bold">TOTAL BELANJAAN ANDA: Rp. {this.totalBelanjaan()}</h5>
+                                                <input type="button" className="btn btn-warning" value="CHECKOUT" onClick={() => this.setState({keluarModal: 1, paymentMode: true})}/> 
                                             </>
-                                        }                                        
-                                    </ModalFooter>
-                                </Modal>
+                                        }
+                                    </div>
+                                    {
+                                        this.state.keluarModal === 1
+                                        ?
+                                        <div>
+                                            <Modal isOpen={this.state.paymentMode}>
+                                                <ModalHeader>
+                                                    <p className="font font-weight-bold">SILAKAN MASUKKAN DATA ANDA</p>
+                                                </ModalHeader>
+                                                <ModalBody>
+                                                    <div className="row mb-2">
+                                                        <div className="col-12">
+                                                            <div className="form-group">
+                                                                <label htmlFor="formGroupExampleInput">Nama Penerima:</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    onChange={(e) => this.setState({namaPenerima: e.target.value})}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row mb-2">
+                                                        <div className="col-12">
+                                                            <div className="form-group">
+                                                                <label htmlFor="formGroupExampleInput">Alamat Pengiriman:</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    onChange={(e) => this.setState({alamatPenerima: e.target.value})}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row mb-2">
+                                                        <div className="col-12">
+                                                            <div className="form-group">
+                                                                <label htmlFor="formGroupExampleInput">Kode POS:</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    onChange={(e) => this.setState({kodePosPenerima: e.target.value})}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row mb-2">
+                                                        <div className="col-12">
+                                                            {
+                                                                this.state.messageData === null
+                                                                ?
+                                                                null
+                                                                :
+                                                                <p style={{color: "red"}}>{this.state.messageData}</p>
+                                                            }   
+                                                        </div>
+                                                    </div>
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    {
+                                                        this.state.dataLengkap
+                                                        ?
+                                                        <Button color="success" onClick={this.resetDanSubmitHistory}>OK</Button>
+                                                        :
+                                                        <>
+                                                            <Button color="success" onClick={this.submitHistory}>SUBMIT</Button>
+                                                            <Button color="secondary" onClick={() => this.setState({keluarModal: 0, paymentMode: false})}>CANCEL</Button>
+                                                        </>
+                                                    }                                        
+                                                </ModalFooter>
+                                            </Modal>
+                                        </div>
+                                        :
+                                        null
+                                    }
                             </div>
-                            :
-                            null
-                        }
-                </div>
-                </div>
+                        </div>
+                    </>
+                }
+                
             </div>
         );
     }

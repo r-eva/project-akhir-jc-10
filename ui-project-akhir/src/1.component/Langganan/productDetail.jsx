@@ -42,7 +42,7 @@ class productDetail extends Component {
                         loopingJadwal.push(this.state.dataJadwalPaketLangganan[j])
                     }
                 }
-
+            
             var tanggalHariIni = moment().format("dddd, MMMM Do YYYY")
             var slicer = Number(new Date().getDate()) - 1
             var jadwalSebulanFixed = loopingJadwal.slice(0, jumlahHariBulanIni)

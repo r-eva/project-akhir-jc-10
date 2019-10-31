@@ -44,7 +44,7 @@ module.exports = {
         var sql = `UPDATE users SET status='Verified' WHERE email='${req.body.email}';`
         sqlDB.query(sql, (err, results) => {
             if (err) return res.status(500).send({status: 'error', err})
-            sql = `SELECT id, username, email, status from users WHERE email = '${req.body.email}'`
+            sql = `SELECT id, username, email, status, role from users WHERE email = '${req.body.email}'`
             sqlDB.query(sql, (err, results) => {
                 if (err) return res.status(500).send({err})
                 var token = createJWTToken({...results[0]})
@@ -72,7 +72,7 @@ module.exports = {
             .update(password)
             .digest('hex')
         
-        var sql = `SELECT id, password, username, email, status FROM users WHERE email = ${sqlDB.escape(email)}
+        var sql = `SELECT id, password, username, email, status, role FROM users WHERE email = ${sqlDB.escape(email)}
                     AND password = ${sqlDB.escape(password)}`
 
         sqlDB.query(sql, (err, result) => {

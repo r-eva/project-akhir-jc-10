@@ -54,7 +54,7 @@ class Navigation extends Component {
                                  ?
                                  <>
                                     {
-                                        this.props.user.username === 'admin'
+                                        this.props.user.role === 'admin'
                                         ?
                                         <>
                                             <NavItem className="styling-link">
@@ -93,7 +93,7 @@ class Navigation extends Component {
                                 ?
                                 <>
                                     {
-                                        this.props.user.username === 'admin'
+                                        this.props.user.role === 'admin'
                                         ?
                                         <>
                                         <UncontrolledDropdown nav inNavbar className="font-weight-bold styling-link">

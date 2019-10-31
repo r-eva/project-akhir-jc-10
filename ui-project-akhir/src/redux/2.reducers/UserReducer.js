@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     username: '',
     email: '',
     status: '',
+    role: '',
     token: '',
     userChecker: false
 }

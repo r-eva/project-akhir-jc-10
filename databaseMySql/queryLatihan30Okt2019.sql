@@ -1,8 +1,8 @@
 	use final_project;
 	SELECT * FROM cart;
-	select * FROM users;
 	select * FROM history_detailProduct;
 	select * FROM history;
+    SHOW EVENTS;
 
 SELECT * FROM cart WHERE idUser = 2;
 SHOW PROCESSLIST;
@@ -20,11 +20,16 @@ SELECT * FROM history WHERE TanggalTransaksi='2019-10-30 7:11:18' && TotalBelanj
 
 SET GLOBAL event_scheduler = ON;
                         CREATE EVENT event46
-                        ON SCHEDULE AT "2019-10-31 10:59:23"
-                        DO UPDATE history SET Cancel=1 , Status="Canceled" WHERE id=47;
-DROP EVENT event41;
-DROP EVENT event48;
-DROP EVENT event49;
+                        ON SCHEDULE AT "2019-11-01 22:24:23"
+                        DO UPDATE history SET Cancel=1 , Status="Canceled" WHERE id=88;
+                        
+ SET GLOBAL event_scheduler = ON;
+                        CREATE EVENT event58
+                        ON SCHEDULE AT "2019-10-31 21:50:41"
+                        DO UPDATE history SET Cancel=1 , Status="Canceled By System" WHERE id=79;
+CREATE EVENT event88
+ON SCHEDULE AT "2019-11-01 22:28:84"
+DO UPDATE history SET Cancel=0 , Status="Belum Dibayar" WHERE id=88;
 
-SHOW PROCESSLIST;
-SHOW EVENTS;
+DROP EVENT event46;
+DROP EVENT event89;
