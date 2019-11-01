@@ -139,8 +139,8 @@ class Keranjang extends Component {
     }
 
     resetDanSubmitHistory = () => {
-        var TanggalTransaksi = moment(new Date()).format("YYYY-MM-DD HH:MM:SS").toString()
-        var BatasAkhirBayar = moment(new Date()).add(1, 'days').format("YYYY-MM-DD HH:MM:SS").toString()
+        var TanggalTransaksi = moment(new Date()).format("YYYY-MM-DD HH:mm:ss").toString()
+        var BatasAkhirBayar = moment(new Date()).add(2, 'hours').format("YYYY-MM-DD HH:mm:ss").toString()
         var postingHistory = {
             TanggalTransaksi: TanggalTransaksi,
             UserId: this.props.user.id,

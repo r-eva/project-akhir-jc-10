@@ -33,6 +33,7 @@ class App extends Component {
 
     render() {
         if (!this.props.user.userChecker) {
+            console.log(this.props.user.userChecker)
             return (
                 <div className="spinner-border" role="status">
                     <span className="sr-only">Loading...</span>

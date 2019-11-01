@@ -91,7 +91,10 @@ class productDetail extends Component {
             swal({icon: "warning", text: "Mohon lengkapi seluruh data!"})
         } else if (moment(this.state.inputTanggalMulai).weekday() === moment().day("Sunday").weekday() || moment(this.state.inputTanggalMulai).weekday() === moment().day("Saturday").weekday()) {
             swal({icon: "warning", text: "Mohon input tanggal mulai selain weekend!"})
-        } else {
+        } else if (moment(this.state.inputTanggalMulai).format('L') === moment(new Date()).format('L') && moment(new Date()).format('H') > 8 && moment(new Date()).format('s') > 0) {
+            swal({icon: "warning", text: "Batas waktu pemesanan untuk hari ini adalah Pukul 08.00. Mohon input tanggal lain!"})
+        }
+        else {
             if (moment(this.state.inputTanggalMulai).format('L') >= moment().format('L')) {
                 var ubahDurasi
                 if (this.refs.inputDurasi.value.length === 7) {

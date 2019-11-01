@@ -39,6 +39,7 @@ export const userLogout = () => {
 
 export const checkLocalStorage = () => {
     return (dispatch) => {
+        console.log('Masuk checkLocalStorage')
         dispatch({
             type: 'CHECK_LOCALSTORAGE'
         })

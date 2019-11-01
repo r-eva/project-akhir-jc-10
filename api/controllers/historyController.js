@@ -75,9 +75,32 @@ module.exports = {
             res.status(200).send(result)
         })
     },
-    getHistoryDetailByIdUser: (req, res) => {
-        var sql = `SELECT * from history_detailProduct
-                    WHERE idUser = ${sqlDB.escape(req.params.id)};`
+    getHistoryDetailById: (req, res) => {
+        var sql = `SELECT *
+                    FROM history_detailProduct hd
+                    JOIN kategori_langganan kl
+                    on hd.idPaket = kl.id
+                    WHERE idHistory = ${req.params.id};`
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
+    },
+    cancelHistoryByIdHistory: (req, res) => {
+        var sql = `UPDATE history SET Cancel=1 , Status="Canceled By User" WHERE id=${req.params.id};
+                    DROP EVENT event${req.params.id};`
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
+    },
+    pembayaranLunas: (req, res) => {
+        var sql =  `UPDATE history SET Cancel=1, Status="Lunas" WHERE id=${req.params.id};
+        DROP EVENT event${req.params.id};`
         sqlDB.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send(err)
