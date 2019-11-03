@@ -125,6 +125,7 @@ class productDetail extends Component {
                  axios.post(urlApi + 'cart/addToCart', objKeranjang)
                  .then(res => {
                      swal({icon: "success", text: "Produk berhasil ditambahkan ke cart."})
+                     this.setState({inputTanggalMulai: ''})
                  }).catch(err => {
                      console.log(err)
                      swal({icon: "warning", text: "Produk gagal ditambahkan."})
@@ -261,6 +262,11 @@ class productDetail extends Component {
                                             <option value="10 hari">10 hari</option>
                                             <option value="20 hari">20 hari</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-8 pr-2 pl-3">
+                                        <p style={{fontSize: '15px', color: 'grey'}}>Kami tidak mengantar makanan pada hari Sabtu dan Minggu.</p>
                                     </div>
                                 </div>
                             </div>

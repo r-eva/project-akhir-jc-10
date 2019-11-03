@@ -13,13 +13,14 @@ import CarouselImg1 from '../../fotoku/RTC1.jpeg'
 import CarouselImg2 from '../../fotoku/RTC2.jpeg'
 import CarouselImg3 from '../../fotoku/RTC3.jpeg'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
-import HealtyImg1 from '../../fotoku/vegan.jpeg'
+import HealtyImg1 from '../../fotoku/vegieSalad.jpeg'
 import HealtyImg2 from '../../fotoku/noncolesterol.jpeg'
-import HealtyImg3 from '../../fotoku/lowcarb.jpeg'
+import HealtyImg3 from '../../fotoku/oatmeal.jpeg'
 import BreakfastBox from '../../fotoku/breakfastBox.jpeg'
 import LunchBox from '../../fotoku/nasiMeatBall.jpeg'
 import BerryDessert from '../../fotoku/berryDessert.jpeg'
-import SweetManggo from '../../fotoku/sweetManggo.jpg'
+import SweetManggo from '../../fotoku/dessert.jpeg'
+import {Link} from 'react-router-dom'
 
 class Main extends Component {
 
@@ -40,7 +41,7 @@ class Main extends Component {
                                     provide food; it's to give you a full service, worry free dining experience.</h6>
                             </div>
                             <div className="p-1 text-center text-md-left">
-                                <MDBBtn color="danger" className="font-weight-bold">MULAI LANGGANAN</MDBBtn>
+                                <Link to='/Langganan'><MDBBtn color="danger" className="font-weight-bold">MULAI LANGGANAN</MDBBtn></Link>
                             </div>
                         </div>
                     </div>
@@ -136,7 +137,7 @@ class Main extends Component {
                                     <MDBCardText>
                                         Buat kamu yang berhenti makan daging, kamu bisa pesan sayur sayuran aja.
                                     </MDBCardText>
-                                    <MDBBtn color="danger">PESAN SEKARANG</MDBBtn>
+                                    <Link to='/product-detail/13'><MDBBtn color="danger">PESAN SEKARANG</MDBBtn></Link>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -150,7 +151,7 @@ class Main extends Component {
                                     <MDBCardText>
                                         Kamu juga bisa pesan menu lezat tanpa khawatir kolesterol tinggimu kambuh.
                                     </MDBCardText>
-                                    <MDBBtn color="danger">PESAN SEKARANG</MDBBtn>
+                                    <Link to='/product-detail/8'><MDBBtn color="danger">PESAN SEKARANG</MDBBtn></Link>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -162,9 +163,9 @@ class Main extends Component {
                                     <MDBCardBody>
                                     <MDBCardTitle>Low-Carb</MDBCardTitle>
                                     <MDBCardText>
-                                        Kalau kamu lagi diet, kurangin karbohidrat dan banyakin protein dan sayurnya aja ya.
+                                        Kalau kamu lagi diet, ganti karbohidratmu pakai overnight oatmeal dari Annora.
                                     </MDBCardText>
-                                    <MDBBtn color="danger">PESAN SEKARANG</MDBBtn>
+                                    <Link to='/product-detail/2'><MDBBtn color="danger">PESAN SEKARANG</MDBBtn></Link>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -183,7 +184,7 @@ class Main extends Component {
                             <div className="card">
                             <img className="card-img-top card-img-top-new" src={LunchBox} alt="Lunch box" style={{width: '150'}}/>
                             <div className="card-body text-center">
-                                <h5>Lunch Box</h5>
+                                <h5>Javanese Cuisine</h5>
                                 <h6>Rp. 30.000,-</h6>
                             </div>
                             </div>
@@ -192,8 +193,8 @@ class Main extends Component {
                             <div className="card">
                             <img className="card-img-top card-img-top-new" src={BreakfastBox} alt="bunCha" style={{width: '150'}}/>
                             <div className="card-body text-center">
-                                <h5>Breakfast Box</h5>
-                                <h6>Rp. 30.000,-</h6>
+                                <h5>Western</h5>
+                                <h6>Rp. 40.000,-</h6>
                             </div>
                             </div>
                         </div>
@@ -202,15 +203,13 @@ class Main extends Component {
                             <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>MENU LANGGANAN
                             </h5>
                             <ul className="list-unstyled" style={{fontSize: '16px'}}>
-                                <li>Tumis Daging Bebek Peking Iris dengan Tauge</li>
-                                <li>Sup Kepala Ikan dengan Tahu dan Sayur Asin</li>
-                                <li>Teppan Iga Sapi dengan Saus Lada Hitam</li>
-                                <li>Goreng Jamur dengan Bubuk Bawang Putih</li>
-                                <li>Teppan Iga Sapi dengan Saus Lada Hitam</li>
-                                <li>Tim Bakpao dengan Kuning Telur</li>
-                                <li>Timun Segar Ala "Chongqing"</li>
+                                <li>Chinese Food</li>
+                                <li>Indonesian Food</li>
+                                <li>Basic Lunch</li>
+                                <li>Family Package</li>
+                                <li>Office Package</li>
                             </ul>
-                            <input type="button" defaultValue="LIHAT MENU LAINNYA" className="btn btn-success" />
+                            <Link to='/Langganan'><input type="button" defaultValue="LIHAT MENU LAINNYA" className="btn btn-success" /></Link>
                             </div>
                         </div>
                         </div>
@@ -241,13 +240,12 @@ class Main extends Component {
                             <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>SWEET AND OTHERS
                             </h5>
                             <ul className="list-unstyled" style={{fontSize: '16px'}}>
-                                <li>Traditional Apple Pie</li>
-                                <li>Mollen Lava Cake</li>
-                                <li>Flourless Chocolate Espresso Cake</li>
-                                <li>Pina Colada</li>
-                                <li>Baklava</li>
+                                <li>Fruit and Juice</li>
+                                <li>Fresh Milk and Cookies</li>
+                                <li>Coffee</li>
+                                <li>Appetizer</li>
                             </ul>
-                            <input type="button" className="btn btn-success" defaultValue="LIHAT MENU LAINNYA" />
+                            <Link to='/Langganan'><input type="button" className="btn btn-success" defaultValue="LIHAT MENU LAINNYA" /></Link>
                             </div>
                         </div>
                         </div>

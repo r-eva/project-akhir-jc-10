@@ -55,6 +55,10 @@ class LanggananAdmin extends Component {
         
     }
 
+    saveEditingLangganan = () => {
+        alert('masuk')
+    }
+
     renderProduct = () => {
         var jsx = this.state.listPaket.map(val => {
             return (
@@ -81,7 +85,7 @@ class LanggananAdmin extends Component {
                                 <h3>PRODUK LANGGANAN</h3>
                             </div>
                             <div className="card-body">
-                                <MDBTable hover className="text-white" scrollY maxHeight="40vh">
+                                <MDBTable hover className="text-white" scrollY maxHeight="100vh">
                                         <MDBTableHead color="secondary-color">
                                             <tr>
                                                 <th>ID</th>
@@ -172,7 +176,7 @@ class LanggananAdmin extends Component {
                                                             <input type="button" value="Edit Image" className="btn btn-info btn-block"/>
                                                         </div>
                                                         <div className="col-6">
-                                                            <input type="button" value="Delete Image" className="btn btn-danger btn-block"/>
+                                                            <input type="button" value="Cancel" className="btn btn-danger btn-block" onClick={() => this.setState({boxDetail: false, selectedProduct: null})}/>
                                                         </div>
                                                         </>
                                                     }   
@@ -186,7 +190,7 @@ class LanggananAdmin extends Component {
                                         </div>
                                         <div className="row mt-3">
                                             <div className="col-12 mt-2">
-                                                <input type="button" value="SAVE UPDATE PRODUCT" className="btn btn-success btn-block"/>
+                                                <input type="button" value="SAVE UPDATE PRODUCT" className="btn btn-success btn-block" onClick={() => this.saveEditingLangganan(this.state.selectedProduct)}/>
                                             </div>
                                         </div>
                                     </div>

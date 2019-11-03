@@ -25,6 +25,9 @@ export const keepLogin = (tokennya) => {
         })
         .catch(err => {
             localStorage.removeItem('token')
+            dispatch({
+                type: USER_LOGOUT,
+            })
             console.log(err)
         })
     }
@@ -39,7 +42,6 @@ export const userLogout = () => {
 
 export const checkLocalStorage = () => {
     return (dispatch) => {
-        console.log('Masuk checkLocalStorage')
         dispatch({
             type: 'CHECK_LOCALSTORAGE'
         })
