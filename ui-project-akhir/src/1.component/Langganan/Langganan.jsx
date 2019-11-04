@@ -34,7 +34,7 @@ class Langganan extends Component {
             return (
                 <div className="col-4" key={val.id}>
                     <MDBCard className="my-3">
-                        <Link to={"product-detail/" + val.id}><MDBCardImage src={val.imagePath} alt='imgproduct' style={{
+                        <Link to={"product-detail/" + val.id}><MDBCardImage src={`${urlApi}${val.imagePath}`} alt='Img produk masih kosong' style={{
                             width:'250px', height: '200px', borderRadius: '4px', padding: '5px' 
                             }}>
                         </MDBCardImage></Link>

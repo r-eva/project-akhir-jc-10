@@ -52,11 +52,12 @@ CREATE TABLE `cart` (
   `idUser` int(11) NOT NULL,
   `idPaket` int(11) NOT NULL,
   `TanggalMulai` varchar(40) NOT NULL,
+  `TanggalBerakhir` varchar(40) NOT NULL,
   `Durasi` int(11) NOT NULL,
   `JumlahBox` int(11) NOT NULL,
-  `totalHarga` int(11) NOT NULL,
+  `TotalHarga` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,35 +66,8 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (19,3,1,'2019-10-24',5,2,150000),(20,3,1,'2019-10-31',10,4,300000),(21,2,6,'2019-10-31',10,1,300000),(22,2,8,'2019-10-25',20,1,600000),(23,2,1,'2019-10-23',10,3,900000),(24,2,1,'2019-10-31',5,4,600000);
+INSERT INTO `cart` VALUES (217,3,3,'2019/11/13','2019/11/14',2,2,120000),(218,3,3,'2019/11/04','2019/11/08',5,1,150000),(219,3,1,'2019/11/13','2019/11/14',2,1,60000);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cart_detail`
---
-
-DROP TABLE IF EXISTS `cart_detail`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cart_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idUser` int(11) NOT NULL,
-  `idPaket` int(11) NOT NULL,
-  `jadwal` varchar(45) NOT NULL,
-  `idMenu` varchar(300) NOT NULL,
-  `urutan` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cart_detail`
---
-
-LOCK TABLES `cart_detail` WRITE;
-/*!40000 ALTER TABLE `cart_detail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cart_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -127,6 +101,69 @@ INSERT INTO `connection_table` VALUES (1,1,2,1),(2,2,2,2),(3,3,2,3),(4,4,2,4),(5
 UNLOCK TABLES;
 
 --
+-- Table structure for table `history`
+--
+
+DROP TABLE IF EXISTS `history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `TanggalTransaksi` varchar(40) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `TotalBelanja` int(11) NOT NULL,
+  `NamaPenerima` varchar(45) NOT NULL,
+  `AlamatPenerima` varchar(45) NOT NULL,
+  `KodePosPenerima` varchar(45) NOT NULL,
+  `Cancel` int(11) NOT NULL,
+  `Status` varchar(45) NOT NULL,
+  `BatasAkhirBayar` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history`
+--
+
+LOCK TABLES `history` WRITE;
+/*!40000 ALTER TABLE `history` DISABLE KEYS */;
+INSERT INTO `history` VALUES (127,'2019-11-01 19:12:27',3,340500,'Pesanan Enak','dskajl','fds9was',1,'Canceled By System','2019-11-01 19:14:27'),(128,'2019-11-01 19:13:33',2,277500,'daw','wea','2aqea',1,'Canceled By System','2019-11-01 19:15:33'),(129,'2019-11-01 20:32:36',3,30000,'da','waea','ewaw',1,'Lunas','2019-11-01 22:32:36'),(130,'2019-11-01 21:59:41',3,80000,'daw','weaewd','ds',1,'Canceled By User','2019-11-01 23:59:41');
+/*!40000 ALTER TABLE `history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `history_detailproduct`
+--
+
+DROP TABLE IF EXISTS `history_detailproduct`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `history_detailproduct` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) NOT NULL,
+  `idPaket` int(11) NOT NULL,
+  `TanggalMulai` date NOT NULL,
+  `TanggalBerakhir` date NOT NULL,
+  `Durasi` int(11) NOT NULL,
+  `JumlahBox` int(11) NOT NULL,
+  `TotalHarga` int(11) NOT NULL,
+  `idHistory` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history_detailproduct`
+--
+
+LOCK TABLES `history_detailproduct` WRITE;
+/*!40000 ALTER TABLE `history_detailproduct` DISABLE KEYS */;
+INSERT INTO `history_detailproduct` VALUES (147,3,8,'2019-11-21','2019-11-27',5,2,255000,127),(148,3,5,'2019-11-20','2019-11-21',2,3,85500,127),(149,2,2,'2019-11-08','2019-11-14',5,3,202500,128),(150,2,4,'2019-11-04','2019-11-08',5,1,75000,128),(151,3,4,'2019-11-07','2019-11-08',2,1,30000,129),(152,3,7,'2019-11-04','2019-11-05',2,1,80000,130);
+/*!40000 ALTER TABLE `history_detailproduct` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `kategori_langganan`
 --
 
@@ -150,7 +187,7 @@ CREATE TABLE `kategori_langganan` (
 
 LOCK TABLES `kategori_langganan` WRITE;
 /*!40000 ALTER TABLE `kategori_langganan` DISABLE KEYS */;
-INSERT INTO `kategori_langganan` VALUES (1,'Javanese Cuisine',30000,NULL,'Traditional Food of Java with Authentic Taste ','https://media-cdn.tripadvisor.com/media/photo-s/0e/ce/7a/b1/javanese-cuisine-featuring.jpg'),(2,'Overnight Oat',15000,10,'Rolled or old fashioned oats that have been soaked overnight in almond milk or coconut milk mixed with favourite fruit.','https://lifemadesweeter.com/wp-content/uploads/8-OVERNIGHT-OATS-2-TEXT-PINTEREST.jpg'),(3,'Chinese Food',30000,NULL,'Chinese cuisine which  includes cuisine originating from the diverse regions of China. The menu includes sweet and Sour Pork, Kung Pao Chicken, Dumpling, Peking Roasted Duck, etc. ','https://images.pexels.com/photos/955137/pexels-photo-955137.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(4,'Fresh Milk and Cookies',15000,NULL,'The milk accompanied with sweet cookies.','https://images.pexels.com/photos/890575/pexels-photo-890575.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(5,'Coffee',15000,5,'Several kind of coffee from Sulawesi, Flores, East Timor, Bali and Java.','https://images.pexels.com/photos/1251175/pexels-photo-1251175.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(6,'Ready to Cook',30000,20,'Paket makanan dan sambal yang siap diolah.','https://images.pexels.com/photos/1030960/pexels-photo-1030960.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(7,'Western',40000,NULL,'This menu is mainly based on English and Italian dishes that have been adapted to the local palate.','https://images.pexels.com/photos/341048/pexels-photo-341048.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(8,'Less Collesterol',30000,15,'This menu is less colesterol.','https://images.pexels.com/photos/1516415/pexels-photo-1516415.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(9,'Family',75000,NULL,'Paket besar menu keluarga, cukup untuk 3 - 4 orang.','https://images.pexels.com/photos/1640773/pexels-photo-1640773.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(10,'Office',300000,10,'Paket besar makanan untuk makanan terbaik untuk karyawan, tingkatkan produktivitas dan efisiensi waktu kerja.','https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(11,'Appetizer',15000,NULL,'Makanan pembuka sebagai pembangkit nafsu makan yang sehat dan rendah kalori.','https://images.pexels.com/photos/1580464/pexels-photo-1580464.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),(12,'Indonesian Food',30000,NULL,'Paket makanan Indonesia termasuk sate, pepes, dan sop.','https://photos.smugmug.com/Indonesia-2016/i-nnZgJ3g/0/X3/indonesian-food-6-X3.jpg'),(13,'Vegie Salad',30000,15,'Salad sayur-sayuran, cocok untuk kamu yang sedang diet.','https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(18,'Basic Lunch',20000,10,'Paket makan siang dengan porsi kecil dan harga ekonomis.','https://images.pexels.com/photos/1162540/pexels-photo-1162540.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),(19,'Fruit and Juice',15000,NULL,'Paket Buah dan Juice, untuk suply vitamin kamu setiap hari.','https://images.pexels.com/photos/990439/pexels-photo-990439.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+INSERT INTO `kategori_langganan` VALUES (1,'Javanese Cuisine',30000,NULL,'Traditional Food of Java with Authentic Taste ','/images/langganan/TOK1572884305194.jpg'),(2,'Overnight Oat',15000,10,'Rolled or old fashioned oats that have been soaked overnight in almond milk or coconut milk mixed with favourite fruit.','/images/langganan/TOK1572884502280.jpg'),(3,'Chinese Food',30000,NULL,'Chinese cuisine which  includes cuisine originating from the diverse regions of China. The menu includes sweet and Sour Pork, Kung Pao Chicken, Dumpling, Peking Roasted Duck, etc. ','/images/langganan/TOK1572884552974.jpeg'),(4,'Fresh Milk and Cookies',15000,NULL,'The milk accompanied with sweet cookies.','/images/langganan/TOK1572884571743.jpeg'),(5,'Coffee',15000,5,'Several kind of coffee from Sulawesi, Flores, East Timor, Bali and Java.','/images/langganan/TOK1572884625940.jpeg'),(6,'Ready to Cook',30000,20,'Paket makanan dan sambal yang siap diolah.','/images/langganan/TOK1572884641839.jpeg'),(7,'Western',40000,NULL,'This menu is mainly based on English and Italian dishes that have been adapted to the local palate.','/images/langganan/TOK1572884665166.jpg'),(8,'Less Collesterol',30000,15,'This menu is less colesterol.','/images/langganan/TOK1572884682960.jpeg'),(9,'Family',75000,NULL,'Paket besar menu keluarga, cukup untuk 3 - 4 orang.','/images/langganan/TOK1572884699040.jpeg'),(10,'Office',300000,10,'Paket besar makanan untuk makanan terbaik untuk karyawan, tingkatkan produktivitas dan efisiensi waktu kerja.','/images/langganan/TOK1572884735361.jpeg'),(11,'Appetizer',15000,NULL,'Makanan pembuka sebagai pembangkit nafsu makan yang sehat dan rendah kalori.','/images/langganan/TOK1572884744825.jpeg'),(12,'Indonesian Food',30000,NULL,'Paket makanan Indonesia termasuk sate, pepes, dan sop.','/images/langganan/TOK1572884755875.jpg'),(13,'Vegie Salad',30000,15,'Salad sayur-sayuran, cocok untuk kamu yang sedang diet.','/images/langganan/TOK1572884782004.jpeg'),(18,'Basic Lunch',20000,10,'Paket makan siang dengan porsi kecil dan harga ekonomis.','/images/langganan/TOK1572884792699.jpeg'),(19,'Fruit and Juice',15000,NULL,'Paket Buah dan Juice, untuk suply vitamin kamu setiap hari.','/images/langganan/TOK1572881447329.jpeg');
 /*!40000 ALTER TABLE `kategori_langganan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +216,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadm@yahoo.co.id','Verified','2019-10-10 20:32:46','admin'),(2,'Pak Ogah','9072c1f79fb6bac0e2ea4c60ca6f0c9ac3799b3664ba78f6a9e42a2d805f0bf7','andre@mail.com','Verified','2019-10-11 11:09:44','user'),(3,'reginaeva','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadewi@gmail.com','Verified','2019-10-15 17:12:21','user'),(4,'mandasari','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','r.mandasari@protonmail.com','Verified','2019-10-17 15:35:21','user');
+INSERT INTO `users` VALUES (1,'Bos Anora','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadm@yahoo.co.id','Verified','2019-10-10 20:32:46','admin'),(2,'Pak Ogah','9072c1f79fb6bac0e2ea4c60ca6f0c9ac3799b3664ba78f6a9e42a2d805f0bf7','andre@mail.com','Verified','2019-10-11 11:09:44','user'),(3,'reginaeva','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadewi@gmail.com','Verified','2019-10-15 17:12:21','user'),(4,'mandasari','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','r.mandasari@protonmail.com','Verified','2019-10-17 15:35:21','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -192,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-23 23:03:11
+-- Dump completed on 2019-11-04 23:33:58

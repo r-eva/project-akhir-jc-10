@@ -152,7 +152,7 @@ class productDetail extends Component {
                     <div className="row">
                         <div className='col-md-7'>
                             <div>
-                                <img src={this.state.dataPaketLangganan.imagePath} className="rounded float-left mb-5" alt="Gambar Paket" style={{height: '600px', width: '750px'}}/>
+                                <img src={`${urlApi}${this.state.dataPaketLangganan.imagePath}`} className="rounded float-left mb-5" alt="Img produk masih kosong" style={{height: '600px', width: '750px'}}/>
                             </div>
                             <div>
                                     {

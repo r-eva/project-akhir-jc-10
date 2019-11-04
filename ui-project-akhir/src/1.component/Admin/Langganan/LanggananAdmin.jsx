@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
 import { urlApi } from '../../../helpers/database'
-import './LanggananAdmin.css'
 import { connect } from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import './LanggananAdmin.css'
 import { MDBTableHead, MDBTable, MDBTableBody, MDBInputGroup} from 'mdbreact'
 
 class LanggananAdmin extends Component {
@@ -10,8 +11,8 @@ class LanggananAdmin extends Component {
         listPaket: [],
         boxDetail: false,
         selectedProduct: null,
-        clickImageLangganan: false,
-        imageLanggananAdd: null
+        imageLanggananEdit: null,
+        editImageClick: 0
     }
 
     componentDidMount(){
@@ -28,35 +29,44 @@ class LanggananAdmin extends Component {
     }
 
     detailProductClicked = (selectedProduct) => {
-        this.setState({selectedProduct: selectedProduct})
-        this.setState({boxDetail: true})
+        this.setState({selectedProduct: selectedProduct, boxDetail: true})
     }
 
     // //////////////////////////////////////////// UPLOAD AND EDITING IMAGE ///////////////////////////////////////////
 
-    orderAddImageLanggananClick = () => {
-       this.setState({clickImageLangganan: true})
-    }
-
-    onBtnAddImageLanggananCancel = () => {
-        this.setState({clickImageLangganan: false})
-    }
-
-
-    imageLanggananAddChange = (e) => {
+    imageLanggananEdit = (e) => {
         if(e.target.files[0]) {
-            this.setState({ imageLanggananAdd: e.target.files })
-          } else {
-            this.setState({ imageLanggananAdd: null })
-          }
+            this.setState({ imageLanggananEdit: e.target.files })
+        } else {
+            this.setState({ imageLanggananEdit: null })
+        }
     }
 
-    onBtnAddImageLanggananClick = () => {
-        
+    onBtnAddImageTokoClick = (id) => {
+        if(this.state.imageLanggananEdit) {
+            var formdata = new FormData();
+
+            var options = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+            formdata.append('image', this.state.imageLanggananEdit[0])
+
+            Axios.put(urlApi + 'langganan/addImageLangganan/' + id, formdata, options)
+                .then(res => {
+                    this.detailProductClicked(...res.data)
+                }).catch(err => {
+                    console.log(err.response)
+                })
+        } else {
+            alert('Mohon input image!')
+        }
     }
 
-    saveEditingLangganan = () => {
-        alert('masuk')
+    saveEditingLangganan = (id) => {
+       
     }
 
     renderProduct = () => {
@@ -73,9 +83,10 @@ class LanggananAdmin extends Component {
         })
         return jsx
     }
-    
+
     render() {
-       
+        if (this.props.role !== 'admin' || this.props.role === '')
+        return <Redirect to="/" exact/>
         return (
             <div className="container-fluid mt-5 pt-md-5">
                 <div className="row mt-5 mb-5 mr-3 ml-3">
@@ -85,7 +96,7 @@ class LanggananAdmin extends Component {
                                 <h3>PRODUK LANGGANAN</h3>
                             </div>
                             <div className="card-body">
-                                <MDBTable hover className="text-white" scrollY maxHeight="100vh">
+                                <MDBTable hover className="text-white" scrollY maxHeight="60vh">
                                         <MDBTableHead color="secondary-color">
                                             <tr>
                                                 <th>ID</th>
@@ -126,71 +137,72 @@ class LanggananAdmin extends Component {
                                             </div>
                                         </div>
                                         <div className="row">
-                                            <div className="col-6">
-                                                {
-                                                    this.state.selectedProduct.imagePath === null
-                                                    ?
-                                                    <>
-                                                        {
-                                                            this.state.clickImageLangganan
-                                                            ?
-                                                            <div className="col-6">
-                                                                <input type="file" onChange={this.imageLanggananAddChange} />
-                                                            </div>
-                                                            :
-                                                            <h6 className='text-center'>Image Masih Kosong</h6>
-                                                        }
-                                                    </>
-                                                    :
-                                                    <>
-                                                    {this.state.selectedProduct.imagePath}
-                                                    </>
-                                                }   
+                                            <div className="col-5">
+                                                <img src={`${urlApi}${this.state.selectedProduct.imagePath}`} style={{
+                                                    width:'450px', height: '300px', borderRadius: '4px', padding: '5px'
+                                                }} alt='Img produk masih kosong'></img>
                                             </div>
-                                            <div className="col-6">
+                                            <div className="col-7">
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <MDBInputGroup containerClassName="mb-3" prepend="Deskripsi" type="textarea" hint={this.state.selectedProduct.deskripsi}/>
+                                                    </div>
+                                                </div>
                                                 <div className="row justify-content-between">
-                                                    {
-                                                        this.state.selectedProduct.imagePath === null
-                                                        ?
-                                                        <>
+                                                    <div className="col-5">
+                                                        {
+                                                            this.state.selectedProduct.imagePath === "" 
+                                                            ?
+                                                            <>
+                                                                {
+                                                                    this.state.editImageClick === 0
+                                                                    ?
+                                                                    <input type="button" value="Add Image" className="btn btn-info btn-block" onClick={() => this.setState({editImageClick: 1})}/>
+                                                                    :
+                                                                    <div className="mt-2 mr-2 mb-2">
+                                                                        <input type="file" onChange={this.imageLanggananEdit}/>
+                                                                    </div>
+                                                                }
+                                                            </>
+                                                            :
+                                                            <>
                                                             {
-                                                                this.state.clickImageLangganan
+                                                                this.state.editImageClick === 0
                                                                 ?
-                                                                <>
-                                                                <div className="col-6">
-                                                                    <input type="button" value="Save Image" className="btn btn-success btn-block" onClick={this.onBtnAddImageLanggananClick}/>
-                                                                </div>
-                                                                <div className="col-6">
-                                                                    <input type="button" value="Cancel" className="btn btn-danger btn-block" onClick={this.onBtnAddImageLanggananCancel}/>
-                                                                </div>
-                                                                </>
+                                                                <input type="button" value="Edit Image" className="btn btn-info btn-block" onClick={() => this.setState({editImageClick: 1})}/>
                                                                 :
-                                                                <div className="col-12">
-                                                                    <input type="button" value="Add Image" className="btn btn-info btn-block" onClick={() => this.orderAddImageLanggananClick()}/>
+                                                                <div className="mt-2 mr-2 mb-2">
+                                                                    <input type="file" onChange={this.imageLanggananEdit}/>
                                                                 </div>
                                                             }
-                                                        </>
-                                                        :
-                                                        <>
-                                                        <div className="col-6">
-                                                            <input type="button" value="Edit Image" className="btn btn-info btn-block"/>
-                                                        </div>
-                                                        <div className="col-6">
-                                                            <input type="button" value="Cancel" className="btn btn-danger btn-block" onClick={() => this.setState({boxDetail: false, selectedProduct: null})}/>
-                                                        </div>
-                                                        </>
-                                                    }   
+                                                            </>                                                            
+                                                        }
+                                                    </div>
+                                                    <div className="col-7">
+                                                        <input type="button" value="Cancel" className="btn btn-danger btn-block" onClick={() => this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})}/>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-5">
+                                                        {
+                                                            this.state.editImageClick === 0
+                                                            ?
+                                                            null
+                                                            :
+                                                            <input type="button" value="Upload" className="btn btn-info btn-block" onClick={() => this.onBtnAddImageTokoClick(this.state.selectedProduct.id)} />
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className="row mt-5">
+                                                    <div className="col-12">
+                                                        <h5>JADWAL CATERING</h5>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="row mt-3">
-                                            <div className="col-12 text-center">
-                                                <h5>JADWAL CATERING</h5>
-                                            </div>
-                                        </div>
-                                        <div className="row mt-3">
                                             <div className="col-12 mt-2">
-                                                <input type="button" value="SAVE UPDATE PRODUCT" className="btn btn-success btn-block" onClick={() => this.saveEditingLangganan(this.state.selectedProduct)}/>
+                                                <input type="button" value="SAVE UPDATE PRODUCT" className="btn btn-success btn-block" onClick={() => this.saveEditingLangganan(this.state.selectedProduct.id)}/>
                                             </div>
                                         </div>
                                     </div>

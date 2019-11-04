@@ -16,8 +16,8 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, 
 import HealtyImg1 from '../../fotoku/vegieSalad.jpeg'
 import HealtyImg2 from '../../fotoku/noncolesterol.jpeg'
 import HealtyImg3 from '../../fotoku/oatmeal.jpeg'
-import BreakfastBox from '../../fotoku/breakfastBox.jpeg'
-import LunchBox from '../../fotoku/nasiMeatBall.jpeg'
+import Western from '../../fotoku/western.jpg'
+import Javanese from '../../fotoku/javaneseCuisine.jpg'
 import BerryDessert from '../../fotoku/berryDessert.jpeg'
 import SweetManggo from '../../fotoku/dessert.jpeg'
 import {Link} from 'react-router-dom'
@@ -182,7 +182,7 @@ class Main extends Component {
                         <div className="row d-flex flex-column-reverse flex-sm-row justify-content-sm-center">
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={LunchBox} alt="Lunch box" style={{width: '150'}}/>
+                            <img className="card-img-top card-img-top-new" src={Javanese} alt="Javanese" style={{width: '150'}}/>
                             <div className="card-body text-center">
                                 <h5>Javanese Cuisine</h5>
                                 <h6>Rp. 30.000,-</h6>
@@ -191,7 +191,7 @@ class Main extends Component {
                         </div>
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={BreakfastBox} alt="bunCha" style={{width: '150'}}/>
+                            <img className="card-img-top card-img-top-new" src={Western} alt="Western" style={{width: '150'}}/>
                             <div className="card-body text-center">
                                 <h5>Western</h5>
                                 <h6>Rp. 40.000,-</h6>
