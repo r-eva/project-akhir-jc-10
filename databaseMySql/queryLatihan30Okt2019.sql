@@ -3,6 +3,12 @@
 	select * FROM history_detailProduct;
 	select * FROM history;
     SHOW EVENTS;
+    
+    SELECT *
+                    FROM history_detailProduct hd
+                    JOIN kategori_langganan kl
+                    on hd.idPaketpathName = kl.id
+                    WHERE idHistory = 127;
 
 SELECT * FROM cart WHERE idUser = 2;
 SHOW PROCESSLIST;
@@ -31,5 +37,11 @@ CREATE EVENT event88
 ON SCHEDULE AT "2019-11-01 22:28:84"
 DO UPDATE history SET Cancel=0 , Status="Belum Dibayar" WHERE id=88;
 
-DROP EVENT event46;
-DROP EVENT event89;
+SELECT * FROM cart WHERE idUser = 3;
+
+DROP EVENT event123;
+DROP EVENT event115;
+DROP EVENT event119;
+DROP EVENT event120;
+DROP EVENT event90;
+DROP EVENT event91;

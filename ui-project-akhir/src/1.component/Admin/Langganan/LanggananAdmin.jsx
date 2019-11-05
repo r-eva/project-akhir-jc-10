@@ -4,7 +4,7 @@ import { urlApi } from '../../../helpers/database'
 import { connect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import './LanggananAdmin.css'
-import { MDBTableHead, MDBTable, MDBTableBody, MDBInputGroup} from 'mdbreact'
+import { MDBTableHead, MDBTable, MDBTableBody, MDBInputGroup, MDBBtn} from 'mdbreact'
 
 class LanggananAdmin extends Component {
     state = {
@@ -12,7 +12,8 @@ class LanggananAdmin extends Component {
         boxDetail: false,
         selectedProduct: null,
         imageLanggananEdit: null,
-        editImageClick: 0
+        editImageClick: 0,
+        imageLanggananNew: null
     }
 
     componentDidMount(){
@@ -36,9 +37,19 @@ class LanggananAdmin extends Component {
 
     imageLanggananEdit = (e) => {
         if(e.target.files[0]) {
-            this.setState({ imageLanggananEdit: e.target.files })
+            this.setState({ imageLanggananNew: e.target.files })
         } else {
-            this.setState({ imageLanggananEdit: null })
+            this.setState({ imageLanggananNew: null })
+        }
+    }
+
+    imageLanggananNew = (e) => {
+        alert('masuk')
+        if(e.target.files[0]) {
+            this.setState({ imageLanggananNew: e.target.files })
+            console.log(this.state.imageLanggananNew)
+        } else {
+            this.setState({ imageLanggananNew: null })
         }
     }
 
@@ -212,6 +223,50 @@ class LanggananAdmin extends Component {
                         :
                         null
                     }
+                </div>
+                <div>
+                    <div className="row mt-3 mb-5 mr-3 ml-3">
+                        <div className="col-12">
+                            <div className="card">
+                                <div className="card-header text-center">
+                                    <h3>ADD PRODUCT LANGGANAN</h3>
+                                </div>
+                                <div className="card-body">
+                                    <div className="row justify-content-center">
+                                        <div className="col-12 col-md-4 ">
+                                            <MDBInputGroup containerClassName="mb-3" prepend="Nama Paket" hint="Mohon isi nama paket"/>
+                                        </div>
+                                        <div className="col-4">
+                                            <MDBInputGroup containerClassName="mb-3" prepend="Harga" hint="Mohon isi harga paket"/>
+                                        </div>
+                                        <div className="col-4">
+                                            <MDBInputGroup containerClassName="mb-3" prepend="Discount" hint="Isi discount (optional)"/>
+                                        </div>
+                                    </div>
+                                    <div className="row justify-content-center">
+                                        <div className="col-5">
+                                            <MDBInputGroup containerClassName="mb-3" prepend="Deskripsi" type="textarea" hint="Mohon isi deskripsi produk"/>
+                                        </div>
+                                        <div className="col-7">
+                                            <h6>Upload Image</h6>
+                                            <MDBInputGroup
+                                                append={
+                                                    <MDBBtn color="mdb-color" outline className="m-0 px-3 py-2 z-depth-0">BUTTON</MDBBtn>
+                                                }
+                                                inputs={
+                                                    <div className="custom-file">
+                                                        <input type="file" className="custom-file-input" id="inputGroupFile01" onChange={this.imageLanggananNew}/>
+                                                        <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+                                                    </div>
+                                                }
+                                                containerClassName="mb-3"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

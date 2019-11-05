@@ -46,8 +46,7 @@ class Keranjang extends Component {
                     TanggalMulai: arrCart[index].TanggalMulai,
                     TanggalBerakhir: arrCart[index].TanggalBerakhir,
                     JumlahBox: arrCart[index].JumlahBox,
-                    Durasi: arrCart[index].Durasi,
-                    totalHarga: (arrCart[index].harga - ((arrCart[index].discount / 100) * arrCart[index].harga)) * arrCart[index].JumlahBox * arrCart[index].Durasi
+                    Durasi: arrCart[index].Durasi
                 }
                 Axios.put(urlApi + 'cart/editCart/' + arrCart[index].id, objCartPut)
                 .then((res) => {
@@ -65,8 +64,7 @@ class Keranjang extends Component {
                 TanggalMulai: arrCart[index].TanggalMulai,
                 TanggalBerakhir: arrCart[index].TanggalBerakhir,
                 JumlahBox: arrCart[index].JumlahBox,
-                Durasi: arrCart[index].Durasi,
-                totalHarga: (arrCart[index].harga - ((arrCart[index].discount / 100) * arrCart[index].harga)) * arrCart[index].JumlahBox * arrCart[index].Durasi
+                Durasi: arrCart[index].Durasi
             }
             Axios.put(urlApi + 'cart/editCart/' + arrCart[index].id, objCartPut)
             .then((res) => {
@@ -98,8 +96,7 @@ class Keranjang extends Component {
             TanggalMulai: arrCart[index].TanggalMulai,
             TanggalBerakhir: moment(tmpDate._d).format("YYYY/MM/DD"),
             JumlahBox: arrCart[index].JumlahBox,
-            Durasi: arrCart[index].Durasi,
-            totalHarga: (arrCart[index].harga - ((arrCart[index].discount / 100) * arrCart[index].harga)) * arrCart[index].JumlahBox * arrCart[index].Durasi
+            Durasi: arrCart[index].Durasi
         }
         Axios.put(urlApi + 'cart/editCart/' + arrCart[index].id, objCartPut)
             .then((res) => {
@@ -125,7 +122,7 @@ class Keranjang extends Component {
     totalBelanjaan = () => {
         var hargaTotal = 0
         this.state.cart.map(val => {
-            return hargaTotal += val.totalHarga
+            return hargaTotal += val.Durasi * val.JumlahBox * (val.harga - (val.harga * (val.discount/100)))
         })
         return hargaTotal
     }
@@ -211,7 +208,7 @@ class Keranjang extends Component {
                             {val.Durasi === 20 ? null : <option value="20">20 hari</option>}
                         </select>
                     </td>
-                    <td>{val.totalHarga}</td>
+                    <td>{val.Durasi * val.JumlahBox * (val.harga - (val.harga * (val.discount/100))) }</td>
                     <td><input type="button" className="btn btn-danger btn-block" value="DELETE" onClick={()=> this.deleteCart(val.id)}/></td>
                 </tr>
             )

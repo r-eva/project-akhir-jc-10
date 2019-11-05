@@ -22,8 +22,7 @@ module.exports = {
     getCartByIdUser:(req, res) => {
         var sql = `SELECT
                     c.id, c.idUser, kl.namaPaket, c.TanggalMulai, c.TanggalBerakhir,
-                    c.Durasi, c.JumlahBox, kl.harga, kl.discount, c.totalHarga,
-                    c.idPaket
+                    c.Durasi, c.JumlahBox, kl.harga, kl.discount, c.idPaket
                     FROM cart c
                     JOIN kategori_langganan kl
                     ON c.idPaket = kl.id

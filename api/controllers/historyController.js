@@ -1,5 +1,6 @@
 const { sqlDB } = require('../database')
-const moment = require('moment')
+const { uploader } = require('../helpers/uploader')
+const fs = require('fs')
 
 module.exports = {
     addToHistory: (req, res) => {
@@ -35,12 +36,12 @@ module.exports = {
             var insertdata = []
             for (i = 0; i < result.length; i++) {
                 insertdata.push([result[i].idUser, result[i].idPaket, result[i].TanggalMulai,
-                                result[i].TanggalBerakhir, result[i].Durasi, result[i].JumlahBox,
-                                result[i].TotalHarga, idHistorySubmit])
+                                result[i].TanggalBerakhir, result[i].Durasi,
+                                result[i].JumlahBox, idHistorySubmit])
             }
            
             sql = `INSERT INTO history_detailProduct (idUser, idPaket,
-                    TanggalMulai, TanggalBerakhir, Durasi, JumlahBox, TotalHarga, idHistory) VALUES ?`
+                    TanggalMulai, TanggalBerakhir, Durasi, JumlahBox, idHistory) VALUES ?`
             sqlDB.query(sql, [insertdata], (err, results) => {
                 if (err) {
                     return res.status(500).send(err)
@@ -98,8 +99,28 @@ module.exports = {
             res.status(200).send(result)
         })
     },
-    pembayaranLunas: (req, res) => {
-        var sql =  `UPDATE history SET Cancel=1, Status="Lunas" WHERE id=${req.params.id};
+    uploadBuktiPembayaran: (req,res) => {
+        const path = '/images/buktipembayaran';
+        const upload = uploader(path, 'TOK').fields([{ name: 'image' }]);
+    
+        upload(req, res, (err) => {
+            if(err){
+                return res.status(500).json({ message: 'Upload file failed !', error: err.message });
+            }
+            const { image } = req.files
+            var sql = `UPDATE history SET buktiPembayaranPath = "${path}/${image[0].filename}" WHERE id = ${req.params.id}`;
+            sqlDB.query(sql, (err, result) => {
+                if(err) {
+                    fs.unlinkSync('./public' + path + '/' + image[0].filename)
+                    return res.status(500).send(err)
+                }
+                return res.status(200).send(result)
+            })
+
+        })
+    },
+    pembayaranSubmit: (req, res) => {
+        var sql =  `UPDATE history SET Status="Menunggu Konfirmasi Admin" WHERE id=${req.params.id};
         DROP EVENT event${req.params.id};`
         sqlDB.query(sql, (err, result) => {
             if (err) {

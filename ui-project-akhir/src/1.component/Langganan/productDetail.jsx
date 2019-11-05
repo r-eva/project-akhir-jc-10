@@ -118,8 +118,7 @@ class productDetail extends Component {
                      TanggalMulai: moment(this.state.inputTanggalMulai).format("YYYY/MM/DD"),
                      tanggalBerakhir: moment(tmpDate._d).format("YYYY/MM/DD"),
                      JumlahBox: this.state.jumlahBox,
-                     Durasi: ubahDurasi,
-                     totalHarga: (this.state.dataPaketLangganan.harga - ((this.state.dataPaketLangganan.discount / 100) * this.state.dataPaketLangganan.harga)) * this.state.jumlahBox * ubahDurasi
+                     Durasi: ubahDurasi
                  }
 
                  axios.post(urlApi + 'cart/addToCart', objKeranjang)

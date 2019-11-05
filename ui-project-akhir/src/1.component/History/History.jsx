@@ -14,11 +14,9 @@ class History extends Component {
         history: [],
         historyDetail: [],
         belanjaDiproses: null,
-        inputUang: '',
-        kembalianUang: null,
-        keluarModal: null,
-        submitModal: false,
-        paymentMode: false,
+        keluarBoxPembayaran: null,
+        buktiPembayaran: null,
+        uploadBuktiBayarSuccess: false,
         keluarHistory: null,
         historyMode: false
     }
@@ -58,7 +56,7 @@ class History extends Component {
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal Berakir: {val.TanggalBerakhir.slice(0, 10)} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal Mulai: {val.TanggalMulai.slice(0, 10)} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Durasi: {val.Durasi} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total: {val.TotalHarga} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subtotal: {val.Durasi * val.JumlahBox * (val.harga - (val.harga * val.discount/100))} <br/>
                         </p>
                     </div>      
                     )
@@ -69,7 +67,7 @@ class History extends Component {
     onBtnDeleteHistoryClick = (idHistory) => {
         Axios.put(urlApi + 'history/cancelHistoryById/' + idHistory)
         .then(res => {
-            this.setState({historyDetail: res.data})
+            this.getDataApi(this.props.userId)
         }).catch(err=> {
             swal ('Eror', 'Server Error', 'error')
             console.log(err)
@@ -90,16 +88,16 @@ class History extends Component {
                         ?
                         <>  
                             {
-                                val.status === 'Lunas'
+                                val.Status === 'Menunggu Konfirmasi Admin'
                                 ?
                                 <>
-                                <td><input type="button" className="btn btn-danger btn-block" value="Cancel"/></td>
-                                <td><input type="button" className="btn btn-block btn-block" value="Bayar"/></td>
+                                <td><input type="button" className="btn btn-dark btn-block" value="Cancel" disabled/></td>
+                                <td><input type="button" className="btn btn-dark btn-block" value="Upload Bukti Bayar" disabled/></td>
                                 </>
                                 :
                                 <>
                                 <td><input type="button" className="btn btn-danger btn-block" value="Cancel" onClick={()=> this.onBtnDeleteHistoryClick(val.id)}/></td>
-                                <td><input type="button" className="btn btn-success btn-block" value="Bayar" onClick={() => this.setState({keluarModal: 1, paymentMode: true, belanjaDiproses: val})}/></td>
+                                <td><input type="button" className="btn btn-success btn-block" value="Upload Bukti Bayar" onClick={() => this.setState({keluarBoxPembayaran: 1, belanjaDiproses: val})}/></td>
                                 </>
                                 
                             }
@@ -107,7 +105,7 @@ class History extends Component {
                         :
                         <>
                             <td><button type="button" className="btn btn-dark btn-block" disabled>Cancel</button></td>
-                            <td><input type="button" className="btn btn-dark btn-block" value="Bayar" disabled/></td> 
+                            <td><input type="button" className="btn btn-dark btn-block" value="Upload Bukti Bayar" disabled/></td> 
                         </>
                         
                     }
@@ -118,36 +116,53 @@ class History extends Component {
         return jsx
     }
 
-    prosesUang = () => {
-        var total = this.state.belanjaDiproses.TotalBelanja
-        var tempKembalianUang
-        if (Number(this.state.inputUang) - total >= 0) {
-            this.setState({submitModal: true})
-            tempKembalianUang = total - Number(this.state.inputUang)
-            return this.setState({kembalianUang: tempKembalianUang})
-        } else if (Number(this.state.inputUang) - total  < 0) {
-            this.setState({submitModal: false})
-            tempKembalianUang = total - Number(this.state.inputUang)
-            return this.setState({kembalianUang: tempKembalianUang})
+    imagePembayaranChosed = (e) => {
+        if(e.target.files[0]) {
+            this.setState({ buktiPembayaran: e.target.files })
         } else {
-            return this.setState({submitModal: false})
+            this.setState({ buktiPembayaran: null })
         }
     }
 
-    submitPembayaranSukses = (id) => {
-        this.setState({inputUang: '',
-                        kembalianUang: null,
-                        keluarModal: null,
-                        submitModal: false,
-                        paymentMode: false})
-        Axios.put(urlApi + 'history/pembayaranLunas/' + id)
+    uploadBuktiBayar = (id) => {
+        if (this.state.buktiPembayaran === null) {
+            swal ('Error', `Mohon isi bukti pembayaran!`, 'error')
+        } else { 
+            var formdata = new FormData();
+
+            var options = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+            formdata.append('image', this.state.buktiPembayaran[0])
+
+            Axios.put(urlApi + 'history/uploadBuktiPembayaran/' + id, formdata, options)
+                .then(res => {
+                    swal ('Success', 'Upload bukti pembayaran berhasil!', 'success')
+                    this.setState({uploadBuktiBayarSuccess: true})
+                }).catch(err => {
+                    console.log(err.response)
+                    swal ('Eror', 'Upload bukti pembayaran gagal!', 'error')
+                })
+        }
+        
+    }
+
+    submitPembayaranSukses = (id) => { 
+        Axios.put(urlApi + 'history/pembayaranSubmit/' + id)
         .then((res)=>{
-            this.setState({belanjaDiproses: null})
-        })
+            this.getDataApi(this.props.userId)
+            this.setState({belanjaDiproses: null,
+                keluarBoxPembayaran: null,
+                buktiPembayaran: null,
+                uploadBuktiBayarSuccess: false})
+            })
+            swal ('Terima kasih telah berbelanja!', `Pesanan anda segera dikirimkan ke tempat tujuan.`, 'success')
         .catch((err) => {
             console.log(err)
         })
-        swal ('Terima kasih telah berbelanja!', `Pesanan anda segera dikirimkan ke tempat tujuan.`, 'success')
     }
 
     render() {
@@ -164,97 +179,80 @@ class History extends Component {
                     </MDBCol>
                     </MDBCol>
                 </MDBJumbotron>
-                <div className="container-fluid">
-                <table className='table mt-3 mb-5'>
-                    <thead>
-                    <tr className="text-center">
-                        <th>Tanggal Transaksi</th>
-                        <th>Total Tagihan</th>
-                        <th>Status</th>
-                        <th>Batas Waktu Pembayaran</th>
-                        <th>Detail</th>
-                        <th>Cancel</th>
-                        <th>Bayar</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderHistory()}
-                    </tbody>
-                </table>
                 {
-                    this.state.keluarModal === 1
+                    this.state.history.length === 0
                     ?
-                    <>
-                        <Modal isOpen={this.state.paymentMode}>
-                            <ModalHeader>
-                                <p className="font font-weight-bold">SILAKAN MASUKKAN DATA ANDA</p>
-                            </ModalHeader>
-                            <ModalBody>
-                                <p>Total Tagihan Anda Rp. {this.state.belanjaDiproses.TotalBelanja}</p>
-                                <h6 className="font font-weight-bold">SILAKAN MASUKKAN UANG ANDA</h6>
-                                Rp. <input type="number" placeholder="Masukkan Nominal" onChange={(e) => this.setState({inputUang: e.target.value})}/> <br/><br/>
-                                    {
-                                        this.state.kembalianUang == null
-                                        ?
-                                        null
-                                        :
-                                        <>
-                                            {
-                                                this.state.kembalianUang > 0
-                                                ?
-                                                <h6 style={{color: 'red'}}>Uang anda kurang Rp. {this.state.kembalianUang}. Mohon input kembali!</h6>
-                                                :
-                                                <>
-                                                    {
-                                                        this.state.kembalianUang === 0
-                                                        ?
-                                                        <h6 style={{color: 'green'}}>Uang Anda Pas.</h6>
-                                                        :
-                                                        <h6 style={{color: 'green'}}>Kembalian Anda Rp. {Math.abs(this.state.kembalianUang)}.</h6>
-                                                    
-                                                    }
-                                                </>
-                                            }
-                                        </>
-                                    }
-                            </ModalBody>
-                            <ModalFooter>
-                            {
-                                this.state.submitModal === false
-                                ?
-                                <>
-                                    <Button color="success" onClick={this.prosesUang}>SUBMIT</Button>
-                                    <Button color="secondary" onClick={() => this.setState({keluarModal: 0, paymentMode: false, submitModal: false, kembalianUang: null})}>CANCEL</Button>
-                                </>
-                                :
-                                <Button color="success" onClick={() => this.submitPembayaranSukses(this.state.belanjaDiproses.id)}>OK</Button>
-                            }     
-                            </ModalFooter>
-                        </Modal>
-                    </>
+                    <h1 className="text-center mt-5" style={{marginBottom: '500px'}}>HISTORY ANDA KOSONG</h1>
                     :
-                    null
+                    <div className="container-fluid">
+                        <table className='table mt-3 mb-5'>
+                            <thead>
+                            <tr className="text-center">
+                                <th>Tanggal Transaksi</th>
+                                <th>Total Tagihan</th>
+                                <th>Status</th>
+                                <th>Batas Waktu Pembayaran</th>
+                                <th>Detail</th>
+                                <th>Cancel</th>
+                                <th>Bayar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderHistory()}
+                            </tbody>
+                        </table>
+                        {
+                            this.state.keluarBoxPembayaran === 1
+                            ?
+                            <div className="row justify-content-center mb-5">
+                                <div className="col-5 mb-3">
+                                    <div className="card-header text-center font-weight-bold">
+                                        <h5>Silakan Masukkan Bukti Pembayaran Anda</h5>
+                                    </div>
+                                    <div className="card-body text-center">
+                                        <input type="file" onChange={this.imagePembayaranChosed}/>
+                                    </div>
+                                    <div className="card-footer text-center">
+                                        {
+                                            this.state.uploadBuktiBayarSuccess === true 
+                                            ?
+                                            <div className="row justify-content-end">
+                                                <input type="button" value="OK" className="btn btn-danger" onClick={() => this.submitPembayaranSukses(this.state.belanjaDiproses.id)}/>
+                                            </div>
+                                            :
+                                            <div className="row justify-content-end">
+                                                <input type="button" value="Upload" className="btn btn-success" onClick={() => this.uploadBuktiBayar(this.state.belanjaDiproses.id)} />
+                                                <input type="button" value="Cancel" className="btn btn-danger" onClick={() => this.setState({keluarBoxPembayaran: null})}/>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            :
+                            null                       
+                        }
+                        {
+                            this.state.keluarHistory === 1 
+                            ?
+                            <>
+                                <Modal isOpen={this.state.historyMode}>
+                                    <ModalHeader>
+                                        <p className="font font-weight-bold">DETAIL TRANSAKSI ANDA</p>
+                                    </ModalHeader>
+                                    <ModalBody>
+                                        {this.renderHistoryDetail()}
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button color="success" onClick={() => this.setState({keluarHistory: null, historyMode: false, historyDetail: []})}>OK</Button>
+                                    </ModalFooter>    
+                                </Modal>
+                            </>
+                            :
+                            null
+                        }
+                    </div>
                 }
-                {
-                    this.state.keluarHistory === 1 
-                    ?
-                    <>
-                        <Modal isOpen={this.state.historyMode}>
-                            <ModalHeader>
-                                <p className="font font-weight-bold">DETAIL TRANSAKSI ANDA</p>
-                            </ModalHeader>
-                            <ModalBody>
-                                {this.renderHistoryDetail()}
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="success" onClick={() => this.setState({keluarHistory: null, historyMode: false, historyDetail: []})}>OK</Button>
-                            </ModalFooter>    
-                        </Modal>
-                    </>
-                    :
-                    null
-                }
-                </div>
             </div>
         );
     }

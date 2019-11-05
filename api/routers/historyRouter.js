@@ -8,6 +8,7 @@ router.post('/addHistoryDetail/:id', historyController.addHistoryDetail)
 router.get('/getHistoryByIdUser/:id', historyController.getHistoryByIdUser)
 router.get('/getHistoryDetailById/:id', historyController.getHistoryDetailById)
 router.put('/cancelHistoryById/:id', historyController.cancelHistoryByIdHistory)
-router.put('/pembayaranLunas/:id', historyController.pembayaranLunas)
+router.put('/uploadBuktiPembayaran/:id', historyController.uploadBuktiPembayaran)
+router.put('/pembayaranSubmit/:id', historyController.pembayaranSubmit)
 
 module.exports = router
