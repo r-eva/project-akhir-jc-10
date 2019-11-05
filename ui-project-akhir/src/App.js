@@ -8,14 +8,12 @@ import Navigation from './1.component/Navbar/Navigation';
 import Footer from './1.component/Footer/Footer';
 import Main from './1.component/Main/Main';
 import Langganan from './1.component/Langganan/Langganan';
-import Promo from './1.component/Promo/Promo';
 import Keranjang from './1.component/Keranjang/Keranjang';
 import Register from './1.component/Register/Register';
 import Login from './1.component/Login/Login';
-import AdminDashboard from './1.component/Admin/AdminDashboard'
+import AdminDashboard from './1.component/Admin/Transaksi/AdminDashboard'
 import History from './1.component/History/History'
 import LanggananAdmin from './1.component/Admin/Langganan/LanggananAdmin'
-import PromoAdmin from './1.component/Admin/Promo/PromoAdmin'
 import WaitingEmailVerification from './1.component/Register/WaitingEmailVerification'
 import EmailVerified from './1.component/Register/EmailVerified'
 import ProductDetail from './1.component/Langganan/productDetail'
@@ -46,8 +44,6 @@ class App extends Component {
                     <Route exact path='/' component={Main}/>
                     <Route path='/Langganan' component={Langganan} exact/>
                     <Route exact path='/Admin/Langganan' component={LanggananAdmin}/>
-                    <Route path='/Promo' component={Promo} exact/>
-                    <Route path='/Admin/Promo' component={PromoAdmin} exact/>
                     <Route path='/Keranjang' component={Keranjang} exact/>
                     <Route path='/History' component={History} exact/>
                     <Route path='/Register' component={Register} exact/>

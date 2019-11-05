@@ -48,6 +48,7 @@ class Navigation extends Component {
                     
                     {/* Show this on md to lg screen */}
                     <Collapse isOpen={!this.state.collapsed} navbar>
+    
                         <Nav className="mr-auto font-weight-bold" navbar>
                             {
                                  this.props.user.username !== ''
@@ -58,10 +59,10 @@ class Navigation extends Component {
                                         ?
                                         <>
                                             <NavItem className="styling-link">
-                                                <Link to="/Admin/Langganan" style={{color: 'black'}}>LANGGANAN</Link>
+                                                <Link to="/Admin/Langganan" style={{color: 'black'}}>PRODUK</Link>
                                             </NavItem>
                                             <NavItem className="styling-link">
-                                                <Link to="/Admin/Promo" style={{color: 'black'}}>PROMO</Link>
+                                                <Link to="/admin/dashboard" style={{color: 'black'}}>TRANSAKSI</Link>
                                             </NavItem>
                                         </>
                                         :
@@ -69,8 +70,8 @@ class Navigation extends Component {
                                             <NavItem className="styling-link"> 
                                                 <Link to="/Langganan" style={{color: 'black'}}>LANGGANAN</Link>
                                             </NavItem>
-                                            <NavItem className="styling-link">
-                                            <Link to="/Promo" style={{color: 'black'}}>PROMO</Link>
+                                            <NavItem className="styling-link"> 
+                                                <Link to="/History" style={{color: 'black'}}>HISTORY</Link>
                                             </NavItem>
                                         </>
                                     }
@@ -79,9 +80,6 @@ class Navigation extends Component {
                                 <>
                                     <NavItem className="styling-link"> 
                                         <Link to="/Langganan" style={{color: 'black'}}>LANGGANAN</Link>
-                                    </NavItem>
-                                    <NavItem className="styling-link">
-                                    <Link to="/Promo" style={{color: 'black'}}>PROMO</Link>
                                     </NavItem>
                                 </>
                             }
@@ -117,23 +115,13 @@ class Navigation extends Component {
                                                 Hello, {this.props.user.username}
                                             </DropdownToggle>
                                             <DropdownMenu right>
-                                                <Link to="/Keranjang">
-                                                <DropdownItem style={{color: 'black'}}>
-                                                    Cart
-                                                </DropdownItem>
-                                                </Link>
-                                                <Link to="/History">
-                                                <DropdownItem style={{color: 'black'}}>
-                                                    History
-                                                </DropdownItem>
-                                                </Link>
                                                 <DropdownItem style={{color: 'black'}} onClick={this.props.userLogout}>
                                                     Logout
                                                 </DropdownItem>
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
                                         <NavItem className="styling-link" style={{paddingTop: '5px'}}>
-                                            <MDBIcon icon="shopping-bag" size="lg" border/>
+                                            <Link to="/Keranjang" style={{color: 'black'}}><MDBIcon icon="shopping-bag" size="lg" border/>CART</Link>
                                         </NavItem>
                                         </>
                                     }
