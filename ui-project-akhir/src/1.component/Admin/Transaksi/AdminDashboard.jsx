@@ -65,7 +65,7 @@ class AdminDashboard extends Component {
                 <br/>
                 <br/>
                 <div className="card mb-5">
-                    <div className="card-header text-center">
+                    <div className="card-header text-center bg-danger">
                         <h3>Transaksi Menunggu Konfirmasi</h3>
                     </div>
                     <div className="card-body">
