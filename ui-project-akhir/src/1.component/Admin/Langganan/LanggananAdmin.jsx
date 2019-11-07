@@ -166,7 +166,8 @@ class LanggananAdmin extends Component {
 
        Axios.put(urlApi + 'langganan/editLanggananById/' + objSelected.id, obj)
        .then((res) => {
-            this.detailProductClicked(...res.data)
+            this.getDataPaket()
+            this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})      
        })
        .catch((err) => {
            console.log(err)
@@ -356,52 +357,53 @@ class LanggananAdmin extends Component {
                                                 <input placeholder={this.state.selectedProduct.discount} type="text" id="inputPlaceholderEx2" className="form-control" onChange={(e) => this.setState({inputDiscountEdit: e.target.value})}/>
                                             </div>
                                         </div>
-                                        <div className="row my-3 ml-3 justify-content-center">
-                                            <div className="row pl-1">
-                                                <div className="col-4">
-                                                    <div className="row">
+                                        <div className="row mb-4 ml-3 mr-4">
+                                            <div className="col-5">
+                                                <div className="row">
+                                                    <div className="col-12">
                                                         <img src={`${urlApi}${this.state.selectedProduct.imagePath}`} style={{
                                                             width:'450px', height: '300px', borderRadius: '4px',
                                                         }} alt='Img produk masih kosong'></img>
-                                                    </div>
-                                                    <div className="row">
-                                                        <div className="col-12">
-                                                            {
-                                                                this.state.selectedProduct.imagePath === "" 
-                                                                ?
+                                                    </div> 
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        {
+                                                            this.state.selectedProduct.imagePath === "" 
+                                                            ?
                                                                 <>
                                                                     {
                                                                         this.state.editImageClick === 0
                                                                         ?
-                                                                        <input type="button" value="Add Image" className="btn btn-info mt-4 btn-block" onClick={() => this.setState({editImageClick: 1})}/>
+                                                                        <input type="button" value="Add Image" className="btn btn-info mt-4" onClick={() => this.setState({editImageClick: 1})}/>
                                                                         :
-                                                                        <div className="mt-5 mr-2 mb-2">
+                                                                        <div className="mt-5 mb-2">
                                                                             <input type="file" onChange={this.imageLanggananNew}/>
                                                                         </div>
                                                                     }
                                                                 </>
-                                                                :
+                                                            :
                                                                 <>
                                                                 {
                                                                     this.state.editImageClick === 0
                                                                     ?
-                                                                    <input type="button" value="Edit Image" className="btn btn-info mt-4 btn-block" onClick={() => this.setState({editImageClick: 1})}/>
+                                                                    <input type="button" value="Edit Image" className="btn btn-info mt-4" onClick={() => this.setState({editImageClick: 1})}/>
                                                                     :
-                                                                    <div className="mt-2 mr-2 mb-2">
+                                                                    <div className="mt-2 mb-2">
                                                                         <input type="file" onChange={this.imageLanggananNew}/>
                                                                     </div>
                                                                 }
                                                                 </>                                                            
-                                                            }
-                                                        </div>
+                                                        }
                                                     </div>
-                                                    <div className="row">
-                                                        <div className="col-12">
-                                                            {
-                                                                this.state.editImageClick === 0
-                                                                ?
-                                                                null
-                                                                :
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        {
+                                                            this.state.editImageClick === 0
+                                                            ?
+                                                            null
+                                                            :
                                                                 <>
                                                                     {
                                                                         this.state.selectedProduct.imagePath === "" 
@@ -410,33 +412,32 @@ class LanggananAdmin extends Component {
                                                                         :
                                                                         <input type="button" value="Upload Edit Image" className="btn btn-info btn-block" onClick={() => this.onBtnEditImageLanggananClick(this.state.selectedProduct.id)} />
                                                                     }
-                                                                </>
-                                                                
-                                                                
-                                                            }
-                                                        </div>  
+                                                                </>  
+                                                        }
                                                     </div>
                                                 </div>
-                                                <div className="col-7">
-                                                    <div className="row">
-                                                        <div className="col-12">
-                                                            <h6 style={{marginBottom: -10}}>Deskripsi</h6>
-                                                            <MDBInput hint={this.state.selectedProduct.deskripsi} type="textarea" onChange={(e)=> this.setState({inputDeskripsiEdit: e.target.value})} outline/>
-                                                        </div>
+                                            </div>
+                                            <div className="col-7">
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <h6 style={{marginBottom: -10}}>Deskripsi</h6>
+                                                        <MDBInput hint={this.state.selectedProduct.deskripsi} type="textarea" onChange={(e)=> this.setState({inputDeskripsiEdit: e.target.value})} outline/>
                                                     </div>
-                                                    <div className="row mt-2">
-                                                        <div className="col-12">
-                                                            <div className="row">
-                                                                <div className="col-8">
-                                                                    <h5>JADWAL CATERING</h5>
-                                                                </div>
-                                                                <div className="col-4">
-                                                                    <MDBBtn gradient="aqua" size="sm" onClick={this.toggle(9)}>
-                                                                        <MDBIcon icon="pencil-alt" />
-                                                                    </MDBBtn>
-                                                                </div>
+                                                </div>
+                                                <div className="row mt-2">
+                                                    <div className="col-12">
+                                                        <div className="row">
+                                                            <div className="col-10">
+                                                                <h5>JADWAL CATERING</h5>
                                                             </div>
-                                                            <div className="row ml-1 mb-4">
+                                                            <div className="col-2">
+                                                                <MDBBtn gradient="aqua" size="sm" onClick={this.toggle(9)}>
+                                                                    <MDBIcon icon="pencil-alt" />
+                                                                </MDBBtn>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col-12">
                                                                 <MDBTable scrollY maxHeight="60vh">
                                                                     <MDBTableHead color="secondary-color">
                                                                         <tr>
@@ -452,16 +453,16 @@ class LanggananAdmin extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="row">
-                                                        <div className="col-12">
-                                                            <input type="button" value="Cancel" className="btn btn-danger btn-block" onClick={() => this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})}/>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="row mt-3">
-                                            <div className="col-12 mt-2">
+                                        <div className="row mb-4 ml-3 mr-4">
+                                            <div className="col-12">
+                                                <input type="button" value="Cancel" className="btn btn-danger btn-block" onClick={() => this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})}/>
+                                            </div>
+                                        </div>
+                                        <div className="row mb-4 ml-3 mr-4">
+                                            <div className="col-12">
                                                 <input type="button" value="SAVE UPDATE PRODUCT" className="btn btn-success btn-block" onClick={() => this.saveEditingLangganan(this.state.selectedProduct)}/>
                                             </div>
                                         </div>
