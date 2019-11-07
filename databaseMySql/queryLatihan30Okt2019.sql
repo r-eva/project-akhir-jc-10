@@ -1,8 +1,22 @@
 	use final_project;
+	select * FROM kategori_langganan;
+    select * from all_menu;
+	select * FROM connection_table;
+    SELECT ct.id, am.Menu, am.Deskripsi, ct.urutan
+                    FROM kategori_langganan kl
+                    JOIN all_menu am
+                    JOIN connection_table ct
+                    ON ct.idMenu = am.id && ct.idKategori = kl.id
+                    WHERE kl.id = 18
+                    ORDER BY ct.urutan;
+    
+    Select * from connection_table where idKategori = 8;
+    
 	SELECT * FROM cart;
 	select * FROM history_detailProduct;
 	select * FROM history;
     SHOW EVENTS;
+    
     
     SELECT *
                     FROM history_detailProduct hd

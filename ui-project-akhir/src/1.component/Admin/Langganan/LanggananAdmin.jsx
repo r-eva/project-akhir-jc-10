@@ -4,7 +4,7 @@ import { urlApi } from '../../../helpers/database'
 import { connect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import './LanggananAdmin.css'
-import { MDBTableHead, MDBTable, MDBTableBody, MDBInputGroup, MDBInput, MDBBtn, MDBIcon,
+import { MDBTableHead, MDBTable, MDBTableBody, MDBInput, MDBBtn, MDBIcon,
         MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter} from 'mdbreact'
 
 class LanggananAdmin extends Component {
@@ -26,7 +26,8 @@ class LanggananAdmin extends Component {
         inputDeskripsAdd: false,
         imageLanggananAdd: false,
         selectedEditJadwalId: 0,
-        listAllMenu: []
+        selectedNewMenuEdit: null,
+        listAllMenu: null
     }
 
     toggle = nr => () => {
@@ -63,6 +64,10 @@ class LanggananAdmin extends Component {
         this.setState({selectedEditJadwalId: id})
     }
 
+    getMenuJadwalEdit = (e) => {
+        console.log(e.target.value)
+        this.setState({selectedNewMenuEdit: e.target.value})
+    }
 
     ////////////////////////////////////////////////////FUNGSI BAYANGAN//////////////////////////////////////////
     detailProductClicked = (selectedProduct) => {
@@ -92,9 +97,6 @@ class LanggananAdmin extends Component {
         }
     }
 
-    changeMenuJadwalBayangan = (id) => {
-        console.log(id)
-    }
 
     //////////////////////////////////////////////////// FUNGSI UTAMA KE BACKEND ////////////////////////////////////////////////
     onBtnAddImageLanggananClick = (id) => {
@@ -163,6 +165,29 @@ class LanggananAdmin extends Component {
        console.log(obj)
     }
 
+    updateJadwalLangganan = (menuBaru, idConnectionTable) => {
+        Axios.put(urlApi + 'jadwal/editJadwalById', {
+            idMenuBaru: menuBaru,
+            idConnection: idConnectionTable
+        })
+        .then((res)=>{
+            this.detailProductClicked(this.state.selectedProduct)
+            this.setState({selectedEditJadwalId: 0})
+        }).catch((err)=> {
+            console.log(err)
+        })
+        console.log(menuBaru, idConnectionTable)
+    }
+
+    deleteJadwal = (idConnection) => {
+        Axios.delete(urlApi + 'jadwal/deleteJadwalById/' + idConnection)
+        .then((res)=>{
+            this.detailProductClicked(this.state.selectedProduct)
+            this.setState({selectedEditJadwalId: 0})
+        }).catch((err)=> {
+            console.log(err)
+        })
+    }
 
     /////////////////////////////////////////RENDER FUNCTION///////////////////////////////////////////////////////////////
     renderProduct = () => {
@@ -194,29 +219,28 @@ class LanggananAdmin extends Component {
    }
 
    renderJadwalProductEdit = () => {
-        var jsx = this.state.listJadwal.map(val => {
+        var jsx = this.state.listJadwal.map(val=> {
             if (val.id !== this.state.selectedEditJadwalId) {
                 return (
                     <tr key={val.id}>
                         <td>{val.Menu}</td>
-                        <td>{val.Deskripsi}</td>
                         <td>{val.urutan}</td>
-                        <td><input type="button" value="Edit" onClick={() => this.getAllMenu(val.id)}/></td>
-                        <td><input type="button" value="Delete"/></td>
+                        <td><input type="button" className='btn btn-info' value="Edit" onClick={() => this.getAllMenu(val.id)}/></td>
+                        <td><input type="button" className='btn btn-danger' value="Delete" onClick={() => this.deleteJadwal(val.id)}/></td>
                     </tr>
                 )
             }
             return (
                 <tr key={val.id}>
                     <td>
-                        <select>
-                            {this.renderPilihanMenu()}
+                        <select onChange={this.getMenuJadwalEdit}>
+                            <option>{val.Menu}</option>
+                            {/* {this.renderPilihanMenu()} */}
                         </select>
                     </td>
-                    <td>{val.Deskripsi}</td>
                     <td>{val.urutan}</td>
-                    <td><input type="button" value="Cancel" onClick={() => this.setState({selectedEditJadwalId: 0})}/></td>
-                    <td><input type="button" value="Save"/></td>
+                    <td><input type="button" className='btn btn-danger' value="Cancel" onClick={() => this.setState({selectedEditJadwalId: 0})}/></td>
+                    <td><input type="button" className='btn btn-success' value="Save" onClick={()=> this.updateJadwalLangganan(this.state.selectedNewMenuEdit, this.state.selectedEditJadwalId)}/></td>
                 </tr>
             )
         })
@@ -235,7 +259,7 @@ class LanggananAdmin extends Component {
 //    }
 
    renderPilihanMenu = () => {
-    // (e) => this.changeMenuJadwalBayangan(e.target.value)
+       console.log(this.state.listAllMenu)
        var jsx = this.state.listAllMenu.map(val => {
             return <option key={val.id} value={val.id}>{val.Menu}</option>
        })
@@ -476,25 +500,68 @@ class LanggananAdmin extends Component {
                             <MDBModalHeader toggle={this.toggle(9)} className="justify-content-center">Jadwal Catering {this.state.selectedProduct.namaPaket}</MDBModalHeader>
                             <MDBModalBody>
                                 <div className='container-fluid'>
-                                    <MDBTable scrollY maxHeight="80vh">
-                                        <MDBTableHead color="success-color">
-                                            <tr>
-                                                <th>Menu</th>
-                                                <th>Deskripsi</th>
-                                                <th>Urutan</th>
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                            </tr>
-                                        </MDBTableHead>
-                                            <MDBTableBody>
-                                                {this.renderJadwalProductEdit()}
-                                        </MDBTableBody>
-                                    </MDBTable>
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>Edit Jadwal</h5>
+                                            <MDBTable scrollY maxHeight="80vh">
+                                                <MDBTableHead color="success-color">
+                                                    <tr>
+                                                        <th>Menu</th>
+                                                        <th>Urutan</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </MDBTableHead>
+                                                    <MDBTableBody>
+                                                        {this.renderJadwalProductEdit()}
+                                                </MDBTableBody>
+                                            </MDBTable>
+                                        </div>
+                                        <div className="col-6">
+                                            <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>Tambah Jadwal</h5>
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    {
+                                                        this.state.listAllMenu === null
+                                                        ?
+                                                        <MDBBtn color="secondary" onClick={() => this.getAllMenu()}>Ambil Dari Menu Tersedia</MDBBtn>   
+                                                        :
+                                                        <div className="row ml-3">
+                                                            <div className="row">
+                                                                <div className="col-12">
+                                                                    <p className="font-weight-bold">Ambil Dari Menu Tersedia</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="row">
+                                                                <div className="col-7 mt-2">
+                                                                    <select onChange={this.getMenuJadwalEdit}>
+                                                                        {this.renderPilihanMenu()}
+                                                                    </select>
+                                                                </div>
+                                                                <div className="col-5">
+                                                                    <MDBBtn color="success">Tambah Jadwal</MDBBtn>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }   
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-12 mt-3 ml-3">
+                                                    <p className="font-weight-bold">Tambah Menu Baru:</p>
+                                                    <label htmlFor="inputPlaceholderEx">Nama Menu</label>
+                                                    <input placeholder="Input Nama Menu" type="text" id="inputPlaceholderEx" className="form-control mb-3"/>
+                                                    <h6 style={{marginBottom: -10}}>Deskripsi</h6>
+                                                    <MDBInput hint="Input Deskripsi Paket" type="textarea" outline/>
+                                                    <MDBBtn color="success">Tambah Jadwal</MDBBtn>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </MDBModalBody>
                             <MDBModalFooter>
                             <MDBBtn color="secondary" onClick={this.toggle(9)}>Close</MDBBtn>
-                            <MDBBtn color="primary">Save changes</MDBBtn>
                             </MDBModalFooter>
                         </MDBModal>
                     </>
