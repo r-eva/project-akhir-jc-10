@@ -43,5 +43,52 @@ module.exports = {
             }
             res.status(200).send(result)
         })
+    },
+    addConnection: (req, res) => {
+        var connectionTambahan = req.body
+        var sql = `INSERT INTO connection_table SET ?;`
+            sqlDB.query(sql, [connectionTambahan], (err, results) => {
+                if(err) {
+                    return res.status(500).send(err)
+                }
+                res.status(200).send(results)
+            })
+    },
+    addMenuBaruDanConnection: (req, res) => {
+
+        var dataMenu = {
+            Menu: req.body.Menu,
+            Deskripsi: req.body.Deskripsi
+        }
+
+        var sql = `INSERT INTO all_menu SET ?;`
+        sqlDB.query(sql, [dataMenu], (err, results) => {
+            if(err) {
+                return res.status(500).send(err)
+            }
+
+            var sql = `SELECT MAX(id) as maximum FROM all_menu;`
+            sqlDB.query(sql, (err, hasil) => {
+                if(err) {
+                    return res.status(500).send(err)
+                }
+                var idMenuInput = hasil[0].maximum
+
+                var dataConnection = {
+                    idMenu: idMenuInput,
+                    idKategori: req.body.idKategori,
+                    urutan: req.body.urutan
+                }
+  
+                var sql = `INSERT INTO connection_table SET ?;`
+                sqlDB.query(sql, [dataConnection], (err, results) => {
+   
+                    if(err) {
+                        return res.status(500).send(err)
+                    }
+                    res.status(200).send(results)
+                })
+            })
+        })
     }
 }

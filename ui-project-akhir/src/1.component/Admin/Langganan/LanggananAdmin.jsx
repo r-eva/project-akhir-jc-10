@@ -4,6 +4,7 @@ import { urlApi } from '../../../helpers/database'
 import { connect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import './LanggananAdmin.css'
+import ManagePaketBaru from './ManagePaketBaru'
 import { MDBTableHead, MDBTable, MDBTableBody, MDBInput, MDBBtn, MDBIcon,
         MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter} from 'mdbreact'
 
@@ -20,14 +21,14 @@ class LanggananAdmin extends Component {
         inputDeskripsiEdit: false,
         listJadwal: [],
         modal9: false,
-        inputNamaPaketAdd: false,
-        inputHargaAdd: false,
-        inputDiscountAdd: false,
-        inputDeskripsAdd: false,
-        imageLanggananAdd: false,
         selectedEditJadwalId: 0,
         selectedNewMenuEdit: null,
-        listAllMenu: null
+        listAllMenu: [],
+        tambahJadwalClick: false,
+        listAllMenuTambahJadwal: null,
+        selectedNewMenu: null,
+        inputNamaMenuBaru: null,
+        inputDeskripsiMenu: null
     }
 
     toggle = nr => () => {
@@ -38,10 +39,6 @@ class LanggananAdmin extends Component {
       }
 
     componentDidMount(){
-        this.getDataPaket()
-    }
-    
-    componentDidUpdate(){
         this.getDataPaket()
     }
 
@@ -64,11 +61,23 @@ class LanggananAdmin extends Component {
         this.setState({selectedEditJadwalId: id})
     }
 
+    getAllMenuTambahJadwal = (id) => {
+        Axios.get(urlApi + 'jadwal/getallmenu')
+        .then((res) => {
+            this.setState({listAllMenuTambahJadwal: res.data, tambahJadwalClick: true})
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     getMenuJadwalEdit = (e) => {
-        console.log(e.target.value)
         this.setState({selectedNewMenuEdit: e.target.value})
     }
 
+    getMenuTambahJadwal = (e) => {
+        this.setState({selectedNewMenu: e.target.value})
+    }
+    
     ////////////////////////////////////////////////////FUNGSI BAYANGAN//////////////////////////////////////////
     detailProductClicked = (selectedProduct) => {
         Axios.get(urlApi + 'jadwal/getJadwalByIdPaket/' + selectedProduct.id)
@@ -176,7 +185,6 @@ class LanggananAdmin extends Component {
         }).catch((err)=> {
             console.log(err)
         })
-        console.log(menuBaru, idConnectionTable)
     }
 
     deleteJadwal = (idConnection) => {
@@ -189,9 +197,42 @@ class LanggananAdmin extends Component {
         })
     }
 
+    tambahJadwalMenuBaru = () => {
+        var obj = {
+            idMenu: this.state.selectedNewMenu,
+            idKategori: this.state.selectedProduct.id,
+            urutan: this.state.listJadwal[(this.state.listJadwal.length - 1)].urutan + 1
+        }
+
+        Axios.post(urlApi + 'jadwal/addConnection/', obj)
+        .then((res)=>{
+            this.detailProductClicked(this.state.selectedProduct)
+            this.setState({tambahJadwalClick: false})
+        }).catch((err)=> {
+            console.log(err)
+        })
+
+    }
+
+    tambahMenuDanJadwal = () => {
+        var obj = {
+            Menu: this.state.inputNamaMenuBaru,
+            Deskripsi: this.state.inputDeskripsiMenu,
+            idKategori: this.state.selectedProduct.id,
+            urutan: this.state.listJadwal[(this.state.listJadwal.length - 1)].urutan + 1
+        }
+        Axios.post(urlApi + 'jadwal/addMenuBaruDanConnection', obj)
+        .then((res)=>{
+            this.detailProductClicked(this.state.selectedProduct)
+            this.setState({inputNamaMenuBaru: null, inputDeskripsiMenu: null})
+        }).catch((err)=> {
+            console.log(err)
+        })
+    }
+
     /////////////////////////////////////////RENDER FUNCTION///////////////////////////////////////////////////////////////
     renderProduct = () => {
-        var jsx = this.state.listPaket.map(val => {
+        return this.state.listPaket.map(val => {
             return (
                 <tr key={val.id} className='text-dark' style={{cursor: 'pointer'}}  onClick={() => this.detailProductClicked(val)}>
                     <td>{val.id}</td>
@@ -202,7 +243,6 @@ class LanggananAdmin extends Component {
                 </tr>
             )
         })
-        return jsx
     }
 
    renderJadwalProduct = () => {
@@ -235,7 +275,7 @@ class LanggananAdmin extends Component {
                     <td>
                         <select onChange={this.getMenuJadwalEdit}>
                             <option>{val.Menu}</option>
-                            {/* {this.renderPilihanMenu()} */}
+                            {this.renderPilihanMenu()}
                         </select>
                     </td>
                     <td>{val.urutan}</td>
@@ -247,24 +287,19 @@ class LanggananAdmin extends Component {
         return jsx
    }
 
-//    renderJadwalProductAdd = () => {
-//         var jsx = this.state.listAllMenu.map(val => {
-//                 return (
-//                     <select>
-//                         <option key={val.id} value={val.id} onClick={()=> alert(`s`)}>{val.Menu}</option>
-//                     </select>
-//                 )
-//         })
-//         return jsx
-//    }
-
    renderPilihanMenu = () => {
-       console.log(this.state.listAllMenu)
        var jsx = this.state.listAllMenu.map(val => {
             return <option key={val.id} value={val.id}>{val.Menu}</option>
        })
        return jsx
    }
+
+   renderPilihanMenuUntukTambah = () => {
+    var jsx = this.state.listAllMenuTambahJadwal.map(val => {
+         return <option key={val.id} value={val.id}>{val.Menu}</option>
+    })
+    return jsx
+    }
 
     render() {
         if (this.props.role !== 'admin' || this.props.role === '')
@@ -323,7 +358,7 @@ class LanggananAdmin extends Component {
                                         </div>
                                         <div className="row my-3 ml-3 justify-content-center">
                                             <div className="row pl-1">
-                                                <div className="col-4 mx-4">
+                                                <div className="col-4">
                                                     <div className="row">
                                                         <img src={`${urlApi}${this.state.selectedProduct.imagePath}`} style={{
                                                             width:'450px', height: '300px', borderRadius: '4px',
@@ -412,9 +447,6 @@ class LanggananAdmin extends Component {
                                                                     </MDBTableHead>
                                                                     <MDBTableBody>
                                                                         {this.renderJadwalProduct()}
-                                                                        {/* <tr>
-                                                                            <td>{this.renderJadwalProductAdd()}</td>
-                                                                        </tr> */}
                                                                     </MDBTableBody>
                                                                 </MDBTable>
                                                             </div>
@@ -441,57 +473,7 @@ class LanggananAdmin extends Component {
                         null
                     }
                 </div>
-                <div className="mb-5">
-                    <div className="row m-3">
-                        <div className="col-12">
-                            <div className="card">
-                                <div className="card-header text-center bg-info">
-                                    <h3>ADD PRODUCT LANGGANAN</h3>
-                                </div>
-                                <div className="card-body mx-3">
-                                    <div className="row justify-content-center">
-                                        <div className="col-12 col-md-4">
-                                            <label htmlFor="inputPlaceholderEx">Nama Paket</label>
-                                            <input placeholder="Input Nama Paket" type="text" id="inputPlaceholderEx" className="form-control"  onChange={(e) => this.setState({inputNamaPaketAdd: e.target.value})}/>
-                                        </div>
-                                        <div className="col-4">
-                                            <label htmlFor="inputPlaceholderEx1">Harga Paket</label>
-                                            <input placeholder="Input Harga Paket" type="text" id="inputPlaceholderEx1" className="form-control" onChange={(e)=> this.setState({inputHargaAdd: parseInt(e.target.value)})}/>
-                                        </div>
-                                        <div className="col-4">
-                                            <label htmlFor="inputPlaceholderEx2">Discount</label>
-                                            <input placeholder="Input Discount Paket (optional)" type="text" id="inputPlaceholderEx2" className="form-control" onChange={(e) => this.setState({inputDiscountAdd: e.target.value})}/>
-                                        </div>
-                                    </div>
-                                    <div className="row justify-content-center mt-4">
-                                        <div className="col-5">
-                                            <h6 style={{marginBottom: -10}}>Deskripsi</h6>
-                                            <MDBInput hint="Input Deskripsi Paket" type="textarea" onChange={(e)=> this.setState({inputDeskripsiAdd: e.target.value})} outline/>
-                                        </div>
-                                        <div className="col-7">
-                                            <h6 className="mb-3">Upload Image</h6>
-                                            <div className="row">
-                                                <div className="col">
-                                                    <input type="file" onChange={this.imageLanggananAdd}/>
-                                                </div>
-                                                <div className="col">
-                                                    <input type="button" value="Upload" className="btn btn-success btn-block"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div>
-                                                <h5>Jadwal Catering</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ManagePaketBaru/>
                 {
                     this.state.selectedProduct
                     ?
@@ -522,9 +504,9 @@ class LanggananAdmin extends Component {
                                             <div className="row">
                                                 <div className="col-12">
                                                     {
-                                                        this.state.listAllMenu === null
+                                                        this.state.tambahJadwalClick === false
                                                         ?
-                                                        <MDBBtn color="secondary" onClick={() => this.getAllMenu()}>Ambil Dari Menu Tersedia</MDBBtn>   
+                                                        <MDBBtn color="secondary" onClick={() => this.getAllMenuTambahJadwal()}>Ambil Dari Menu Tersedia</MDBBtn>   
                                                         :
                                                         <div className="row ml-3">
                                                             <div className="row">
@@ -534,12 +516,13 @@ class LanggananAdmin extends Component {
                                                             </div>
                                                             <div className="row">
                                                                 <div className="col-7 mt-2">
-                                                                    <select onChange={this.getMenuJadwalEdit}>
-                                                                        {this.renderPilihanMenu()}
+                                                                    <select onChange={this.getMenuTambahJadwal}>
+                                                                        <option>Mohon Pilih Menu</option>
+                                                                        {this.renderPilihanMenuUntukTambah()}
                                                                     </select>
                                                                 </div>
                                                                 <div className="col-5">
-                                                                    <MDBBtn color="success">Tambah Jadwal</MDBBtn>
+                                                                    <MDBBtn color="success" onClick={this.tambahJadwalMenuBaru}>Tambah Jadwal</MDBBtn>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -550,10 +533,10 @@ class LanggananAdmin extends Component {
                                                 <div className="col-12 mt-3 ml-3">
                                                     <p className="font-weight-bold">Tambah Menu Baru:</p>
                                                     <label htmlFor="inputPlaceholderEx">Nama Menu</label>
-                                                    <input placeholder="Input Nama Menu" type="text" id="inputPlaceholderEx" className="form-control mb-3"/>
+                                                    <input placeholder="Input Nama Menu" type="text" id="inputPlaceholderEx" className="form-control mb-3" onChange={(e) => this.setState({inputNamaMenuBaru: e.target.value})}/>
                                                     <h6 style={{marginBottom: -10}}>Deskripsi</h6>
-                                                    <MDBInput hint="Input Deskripsi Paket" type="textarea" outline/>
-                                                    <MDBBtn color="success">Tambah Jadwal</MDBBtn>
+                                                    <MDBInput hint="Input Deskripsi Paket" type="textarea" outline onChange={(e) => this.setState({inputDeskripsiMenu: e.target.value})}/>
+                                                    <MDBBtn color="success" onClick={this.tambahMenuDanJadwal}>Tambah Jadwal</MDBBtn>
                                                 </div>
                                             </div>
                                         </div>
