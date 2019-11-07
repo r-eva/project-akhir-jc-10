@@ -2,7 +2,7 @@ const { sqlDB } = require('../database')
 
 module.exports = {
     getJadwalByIdPaket: (req, res) => {
-        var sql = `SELECT kl.namaPaket, am.Menu, am.Deskripsi, ct.urutan
+        var sql = `SELECT *
                     FROM kategori_langganan kl
                     JOIN all_menu am
                     JOIN connection_table ct
@@ -10,6 +10,15 @@ module.exports = {
                     WHERE kl.id = ${sqlDB.escape(req.params.id)}
                     ORDER BY ct.urutan`
                     
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
+    },
+    getAllMenu: (req, res) => {
+        var sql = 'SELECT * from all_menu'
         sqlDB.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send(err)

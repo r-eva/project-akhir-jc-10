@@ -25,7 +25,8 @@ class LanggananAdmin extends Component {
         inputDiscountAdd: false,
         inputDeskripsAdd: false,
         imageLanggananAdd: false,
-        selectedEditJadwalId: 0
+        selectedEditJadwalId: 0,
+        listAllMenu: []
     }
 
     toggle = nr => () => {
@@ -52,6 +53,18 @@ class LanggananAdmin extends Component {
         })
     }
 
+    getAllMenu = (id) => {
+        Axios.get(urlApi + 'jadwal/getallmenu')
+        .then((res) => {
+            this.setState({listAllMenu: res.data})
+        }).catch((err) => {
+            console.log(err)
+        })
+        this.setState({selectedEditJadwalId: id})
+    }
+
+
+    ////////////////////////////////////////////////////FUNGSI BAYANGAN//////////////////////////////////////////
     detailProductClicked = (selectedProduct) => {
         Axios.get(urlApi + 'jadwal/getJadwalByIdPaket/' + selectedProduct.id)
         .then((res)=>{
@@ -79,6 +92,11 @@ class LanggananAdmin extends Component {
         }
     }
 
+    changeMenuJadwalBayangan = (id) => {
+        console.log(id)
+    }
+
+    //////////////////////////////////////////////////// FUNGSI UTAMA KE BACKEND ////////////////////////////////////////////////
     onBtnAddImageLanggananClick = (id) => {
         if(this.state.imageLanggananNew) {
             var formdata = new FormData();
@@ -177,23 +195,22 @@ class LanggananAdmin extends Component {
 
    renderJadwalProductEdit = () => {
         var jsx = this.state.listJadwal.map(val => {
-            if (val.urutan !== this.state.selectedEditId) {
+            if (val.id !== this.state.selectedEditJadwalId) {
                 return (
-                    <tr key={val.urutan}>
+                    <tr key={val.id}>
                         <td>{val.Menu}</td>
                         <td>{val.Deskripsi}</td>
                         <td>{val.urutan}</td>
-                        <td><input type="button" value="Edit" onClick={() => this.setState({selectedEditJadwalId: val.urutan})}/></td>
+                        <td><input type="button" value="Edit" onClick={() => this.getAllMenu(val.id)}/></td>
                         <td><input type="button" value="Delete"/></td>
                     </tr>
                 )
             }
             return (
-                <tr key={val.urutan}>
+                <tr key={val.id}>
                     <td>
                         <select>
-                            <option>1</option>
-                            <option>2</option>
+                            {this.renderPilihanMenu()}
                         </select>
                     </td>
                     <td>{val.Deskripsi}</td>
@@ -204,6 +221,25 @@ class LanggananAdmin extends Component {
             )
         })
         return jsx
+   }
+
+//    renderJadwalProductAdd = () => {
+//         var jsx = this.state.listAllMenu.map(val => {
+//                 return (
+//                     <select>
+//                         <option key={val.id} value={val.id} onClick={()=> alert(`s`)}>{val.Menu}</option>
+//                     </select>
+//                 )
+//         })
+//         return jsx
+//    }
+
+   renderPilihanMenu = () => {
+    // (e) => this.changeMenuJadwalBayangan(e.target.value)
+       var jsx = this.state.listAllMenu.map(val => {
+            return <option key={val.id} value={val.id}>{val.Menu}</option>
+       })
+       return jsx
    }
 
     render() {
@@ -352,6 +388,9 @@ class LanggananAdmin extends Component {
                                                                     </MDBTableHead>
                                                                     <MDBTableBody>
                                                                         {this.renderJadwalProduct()}
+                                                                        {/* <tr>
+                                                                            <td>{this.renderJadwalProductAdd()}</td>
+                                                                        </tr> */}
                                                                     </MDBTableBody>
                                                                 </MDBTable>
                                                             </div>
