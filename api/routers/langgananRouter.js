@@ -8,5 +8,7 @@ router.get('/getKategoriLanggananById/:id', langgananController.getKategoriLangg
 router.put('/addImageLangganan/:id', langgananController.addImageLangganan)
 router.put('/editImageLanggananById/:id', langgananController.editImageLanggananById)
 router.put('/editLanggananById/:id', langgananController.editLanggananById)
+router.post('/addLanggananJadwalLama/', langgananController.addLanggananJadwalLama)
+router.post('/addLanggananJadwalBaru/', langgananController.addLanggananJadwalBaru)
 
 module.exports = router

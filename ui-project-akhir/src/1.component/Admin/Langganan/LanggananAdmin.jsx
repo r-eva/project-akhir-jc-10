@@ -7,6 +7,7 @@ import './LanggananAdmin.css'
 import ManagePaketBaru from './ManagePaketBaru'
 import { MDBTableHead, MDBTable, MDBTableBody, MDBInput, MDBBtn, MDBIcon,
         MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter} from 'mdbreact'
+import swal from 'sweetalert'
 
 class LanggananAdmin extends Component {
     state = {
@@ -98,14 +99,6 @@ class LanggananAdmin extends Component {
         }
     }
 
-    imageLanggananAdd = (e) => {
-        if(e.target.files[0]) {
-            this.setState({ imageLanggananAdd: e.target.files })
-        } else {
-            this.setState({ imageLanggananAdd: null })
-        }
-    }
-
 
     //////////////////////////////////////////////////// FUNGSI UTAMA KE BACKEND ////////////////////////////////////////////////
     onBtnAddImageLanggananClick = (id) => {
@@ -172,7 +165,6 @@ class LanggananAdmin extends Component {
        .catch((err) => {
            console.log(err)
        })
-       console.log(obj)
     }
 
     updateJadwalLangganan = (menuBaru, idConnectionTable) => {
@@ -227,7 +219,11 @@ class LanggananAdmin extends Component {
             this.detailProductClicked(this.state.selectedProduct)
             this.setState({inputNamaMenuBaru: null, inputDeskripsiMenu: null})
         }).catch((err)=> {
-            console.log(err)
+            if (err.response.data.message) {
+                swal ('Eror', `${err.response.data.message}`, 'error')
+            } else {
+                console.log(err)
+            }
         })
     }
 
@@ -350,11 +346,11 @@ class LanggananAdmin extends Component {
                                             </div>
                                             <div className="col-4">
                                                 <label htmlFor="inputPlaceholderEx1">Harga Paket</label>
-                                                <input placeholder={this.state.selectedProduct.harga} type="text" id="inputPlaceholderEx1" className="form-control" onChange={(e)=> this.setState({inputHargaEdit: parseInt(e.target.value)})}/>
+                                                <input placeholder={this.state.selectedProduct.harga} type="number" id="inputPlaceholderEx1" className="form-control" onChange={(e)=> this.setState({inputHargaEdit: parseInt(e.target.value)})}/>
                                             </div>
                                             <div className="col-4">
                                                 <label htmlFor="inputPlaceholderEx2">Discount</label>
-                                                <input placeholder={this.state.selectedProduct.discount} type="text" id="inputPlaceholderEx2" className="form-control" onChange={(e) => this.setState({inputDiscountEdit: e.target.value})}/>
+                                                <input placeholder={this.state.selectedProduct.discount} type="number" id="inputPlaceholderEx2" className="form-control" onChange={(e) => this.setState({inputDiscountEdit: e.target.value})}/>
                                             </div>
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">
@@ -484,7 +480,7 @@ class LanggananAdmin extends Component {
                             <MDBModalBody>
                                 <div className='container-fluid'>
                                     <div className="row">
-                                        <div className="col-6">
+                                        <div className="col-7">
                                             <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>Edit Jadwal</h5>
                                             <MDBTable scrollY maxHeight="80vh">
                                                 <MDBTableHead color="success-color">
@@ -500,7 +496,7 @@ class LanggananAdmin extends Component {
                                                 </MDBTableBody>
                                             </MDBTable>
                                         </div>
-                                        <div className="col-6">
+                                        <div className="col-5">
                                             <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>Tambah Jadwal</h5>
                                             <div className="row">
                                                 <div className="col-12">
@@ -516,7 +512,7 @@ class LanggananAdmin extends Component {
                                                                 </div>
                                                             </div>
                                                             <div className="row">
-                                                                <div className="col-7 mt-2">
+                                                                <div className="col-7 mt-2 mr-1">
                                                                     <select onChange={this.getMenuTambahJadwal}>
                                                                         <option>Mohon Pilih Menu</option>
                                                                         {this.renderPilihanMenuUntukTambah()}
@@ -545,7 +541,7 @@ class LanggananAdmin extends Component {
                                 </div>
                             </MDBModalBody>
                             <MDBModalFooter>
-                            <MDBBtn color="secondary" onClick={this.toggle(9)}>Close</MDBBtn>
+                            <MDBBtn color="secondary" onClick={this.toggle(9)}>OK</MDBBtn>
                             </MDBModalFooter>
                         </MDBModal>
                     </>

@@ -55,38 +55,45 @@ module.exports = {
             })
     },
     addMenuBaruDanConnection: (req, res) => {
-
         var dataMenu = {
             Menu: req.body.Menu,
             Deskripsi: req.body.Deskripsi
         }
 
-        var sql = `INSERT INTO all_menu SET ?;`
-        sqlDB.query(sql, [dataMenu], (err, results) => {
-            if(err) {
-                return res.status(500).send(err)
+        var sql = `SELECT * FROM all_menu WHERE LOWER(Menu) LIKE LOWER('%${dataMenu.Menu}%');`
+        sqlDB.query(sql, (err, result) => {
+            if (err) return res.status(500).send({message: `Database Error`, err})
+            if (result.length > 0) {
+                return res.status(500).send({message: `Menu sudah ada, mohon cek kembali!`, err})
             }
 
-            var sql = `SELECT MAX(id) as maximum FROM all_menu;`
-            sqlDB.query(sql, (err, hasil) => {
+            var sql = `INSERT INTO all_menu SET ?;`
+            sqlDB.query(sql, [dataMenu], (err, results) => {
                 if(err) {
                     return res.status(500).send(err)
                 }
-                var idMenuInput = hasil[0].maximum
 
-                var dataConnection = {
-                    idMenu: idMenuInput,
-                    idKategori: req.body.idKategori,
-                    urutan: req.body.urutan
-                }
-  
-                var sql = `INSERT INTO connection_table SET ?;`
-                sqlDB.query(sql, [dataConnection], (err, results) => {
-   
+                var sql = `SELECT MAX(id) as maximum FROM all_menu;`
+                sqlDB.query(sql, (err, hasil) => {
                     if(err) {
                         return res.status(500).send(err)
                     }
-                    res.status(200).send(results)
+                    var idMenuInput = hasil[0].maximum
+
+                    var dataConnection = {
+                        idMenu: idMenuInput,
+                        idKategori: req.body.idKategori,
+                        urutan: req.body.urutan
+                    }
+    
+                    var sql = `INSERT INTO connection_table SET ?;`
+                    sqlDB.query(sql, [dataConnection], (err, results) => {
+    
+                        if(err) {
+                            return res.status(500).send(err)
+                        }
+                        res.status(200).send(results)
+                    })
                 })
             })
         })
