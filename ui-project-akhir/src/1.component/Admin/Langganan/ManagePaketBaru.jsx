@@ -48,16 +48,18 @@ class ManagePaketBaru extends Component {
     ///////////////////////////////////////////FUNCTION TO BACKEND //////////////////////////////////////77
 
     tambahPaketLanggananDanJadwal = () => {
-        
+        var data
+        var formdata
+        var options
         if (this.state.tambahJadwalDariMenuClick) {
             if ( this.state.inputNamaPaketAdd && this.state.inputHargaAdd && this.state.inputDiscountAdd && this.state.imageLanggananAdd && this.state.selectedNewMenu !== '') {
-                
-                
-                
-                
-                
-                
-                var objDariMenu = {
+                formdata = new FormData();
+                options = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                data = {
                     namaPaket: this.state.inputNamaPaketAdd,
                     harga: parseInt(this.state.inputHargaAdd),
                     discount: parseInt(this.state.inputDiscountAdd),
@@ -65,9 +67,11 @@ class ManagePaketBaru extends Component {
                     imagePath: this.state.imageLanggananAdd,
                     idMenu: this.state.selectedNewMenu
                 }
-                console.log(objDariMenu)
+                
+                formdata.append('image', this.state.imageLanggananAdd[0])
+                formdata.append('data', JSON.stringify(data))
     
-                Axios.post(urlApi + 'langganan/addLanggananJadwalLama/', objDariMenu)
+                Axios.post(urlApi + 'langganan/addLanggananJadwalLama/', formdata, options)
                 .then((res) => {
                     this.setState({
                         inputNamaPaketAdd: false, inputHargaAdd: false, inputDiscountAdd: false,
@@ -75,7 +79,9 @@ class ManagePaketBaru extends Component {
                         tambahJadwalDariMenuClick: false, listAllMenuTambahJadwal: [],
                         inputNamaMenuBaru: '', inputDeskripsiMenu: '', selectedNewMenu: ''
                     })
+                    window.location.reload()
                 }).catch((err) => {
+                    swal ('Eror', `${err.response.data.message}`, 'error')
                     console.log(err)
                 })
     
@@ -84,20 +90,46 @@ class ManagePaketBaru extends Component {
             }
 
         } else {
-            var objMenuBaru = {
-                namaPaket: this.state.inputNamaPaketAdd,
-                harga: parseInt(this.state.inputHargaAdd),
-                discount: parseInt(this.state.inputDiscountAdd),
-                deskripsi: this.state.inputDeskripsiAdd,
-                imagePath: this.state.imageLanggananAdd,
-                Menu: this.state.inputNamaMenuBaru,
-                Deskripsi: this.state.inputDeskripsiMenu
-            }
-            console.log(objMenuBaru)
-        }
+            if ( this.state.inputNamaPaketAdd && this.state.inputHargaAdd && this.state.inputDiscountAdd
+                && this.state.imageLanggananAdd && this.state.inputNamaMenuBaru !== '' && this.state.inputDeskripsiMenu !== '') {
+                
+                formdata = new FormData();
+                options = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                
+                data = {
+                    namaPaket: this.state.inputNamaPaketAdd,
+                    harga: parseInt(this.state.inputHargaAdd),
+                    discount: parseInt(this.state.inputDiscountAdd),
+                    deskripsi: this.state.inputDeskripsiAdd,
+                    Menu: this.state.inputNamaMenuBaru,
+                    Deskripsi: this.state.inputDeskripsiMenu
+                }
 
-        
-        
+                formdata.append('image', this.state.imageLanggananAdd[0])
+                formdata.append('data', JSON.stringify(data))
+                
+                Axios.post(urlApi + 'langganan/addLanggananJadwalBaru/', formdata, options)
+                .then((res) => {
+                    this.setState({
+                        inputNamaPaketAdd: false, inputHargaAdd: false, inputDiscountAdd: false,
+                        inputDeskripsAdd: false, imageLanggananAdd: false, tambahJadwal: false,
+                        tambahJadwalDariMenuClick: false, listAllMenuTambahJadwal: [],
+                        inputNamaMenuBaru: '', inputDeskripsiMenu: '', selectedNewMenu: ''
+                    })
+                    window.location.reload()
+                }).catch((err) => {
+                    swal ('Eror', `${err.response.data.message}`, 'error')
+                    console.log(err)
+                })
+
+            } else {
+                swal ('Eror', 'Mohon input seluruh data yang diperlukan!', 'error')
+            }
+        }
     }
 
     /////////////////////////////////////////// RENDER FUNCTION ///////////////////////////////////////////

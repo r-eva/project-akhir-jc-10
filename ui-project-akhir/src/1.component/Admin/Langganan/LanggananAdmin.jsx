@@ -335,8 +335,17 @@ class LanggananAdmin extends Component {
                         <div className="row mt-3 mb-5 mr-3 ml-3">
                             <div className="col-12">
                                 <div className="card">
-                                    <div className="card-header text-center bg-info">
-                                        <h3>MANAGE PRODUCT LANGGANAN</h3>
+                                    <div className="card-header bg-info">
+                                        <div className="row">
+                                            <div className="col-12 text-right">
+                                                <input type="button" value="Cancel" className="btn btn-danger btn-sm" onClick={() => this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})}/>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12 text-center">
+                                                <h3>MANAGE PRODUCT LANGGANAN</h3>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="card-body">
                                         <div className="row justify-content-center mb-4 ml-3 mr-4">
@@ -454,12 +463,12 @@ class LanggananAdmin extends Component {
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">
                                             <div className="col-12">
-                                                <input type="button" value="Cancel" className="btn btn-danger btn-block" onClick={() => this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})}/>
+                                                <input type="button" value="HAPUS PAKET INI" className="btn btn-danger btn-block font-weight-bolder"/>
                                             </div>
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">
                                             <div className="col-12">
-                                                <input type="button" value="SAVE UPDATE PRODUCT" className="btn btn-success btn-block" onClick={() => this.saveEditingLangganan(this.state.selectedProduct)}/>
+                                                <input type="button" value="SAVE UPDATE PRODUCT" className="btn btn-success btn-block font-weight-bolder" onClick={() => this.saveEditingLangganan(this.state.selectedProduct)}/>
                                             </div>
                                         </div>
                                     </div>
