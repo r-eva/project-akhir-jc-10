@@ -4,6 +4,7 @@ const jadwalRouter = require('./jadwalRouter')
 const cartRouter = require('./cartRouter')
 const historyRouter = require('./historyRouter')
 const adminDasboardRouter = require('./adminDasboardRouter')
+const jadwalAdminRouter = require('./jadwalAdminRouter')
 
 module.exports = {
     userRouter,
@@ -11,5 +12,6 @@ module.exports = {
     jadwalRouter,
     cartRouter,
     historyRouter,
-    adminDasboardRouter
+    adminDasboardRouter,
+    jadwalAdminRouter
 }

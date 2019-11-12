@@ -43,7 +43,14 @@ class Navigation extends Component {
                     opacity: "0.9",
                     filter: "alpha(opacity=50)"
                 }}>
-                    <Link to="/" className="d-md-none"><img src={logo} width={160} alt='LinkMain'/></Link>
+                    {
+                        this.props.user.role === 'admin'
+                        ?
+                        <Link to="/jadwalAdmin" className="d-md-none"><img src={logo} width={160} alt='LinkMain'/></Link>
+                        :
+                        <Link to="/" className="d-md-none"><img src={logo} width={160} alt='LinkMain'/></Link>
+                    }
+                    
                     <NavbarToggler onClick={this.toggleNavbar}/>
                     
                     {/* Show this on md to lg screen */}
@@ -84,7 +91,14 @@ class Navigation extends Component {
                                 </>
                             }
                         </Nav>
-                        <Link to ="/" className="d-none d-md-block justify-content-between"><img src={logo} width={200} alt='LinkMain'/></Link>
+                        {
+                            this.props.user.role === 'admin'
+                            ?
+                            <Link to ="/jadwalAdmin" className="d-none d-md-block justify-content-between"><img src={logo} width={200} alt='LinkMain'/></Link>
+                            :
+                            <Link to ="/" className="d-none d-md-block justify-content-between"><img src={logo} width={200} alt='LinkMain'/></Link>
+                        }
+                        
                         <Nav className="ml-auto font-weight-bold" navbar>
                             {
                                 this.props.user.username !== ''

@@ -61,28 +61,28 @@ class AdminDashboard extends Component {
         if (this.props.role !== 'admin')
         return <Redirect to="/" exact/>
         return (
-            <div className="container pt-5 mt-5">
-                <br/>
-                <br/>
-                <div className="card mb-5">
-                    <div className="card-header text-center bg-danger">
-                        <h3>Transaksi Menunggu Konfirmasi</h3>
-                    </div>
-                    <div className="card-body">
-                        <MDBTable hover className="text-white" scrollY maxHeight="60vh">
-                            <MDBTableHead color="secondary-color text-center">
-                                <tr>
-                                    <th>Username/UserID</th>
-                                    <th>Tanggal Transaksi</th>
-                                    <th>Total Belanja</th>
-                                    <th>Bukti Pembayaran</th>
-                                    <th>Konfirmasi Pembayaran</th>
-                                </tr>
-                            </MDBTableHead>
-                            <MDBTableBody>
-                                 {this.renderTransaksiMenunggu()}           
-                            </MDBTableBody>
-                        </MDBTable>
+            <div className="container pt-md-5 mt-5">
+                <div className="mt-md-5 pt-md-3">
+                    <div className="card mb-5">
+                        <div className="card-header text-center bg-danger">
+                            <h3>Transaksi Menunggu Konfirmasi</h3>
+                        </div>
+                        <div className="card-body">
+                            <MDBTable hover className="text-white" scrollY maxHeight="60vh">
+                                <MDBTableHead color="secondary-color text-center">
+                                    <tr>
+                                        <th>Username/UserID</th>
+                                        <th>Tanggal Transaksi</th>
+                                        <th>Total Belanja</th>
+                                        <th>Bukti Pembayaran</th>
+                                        <th>Konfirmasi Pembayaran</th>
+                                    </tr>
+                                </MDBTableHead>
+                                <MDBTableBody>
+                                    {this.renderTransaksiMenunggu()}           
+                                </MDBTableBody>
+                            </MDBTable>
+                        </div>
                     </div>
                 </div>
             </div>

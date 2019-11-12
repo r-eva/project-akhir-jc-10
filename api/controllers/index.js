@@ -4,6 +4,7 @@ const jadwalController = require('./jadwalController')
 const cartController = require('./cartController')
 const historyController = require('./historyController')
 const adminDasboardController = require('./AdminDasboardController')
+const JadwalAdminController = require('./JadwalAdminController')
 
 module.exports = {
     userController,
@@ -11,5 +12,6 @@ module.exports = {
     jadwalController,
     cartController,
     historyController,
-    adminDasboardController
+    adminDasboardController,
+    JadwalAdminController
 }

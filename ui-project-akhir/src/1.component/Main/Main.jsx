@@ -21,10 +21,14 @@ import Javanese from '../../fotoku/javaneseCuisine.jpg'
 import BerryDessert from '../../fotoku/berryDessert.jpeg'
 import SweetManggo from '../../fotoku/dessert.jpeg'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 class Main extends Component {
 
     render() {
+        if(this.props.user.role === 'admin')
+        return <Redirect to="/jadwalAdmin" exact/>
         return (
             <div>
                 {/* TAGLINE */}
@@ -328,4 +332,8 @@ class Main extends Component {
     }
 }
 
-export default Main;
+const mapStateToProps = ({user}) => {
+    return {user}
+}
+
+export default connect(mapStateToProps)(Main);

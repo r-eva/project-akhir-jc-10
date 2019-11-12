@@ -2,6 +2,24 @@
 	select * FROM kategori_langganan;
     select * from all_menu;
 	select * FROM connection_table;
+    SELECT * FROM all_menu WHERE id NOT IN (SELECT idMenu FROM connection_table);
+    
+    SELECT * from connection_table WHERE idKategori = 26;
+    SELECT ct.idMenu
+    FROM connection_table;
+    
+    SELECT am.Menu, kl.namaPaket, ct.urutan
+    from all_menu am
+    JOIN connection_table ct
+    JOIN kategori_langganan kl
+    on am.id = ct.idMenu && kl.id = ct.idKategori
+    order by kl.namaPaket && ct.urutan;
+    
+    SELECT MAX(am.id) as maximumIdMenu, MAX(kl.id) as maximumIdKategori
+    FROM all_menu am
+    JOIN kategori_langganan kl;
+    
+    SELECT MAX(id) as maximum FROM all_menu;
     SELECT ct.id, am.Menu, am.Deskripsi, ct.urutan
                     FROM kategori_langganan kl
                     JOIN all_menu am
@@ -9,6 +27,7 @@
                     ON ct.idMenu = am.id && ct.idKategori = kl.id
                     WHERE kl.id = 18
                     ORDER BY ct.urutan;
+  
     
     Select * from connection_table where idKategori = 8;
     
@@ -55,7 +74,3 @@ SELECT * FROM cart WHERE idUser = 3;
 
 DROP EVENT event123;
 DROP EVENT event115;
-DROP EVENT event119;
-DROP EVENT event120;
-DROP EVENT event90;
-DROP EVENT event91;

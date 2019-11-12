@@ -5,6 +5,8 @@ import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
 import { MDBJumbotron, MDBCol, MDBCardTitle, MDBBtn, MDBCard, MDBCardImage} from "mdbreact";
 import { Form, FormGroup, Label, Input } from 'reactstrap';
+import {connect} from 'react-redux'
+
 
 class Langganan extends Component {
 
@@ -66,8 +68,8 @@ class Langganan extends Component {
     }
 
     render() {
-        if(this.props.role === 'admin')
-        return <Redirect to="/" exact/>
+        if(this.props.user.role === 'admin')
+        return <Redirect to="/jadwalAdmin" exact/>
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
@@ -173,4 +175,8 @@ class Langganan extends Component {
     }
 }
 
-export default Langganan;
+const mapStateToProps = ({user}) => {
+    return {user}
+}
+
+export default connect(mapStateToProps)(Langganan);

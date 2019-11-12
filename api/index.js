@@ -21,7 +21,8 @@ app.get('/', (req, res) => {
 
 const { userRouter, langgananRouter,
         jadwalRouter, cartRouter,
-        historyRouter, adminDasboardRouter } = require('./routers')
+        historyRouter, adminDasboardRouter,
+        jadwalAdminRouter } = require('./routers')
 
 app.use('/user', userRouter)
 app.use('/langganan', langgananRouter)
@@ -29,5 +30,6 @@ app.use('/jadwal', jadwalRouter)
 app.use('/cart', cartRouter)
 app.use('/history', historyRouter)
 app.use('/admin', adminDasboardRouter)
+app.use('/jadwalAdmin', jadwalAdminRouter)
 
 app.listen(port, () => console.log(`API aktif di port ${port}`))
