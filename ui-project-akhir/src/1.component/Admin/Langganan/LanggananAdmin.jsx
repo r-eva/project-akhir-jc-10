@@ -167,6 +167,47 @@ class LanggananAdmin extends Component {
        })
     }
 
+    onBtnDeletePaketClick = (idPaket, jadwal) => {
+        swal({
+            title: "Anda yakin?",
+            text: "Setelah paket terhapus, anda tidak dapat mengembalikan paket tersebut!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+
+                var deleteObj = {
+                    data: {
+                        idLangganan: idPaket,
+                        jadwalPaket: jadwal
+                    },
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+        
+                Axios.delete(urlApi + 'langganan/hapusPaketLangganan/', deleteObj)
+                .then((res)=>{
+                    this.getDataPaket()
+                    this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})
+                    swal("Selamat! Paket ini telah terhapus!", {
+                        icon: "success",
+                    });
+                }).catch((err)=> {
+                    if (err.response.data.message) {
+                        swal ('Eror', `${err.response.data.message}`, 'error')
+                    } else {
+                        console.log(err)
+                    }
+                })
+            } else {
+              swal("Paket anda tidak terhapus.");
+            }
+        })
+    }
+
     updateJadwalLangganan = (menuBaru, idConnectionTable) => {
         Axios.put(urlApi + 'jadwal/editJadwalById', {
             idMenuBaru: menuBaru,
@@ -463,7 +504,7 @@ class LanggananAdmin extends Component {
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">
                                             <div className="col-12">
-                                                <input type="button" value="HAPUS PAKET INI" className="btn btn-danger btn-block font-weight-bolder"/>
+                                                <input type="button" value="HAPUS PAKET INI" className="btn btn-danger btn-block font-weight-bolder" onClick={() => this.onBtnDeletePaketClick(this.state.selectedProduct.id, this.state.listJadwal)}/>
                                             </div>
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">

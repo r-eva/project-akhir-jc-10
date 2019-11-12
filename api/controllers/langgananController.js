@@ -179,7 +179,7 @@ module.exports = {
                 sqlDB.query(sql, [insertData], (err, results) => {
                     if(err) {
                         fs.unlinkSync('./public' + path + '/' + image[0].filename)
-                        return res.status(500).send({message: `Gagal insert paket langganan!`, err})
+                        return res.status(500).send({message: `Gagal insert paket langganan, mohon periksa kembali image yang anda upload sudah ada!`, err})
                     }
     
                     var sql = `SELECT * FROM all_menu WHERE LOWER(Menu) LIKE LOWER('%${data.Menu}%');`
@@ -241,14 +241,45 @@ module.exports = {
         })
     },
     hapusPaketLangganan: (req, res) => {
-        sql = `SELECT `
 
-        sql = `DELETE FROM kategori_langganan WHERE id=${sqlDB.escape(req.params.id)};`
+        var sql = `SELECT imagePath FROM kategori_langganan WHERE id = ${req.body.idLangganan};`
         sqlDB.query(sql, (err, results) => {
             if(err) {
-                return res.status(500).send({message: `Paket Gagal Dihapus`, err})
+                return res.status(500).send({message: `Gagal menambah jadwal`, err})
             }
-            res.status(200).send(results)
+            
+            fs.unlinkSync('./public' + results[0].imagePath)
+            
+            sql =`DELETE from kategori_langganan WHERE id = ${req.body.idLangganan};
+                DELETE FROM connection_table WHERE idKategori = ${req.body.idLangganan};`
+            
+                sqlDB.query(sql, (err, results) => {
+                if(err) {
+                    return res.status(500).send({message: `Gagal delete Paket Langganan`, err})
+                }
+                    
+                var sql = `SELECT id FROM all_menu WHERE id NOT IN (SELECT idMenu FROM connection_table);`
+                sqlDB.query(sql, (err, results1) => {
+                    if(err) {
+                        return res.status(500).send({message: `Gagal delete Paket Langganan`, err})
+                    }
+
+                    var listId = []
+                    for (i = 0; i < results1.length; i++) {
+                        listId[i] = results1[i].id
+                    }
+
+                    var sql = `DELETE FROM all_menu WHERE id IN (${[...listId]})`
+                    sqlDB.query(sql, (err, results2) => {
+                        if(err) {
+                            return res.status(500).send({message: `Gagal delete all menu`, err})
+                        }
+                        res.status(200).send(results2)
+                    })
+                })
+            })
         })
     }
 }
+
+
