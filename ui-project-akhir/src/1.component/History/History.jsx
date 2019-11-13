@@ -88,7 +88,7 @@ class History extends Component {
                         ?
                         <>  
                             {
-                                val.Status === 'Menunggu Konfirmasi Admin'
+                                val.Status === 'Menunggu Konfirmasi Admin' || val.Status === 'Lunas'
                                 ?
                                 <>
                                 <td><input type="button" className="btn btn-dark btn-block" value="Cancel" disabled/></td>
@@ -140,8 +140,8 @@ class History extends Component {
 
             Axios.put(urlApi + 'history/uploadBuktiPembayaran/' + id, formdata, options)
                 .then(res => {
-                    swal ('Success', 'Upload bukti pembayaran berhasil!', 'success')
                     this.setState({uploadBuktiBayarSuccess: true})
+                    this.submitPembayaranSukses(this.state.belanjaDiproses.id)
                 }).catch(err => {
                     console.log(err.response)
                     swal ('Eror', 'Upload bukti pembayaran gagal!', 'error')
@@ -216,9 +216,7 @@ class History extends Component {
                                         {
                                             this.state.uploadBuktiBayarSuccess === true 
                                             ?
-                                            <div className="row justify-content-end">
-                                                <input type="button" value="OK" className="btn btn-danger" onClick={() => this.submitPembayaranSukses(this.state.belanjaDiproses.id)}/>
-                                            </div>
+                                            null
                                             :
                                             <div className="row justify-content-end">
                                                 <input type="button" value="Upload" className="btn btn-success" onClick={() => this.uploadBuktiBayar(this.state.belanjaDiproses.id)} />

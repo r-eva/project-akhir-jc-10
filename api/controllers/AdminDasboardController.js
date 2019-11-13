@@ -1,4 +1,5 @@
 const { sqlDB } = require('../database')
+const fs = require('fs')
 
 module.exports = {
     getTransaksiMenunggu: (req, res) => {
@@ -17,12 +18,19 @@ module.exports = {
             })
     },
     confirmPembayaran: (req, res) => {
-        var sql =  `UPDATE history SET Status="Lunas" WHERE id=${req.params.id};`
-        sqlDB.query(sql, (err, result) => {
-            if (err) {
-                return res.status(500).send(err)
+        var sql = `SELECT buktiPembayaranPath FROM history WHERE id = ${req.params.id};`
+        sqlDB.query(sql, (err, results) => {
+            if(err) {
+                return res.status(500).send({message: `Gagal menambah jadwal`, err})
             }
-            res.status(200).send(result)
+            fs.unlinkSync('./public' + results[0].buktiPembayaranPath)
+            var sql =  `UPDATE history SET Status="Lunas" WHERE id=${req.params.id};`
+            sqlDB.query(sql, (err, result) => {
+                if (err) {
+                    return res.status(500).send(err)
+                }
+                res.status(200).send(result)
+            })
         })
     }
 }

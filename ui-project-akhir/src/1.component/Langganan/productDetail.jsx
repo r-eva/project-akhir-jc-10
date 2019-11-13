@@ -43,7 +43,7 @@ class productDetail extends Component {
                     }
                 }
             
-            var tanggalHariIni = moment().format("dddd, MMMM Do YYYY")
+            var tgl = moment().format("dddd, MMMM Do YYYY")
             var slicer = Number(new Date().getDate()) - 1
             var jadwalSebulanFixed = loopingJadwal.slice(0, jumlahHariBulanIni)
             var sisaJadwalBulanIni = jadwalSebulanFixed.slice(slicer)
@@ -54,13 +54,11 @@ class productDetail extends Component {
                     var arraySelanjutya = {...sisaJadwalBulanIni[k], tanggal: moment().add(k, 'days').format("dddd, MMMM Do YYYY")}
                     tempJadwalPaketSampaiAkhirBulan.push(arraySelanjutya)
                 } else {
-                    var array1 = {...sisaJadwalBulanIni[0], tanggal: tanggalHariIni}
+                    var array1 = {...sisaJadwalBulanIni[0], tanggal: tgl}
                     tempJadwalPaketSampaiAkhirBulan.push(array1)
                 }
             }
-
             this.setState({jadwalPaketSampaiAkhirBulan: tempJadwalPaketSampaiAkhirBulan})
-
          }).catch((err)=>{
              console.log(err)
          })
@@ -151,7 +149,13 @@ class productDetail extends Component {
                     <div className="row">
                         <div className='col-md-7'>
                             <div>
-                                <img src={`${urlApi}${this.state.dataPaketLangganan.imagePath}`} className="rounded float-left mb-5" alt="Img produk masih kosong" style={{height: '600px', width: '750px'}}/>
+                                {
+                                    this.state.dataPaketLangganan.imagePath !== undefined
+                                    ?
+                                    <img src={`${urlApi}${this.state.dataPaketLangganan.imagePath}`} className="rounded float-left mb-5" alt="Img produk masih kosong" style={{height: '600px', width: '750px'}}/>
+                                    :
+                                    null
+                                }
                             </div>
                             <div>
                                     {

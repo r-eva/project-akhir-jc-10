@@ -11,13 +11,13 @@ import Langganan from './1.component/Langganan/Langganan';
 import Keranjang from './1.component/Keranjang/Keranjang';
 import Register from './1.component/Register/Register';
 import Login from './1.component/Login/Login';
-import AdminDashboard from './1.component/Admin/Transaksi/AdminDashboard'
 import History from './1.component/History/History'
 import LanggananAdmin from './1.component/Admin/Langganan/LanggananAdmin'
 import WaitingEmailVerification from './1.component/Register/WaitingEmailVerification'
 import EmailVerified from './1.component/Register/EmailVerified'
 import ProductDetail from './1.component/Langganan/productDetail'
 import JadwalAdmin from './1.component/Admin/JadwalAdmin/jadwalAdmin'
+import AnaliticTransaksi from './1.component/Admin/Transaksi/Transaksi'
 
 class App extends Component {
     
@@ -49,11 +49,11 @@ class App extends Component {
                     <Route path='/History' component={History} exact/>
                     <Route path='/Register' component={Register} exact/>
                     <Route path='/Login' component={Login} exact/>
-                    <Route path='/admin/dashboard' component={AdminDashboard} exact/>
                     <Route path="/waitingemailverification" component={WaitingEmailVerification} exact />
                     <Route path="/emailverified" component={EmailVerified} exact />
                     <Route path="/product-detail/:id" component={ProductDetail} exact/>
                     <Route path="/jadwalAdmin" component={JadwalAdmin} exact/>
+                    <Route path="/analitikTransaksi" component={AnaliticTransaksi} exact/>
                     <Route path='*' component={Main} />
                 </Switch>
                 <Footer/>

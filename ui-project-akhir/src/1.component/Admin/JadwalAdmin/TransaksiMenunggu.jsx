@@ -44,13 +44,13 @@ class AdminDashboard extends Component {
         var jsx = this.state.listTransaksiMenunggu.map(val => {
             return (
                 <tr key={val.id} className='text-dark text-center' style={{cursor: 'pointer'}}>
-                    <td>{val.username}/{val.UserId}</td>
+                    <td>{val.UserId}</td>
                     <td>{val.TanggalTransaksi}</td>
                     <td>{val.TotalBelanja}</td>
                     <td><a href={`${urlApi}${val.buktiPembayaranPath}`}><img src={`${urlApi}${val.buktiPembayaranPath}`} style={{
-                            width:'200px', height: '200px', borderRadius: '4px', padding: '5px'
+                            width:'50px', height: '50px', borderRadius: '4px', padding: '5px'
                             }} alt='Cannot Get Transfer Proof'></img></a></td>
-                    <td><input type="button" value="Confirm Pembayaran" className="btn btn-success btn-block" onClick={() => this.confirmPembayaran(val.id)}/></td>
+                    <td><input type="button" value="Confirm" className="btn btn-success btn-block" onClick={() => this.confirmPembayaran(val.id)}/></td>
                 </tr>
             )
         })
@@ -61,31 +61,34 @@ class AdminDashboard extends Component {
         if (this.props.role !== 'admin')
         return <Redirect to="/" exact/>
         return (
-            <div className="container pt-md-5 mt-5">
-                <div className="mt-md-5 pt-md-3">
                     <div className="card mb-5">
                         <div className="card-header text-center bg-danger">
                             <h3>Transaksi Menunggu Konfirmasi</h3>
                         </div>
                         <div className="card-body">
-                            <MDBTable hover className="text-white" scrollY maxHeight="60vh">
+                            {
+                                this.state.listTransaksiMenunggu.length > 0
+                                ?
+                                <MDBTable hover className="text-white" scrollY maxHeight="60vh">
                                 <MDBTableHead color="secondary-color text-center">
                                     <tr>
-                                        <th>Username/UserID</th>
+                                        <th>UserID</th>
                                         <th>Tanggal Transaksi</th>
-                                        <th>Total Belanja</th>
-                                        <th>Bukti Pembayaran</th>
-                                        <th>Konfirmasi Pembayaran</th>
+                                        <th>Total</th>
+                                        <th>Bukti</th>
+                                        <th>Konfirmasi</th>
                                     </tr>
                                 </MDBTableHead>
                                 <MDBTableBody>
                                     {this.renderTransaksiMenunggu()}           
                                 </MDBTableBody>
-                            </MDBTable>
+                                </MDBTable>
+                                :
+                                <h5 className="text-center">Tidak Ada Transaksi Menunggu Konfirmasi</h5>
+                            }
+                            
                         </div>
                     </div>
-                </div>
-            </div>
         );
     }
 }
