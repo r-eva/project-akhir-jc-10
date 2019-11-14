@@ -279,7 +279,17 @@ module.exports = {
                 })
             })
         })
-    }
+    },
+    getKategoriLanggananPromo: (req, res) => {
+        var sql = `SELECT * FROM kategori_langganan
+                    WHERE discount > 0;`
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
+    },
 }
 
 

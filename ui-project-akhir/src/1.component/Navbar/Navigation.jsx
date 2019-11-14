@@ -78,7 +78,7 @@ class Navigation extends Component {
                                                 <Link to="/Langganan" style={{color: 'black'}}>LANGGANAN</Link>
                                             </NavItem>
                                             <NavItem className="styling-link"> 
-                                                <Link to="/History" style={{color: 'black'}}>HISTORY</Link>
+                                                <Link to="/Promo" style={{color: 'black'}}>PROMO</Link>
                                             </NavItem>
                                         </>
                                     }
@@ -129,14 +129,21 @@ class Navigation extends Component {
                                                 Hello, {this.props.user.username}
                                             </DropdownToggle>
                                             <DropdownMenu right>
+                                                <Link to="/Keranjang">
+                                                <DropdownItem style={{color: 'black'}}>
+                                                <MDBIcon icon="shopping-bag" size="lg" border/> Cart
+                                                </DropdownItem>
+                                                </Link>
+                                                <Link to="/History">
+                                                <DropdownItem style={{color: 'black'}}>
+                                                    History
+                                                </DropdownItem>
+                                                </Link>
                                                 <DropdownItem style={{color: 'black'}} onClick={this.props.userLogout}>
                                                     Logout
                                                 </DropdownItem>
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
-                                        <NavItem className="styling-link" style={{paddingTop: '5px'}}>
-                                            <Link to="/Keranjang" style={{color: 'black'}}><MDBIcon icon="shopping-bag" size="lg" border/>CART</Link>
-                                        </NavItem>
                                         </>
                                     }
                                 </>

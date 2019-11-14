@@ -11,5 +11,6 @@ router.put('/editLanggananById/:id', langgananController.editLanggananById)
 router.post('/addLanggananJadwalLama/', langgananController.addLanggananJadwalLama)
 router.post('/addLanggananJadwalBaru/', langgananController.addLanggananJadwalBaru)
 router.delete('/hapusPaketLangganan/', langgananController.hapusPaketLangganan)
+router.get('/getKategoriLanggananPromo', langgananController.getKategoriLanggananPromo)
 
 module.exports = router

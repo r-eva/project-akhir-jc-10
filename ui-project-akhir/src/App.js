@@ -12,6 +12,7 @@ import Keranjang from './1.component/Keranjang/Keranjang';
 import Register from './1.component/Register/Register';
 import Login from './1.component/Login/Login';
 import History from './1.component/History/History'
+import Promo from './1.component/Promo/Promo'
 import LanggananAdmin from './1.component/Admin/Langganan/LanggananAdmin'
 import WaitingEmailVerification from './1.component/Register/WaitingEmailVerification'
 import EmailVerified from './1.component/Register/EmailVerified'
@@ -47,6 +48,7 @@ class App extends Component {
                     <Route exact path='/Admin/Langganan' component={LanggananAdmin}/>
                     <Route path='/Keranjang' component={Keranjang} exact/>
                     <Route path='/History' component={History} exact/>
+                    <Route path='/Promo' component={Promo} exact/>
                     <Route path='/Register' component={Register} exact/>
                     <Route path='/Login' component={Login} exact/>
                     <Route path="/waitingemailverification" component={WaitingEmailVerification} exact />
