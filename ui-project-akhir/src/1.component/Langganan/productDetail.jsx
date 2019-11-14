@@ -113,8 +113,8 @@ class productDetail extends Component {
                  var objKeranjang = {
                      idUser: this.props.user.id,
                      idPaket: this.state.dataPaketLangganan.id,
-                     TanggalMulai: moment(this.state.inputTanggalMulai).format("YYYY/MM/DD"),
-                     tanggalBerakhir: moment(tmpDate._d).format("YYYY/MM/DD"),
+                     TanggalMulai: moment(this.state.inputTanggalMulai).format("YYYY-MM-DD").toString(),
+                     tanggalBerakhir: moment(tmpDate._d).format("YYYY-MM-DD").toString(),
                      JumlahBox: this.state.jumlahBox,
                      Durasi: ubahDurasi
                  }
