@@ -5,6 +5,6 @@ const router = express.Router()
 
 router.get('/getKategoriLangganan', JadwalAdminController.getKategoriLangganan)
 router.get('/getJadwalLangganan/:id', JadwalAdminController.getJadwalLangganan)
-router.get('/getJumlahPesananPerhari', JadwalAdminController.getJumlahPesananPerhari)
+router.get('/getJumlahPesananPerhari/:tanggal', JadwalAdminController.getJumlahPesananPerhari)
 
 module.exports = router

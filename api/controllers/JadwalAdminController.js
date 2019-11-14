@@ -26,16 +26,16 @@ module.exports = {
         })
     },
     getJumlahPesananPerhari: (req, res) => {
-        console.log(req.body)
-        var sql = `SELECT h.id, hd.idPaket, hd.TanggalMulai, hd.TanggalBerakhir
+        var sql = `SELECT hd.id, hd.idUser, hd.idPaket,
+                    kl.namaPaket, hd.TanggalMulai, hd.TanggalBerakhir,
+                    hd.JumlahBox, h.NamaPenerima, h.AlamatPenerima
                     FROM history_detailproduct hd
+                    JOIN kategori_langganan kl
                     JOIN history h
-                    on hd.idHistory = h.id
-                    WHERE h.Status = 'Lunas' 
-                    && hd.idPaket = ${req.body.id}
-                    && hd.TanggalMulai >= ${req.body.tanggal}
-                    && hd.TanggalBerakhir >= ${req.body.tanggal};`
-        console.log(sql)
+                    on hd.idHistory = h.id && hd.idPaket = kl.id 
+                    WHERE h.Status = 'Lunas'
+                    && hd.TanggalMulai <= '${req.params.tanggal}'
+                    && hd.TanggalBerakhir >= '${req.params.tanggal}';`
         sqlDB.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send(err)

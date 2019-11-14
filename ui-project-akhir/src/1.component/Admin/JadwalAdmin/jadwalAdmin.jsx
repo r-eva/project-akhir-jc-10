@@ -6,6 +6,7 @@ import Axios from 'axios'
 import {urlApi} from '../../../helpers/database'
 import moment from 'moment'
 import TransaksiMenunggu from './TransaksiMenunggu'
+import DaftarPesanan from './DaftarPesanan'
 
 class jadwalAdmin extends Component {
 
@@ -15,13 +16,11 @@ class jadwalAdmin extends Component {
         pageContent: 0,
         tanggalHariIni: moment().format("D MMMM YYYY"),
         tanggalDitambahkan: 0,
-        halaman: 0
     }
 
     componentDidMount () {
         this.getDataLangganan()
     }
-
 
     /////////////////////////////////////////////////////////GET API DATA////////////////////////////////////////////
     getDataLangganan = () => {
@@ -84,30 +83,16 @@ class jadwalAdmin extends Component {
         })
     }
 
-    getJumlahPesanan = (idKategori, tanggalJadwal) => {
-        Axios.get(urlApi + 'jadwalAdmin/getJumlahPesananPerhari', {
-            id: idKategori,
-            tanggal: tanggalJadwal
-        })
-        .then(res => {
-            console.log(res.data.length)
-        }).catch(err => {
-            return  console.log(err)
-        })
-    }
-
     ////////////////////////////////////////////////FUNGSI RENDER///////////////////////////////////////////////////////
 
     renderJadwalMemasak = () => {
         if (this.state.allJadwalLangganan.length !== 0) {
             var jsx = this.state.allJadwalLangganan[this.state.tanggalDitambahkan].map(val => {
                 return (
-                    <tr key={val.id} className="text-center">
+                    <tr key={val.id}>
                         <td>{val.id}</td>
                         <td>{val.namaPaket}</td>
                         <td>{val.Menu}</td>
-                        <td>{this.getJumlahPesanan(val.id, moment().add(this.state.tanggalDitambahkan, 'days').format("YYYY-MM-DD"))}</td>
-                        <td><input type="button" className='btn btn-danger' value="Detail"/></td>
                     </tr>
                 )
             })
@@ -127,56 +112,62 @@ class jadwalAdmin extends Component {
                         </div>
                         <div className="card-body">
                             <div className="row">
-                                <div className="col-6">
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <h6 style={{paddingTop: '20px'}}>Tanggal: {moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
+                                <div className="col-5">
+                                    <div className="card mb-5">
+                                        <div className="card-header text-center bg-success">
+                                            <h3>Jadwal Catering</h3>
                                         </div>
-                                        <div className="col-6 text-right">
-                                            <div className="row mb-3">
-                                                <div className="col-6">
-                                                    {
-                                                        this.state.tanggalDitambahkan === 0
-                                                        ?
-                                                        <button type="button" className="btn btn-dark btn-block" disabled>Back</button>
-                                                        :
-                                                        <button type="button" className="btn btn-success btn-block" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan - 1})}>Back</button>
-                                                    }
-                                                
+                                        <div className="card-body">
+                                            <div className="row">
+                                                <div className="col-5">
+                                                    <h6 style={{paddingTop: '20px'}}>{moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
                                                 </div>
-                                                <div className="col-6">
-                                                    {
-                                                        moment().add(this.state.tanggalDitambahkan, 'days').format("D") === `${moment().daysInMonth()}`
-                                                        ?
-                                                        <button type="button" className="btn btn-dark btn-block" disabled>Next</button>
-                                                        :
-                                                        <button type="button" className="btn btn-success btn-block" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 1})}>Next</button>
-                                                    }
+                                                <div className="col-7 text-right">
+                                                    <div className="row mb-3">
+                                                        <div className="col-6">
+                                                            {
+                                                                this.state.tanggalDitambahkan === 0
+                                                                ?
+                                                                <button type="button" className="btn btn-dark btn-block" disabled>Back</button>
+                                                                :
+                                                                <button type="button" className="btn btn-success btn-block" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan - 1})}>Back</button>
+                                                            }
+                                                        
+                                                        </div>
+                                                        <div className="col-6">
+                                                            {
+                                                                moment().add(this.state.tanggalDitambahkan, 'days').format("D") === `${moment().daysInMonth()}`
+                                                                ?
+                                                                <button type="button" className="btn btn-dark btn-block" disabled>Next</button>
+                                                                :
+                                                                <button type="button" className="btn btn-success btn-block" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 1})}>Next</button>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <MDBTable scrollY maxHeight="100vh">
+                                                        <MDBTableHead color="secondary-color">
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Paket</th>
+                                                                <th>Menu</th>
+                                                            </tr>
+                                                        </MDBTableHead>
+                                                        <MDBTableBody>
+                                                            {this.renderJadwalMemasak()}   
+                                                        </MDBTableBody>
+                                                    </MDBTable>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <MDBTable scrollY maxHeight="100vh">
-                                                <MDBTableHead color="secondary-color text-center">
-                                                    <tr>
-                                                        <th>Id</th>
-                                                        <th>Paket</th>
-                                                        <th>Menu</th>
-                                                        <th>Pesanan</th>
-                                                        <th>Detail</th>
-                                                    </tr>
-                                                </MDBTableHead>
-                                                <MDBTableBody>
-                                                    {this.renderJadwalMemasak()}   
-                                                </MDBTableBody>
-                                            </MDBTable>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-7">
                                     <TransaksiMenunggu/>
+                                    <DaftarPesanan tanggalDitambahkan={this.state.tanggalDitambahkan}/>
                                 </div>
                             </div>
                         </div>

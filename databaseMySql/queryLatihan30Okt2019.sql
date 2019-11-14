@@ -1,19 +1,46 @@
 	use final_project;
-	select * FROM kategori_langganan;
-    select * from all_menu;
-	select * FROM connection_table;
+	select * FROM history_detailProduct;
+	select * FROM history;
+
+     SELECT hd.id, hd.idUser, hd.idPaket, kl.namaPaket, hd.TanggalMulai, hd.TanggalBerakhir, hd.JumlahBox
+                    FROM history_detailproduct hd
+                    JOIN kategori_langganan kl
+                    JOIN history h
+                    on hd.idHistory = h.id && hd.idPaket = kl.id
+                    WHERE h.Status = 'Lunas'
+                    && hd.TanggalMulai >= '2019-11-14'
+                    && hd.TanggalBerakhir >= '2019-11-14';
+                    
+
+    SELECT h.id, hd.idPaket, hd.TanggalMulai, hd.TanggalBerakhir
+    FROM history_detailproduct hd
+    JOIN history h
+    on hd.idHistory = h.id
+    WHERE h.Status = 'Lunas';
+	show events;
+    DROP event event150;
+    SELECT h.id, hd.idPaket, hd.TanggalMulai, hd.TanggalBerakhir
+    FROM history_detailproduct hd
+    JOIN history h
+    on hd.idHistory = h.id
+    WHERE h.Status = 'Lunas' 
+    && hd.idPaket = 5
+    && hd.TanggalMulai >= '2019-11-13'
+    && hd.TanggalBerakhir >= '2019-11-13';
+    
+   
+
     SELECT * FROM all_menu WHERE id NOT IN (SELECT idMenu FROM connection_table);
     
-    SELECT * from connection_table WHERE idKategori = 26;
-    SELECT ct.idMenu
-    FROM connection_table;
-    
+    	
+    select * from all_menu;
+	select * FROM connection_table;
     SELECT am.Menu, kl.namaPaket, ct.urutan
     from all_menu am
     JOIN connection_table ct
     JOIN kategori_langganan kl
     on am.id = ct.idMenu && kl.id = ct.idKategori
-    order by kl.namaPaket && ct.urutan;
+    order by ct.idKategori;
     
     SELECT MAX(am.id) as maximumIdMenu, MAX(kl.id) as maximumIdKategori
     FROM all_menu am
@@ -32,8 +59,6 @@
     Select * from connection_table where idKategori = 8;
     
 	SELECT * FROM cart;
-	select * FROM history_detailProduct;
-	select * FROM history;
     SHOW EVENTS;
     
     

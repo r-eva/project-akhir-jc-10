@@ -48,7 +48,7 @@ class AdminDashboard extends Component {
                     <td>{val.TanggalTransaksi}</td>
                     <td>{val.TotalBelanja}</td>
                     <td><a href={`${urlApi}${val.buktiPembayaranPath}`}><img src={`${urlApi}${val.buktiPembayaranPath}`} style={{
-                            width:'50px', height: '50px', borderRadius: '4px', padding: '5px'
+                            width:'70px', height: '70px', borderRadius: '4px', padding: '5px'
                             }} alt='Cannot Get Transfer Proof'></img></a></td>
                     <td><input type="button" value="Confirm" className="btn btn-success btn-block" onClick={() => this.confirmPembayaran(val.id)}/></td>
                 </tr>
