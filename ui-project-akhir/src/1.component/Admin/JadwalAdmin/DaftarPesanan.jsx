@@ -3,12 +3,16 @@ import {urlApi} from '../../../helpers/database'
 import Axios from 'axios'
 import moment from 'moment'
 import { MDBTableHead, MDBTable, MDBTableBody} from 'mdbreact'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class DaftarPesanan extends Component {
 
     state = {
         seluruhPesananHariIni: [],
-        tanggalDitambahkan: null
+        tanggalDitambahkan: null,
+        detailPesanan: null,
+        pesananMode: false,
+        detailPesananDipilih: null
     }
 
     componentDidMount() {
@@ -30,8 +34,11 @@ class DaftarPesanan extends Component {
         })   
     }
 
-    renderListPesanan = () => {
-        console.log(this.state.seluruhPesananHariIni)        
+    getDetailPesanan = (historyDipilih) => {
+        this.setState({detailPesananDipilih: historyDipilih, detailPesanan: true, pesananMode: true})
+    }
+
+    renderListPesanan = () => {       
         if (this.state.seluruhPesananHariIni.length !== 0) {
             var jsx = this.state.seluruhPesananHariIni.map(val => {
                 return (
@@ -41,7 +48,7 @@ class DaftarPesanan extends Component {
                         <td>{val.TanggalMulai.slice(0, 10)}</td>
                         <td>{val.TanggalBerakhir.slice(0, 10)}</td>
                         <td>{val.JumlahBox}</td>
-                        <td><input type="button" className='btn btn-info' value="Detail" /></td>
+                        <td><input type="button" className='btn btn-info' value="Detail" onClick={() => this.getDetailPesanan(val)}/></td>
                     </tr>
                 )
             })
@@ -53,33 +60,62 @@ class DaftarPesanan extends Component {
 
     render() {
         return (
-            <div className="card mb-5">
-                <div className="card-header text-center bg-success">
-                    <h3>Dafar Pesanan {moment().add(this.props.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h3>
+            <div>
+                <div className="card mb-3">
+                    <div className="card-header text-center bg-success">
+                        <h3>Daftar Pesanan {moment().add(this.props.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h3>
+                    </div>
+                    <div className="card-body">
+                        {
+                            this.state.seluruhPesananHariIni.length > 0
+                            ?
+                            <MDBTable hover scrollY maxHeight="60vh">
+                            <MDBTableHead color="secondary-color text-center">
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Paket</th>
+                                    <th>Mulai</th>
+                                    <th>Sampai</th>
+                                    <th>Jumlah Box</th>
+                                    <th>Detail</th>
+                                </tr>
+                            </MDBTableHead>
+                            <MDBTableBody>
+                                {this.renderListPesanan()}
+                            </MDBTableBody>
+                            </MDBTable>
+                            :
+                            <h5 className="text-center">Belum Ada Pesanan Hari Ini</h5>
+                        }       
+                    </div>
                 </div>
-                <div className="card-body">
-                    {
-                        this.state.seluruhPesananHariIni.length > 0
-                        ?
-                        <MDBTable hover scrollY maxHeight="60vh">
-                        <MDBTableHead color="secondary-color text-center">
-                            <tr>
-                                <th>UserID</th>
-                                <th>Paket</th>
-                                <th>Mulai</th>
-                                <th>Sampai</th>
-                                <th>Jumlah Box</th>
-                                <th>Detail</th>
-                            </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                            {this.renderListPesanan()}
-                        </MDBTableBody>
-                        </MDBTable>
-                        :
-                        <h5 className="text-center">Belum Ada Pesanan Hari Ini</h5>
-                    }       
-                </div>
+                {
+                    this.state.detailPesanan
+                    ?
+                        <>
+                            <Modal isOpen={this.state.pesananMode}>
+                                <ModalHeader>
+                                    <p className="font font-weight-bold">DETAIL PESANAN</p>
+                                </ModalHeader>
+                                <ModalBody>
+                                    <p> Username: {this.state.detailPesananDipilih.username} <br/>
+                                        Nama Paket: {this.state.detailPesananDipilih.namaPaket} <br/>
+                                        Jumlah Box: {this.state.detailPesananDipilih.JumlahBox} <br/>
+                                        Tanggal Mulai Langganan: {this.state.detailPesananDipilih.TanggalMulai} <br/>
+                                        Tanggal Berakhir: {this.state.detailPesananDipilih.TanggalBerakhir} <br/>
+                                        Penerima: {this.state.detailPesananDipilih.NamaPenerima} <br/>
+                                        Alamat Penerima: {this.state.detailPesananDipilih.AlamatPenerima} <br/>
+                                        Kode pos: {this.state.detailPesananDipilih.KodePosPenerima}
+                                    </p>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="success" onClick={() => this.setState({detailPesananDipilih: null, detailPesanan: false, pesananMode: false})}>OK</Button>
+                                </ModalFooter>    
+                            </Modal>
+                        </>
+                    :
+                    null
+                }
             </div>
         );
     }

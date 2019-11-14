@@ -69,7 +69,7 @@ class Navigation extends Component {
                                                 <Link to="/Admin/Langganan" style={{color: 'black'}}>PRODUK</Link>
                                             </NavItem>
                                             <NavItem className="styling-link">
-                                                <Link to="/analitikTransaksi" style={{color: 'black'}}>TRANSAKSI</Link>
+                                                <Link to="/analitikTransaksi" style={{color: 'black'}}>USER</Link>
                                             </NavItem>
                                         </>
                                         :

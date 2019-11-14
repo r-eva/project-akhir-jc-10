@@ -32,8 +32,9 @@ class AdminDashboard extends Component {
     confirmPembayaran = (id) => {
         Axios.put(urlApi + 'admin/confirmPembayaran/' + id)
         .then((res)=>{
+            window.location.reload()
             this.getDataTransaksiMenunggu()
-            swal ('Transaksi Sukses dikonfirmasi!', `Cek list pesanan.`, 'success')
+            swal ('Transaksi Sukses dikonfirmasi!', `Silakan Cek list pesanan.`, 'success')
         })
         .catch((err) => {
             console.log(err)
@@ -61,7 +62,7 @@ class AdminDashboard extends Component {
         if (this.props.role !== 'admin')
         return <Redirect to="/" exact/>
         return (
-                    <div className="card mb-5">
+                    <div className="card mb-3">
                         <div className="card-header text-center bg-danger">
                             <h3>Transaksi Menunggu Konfirmasi</h3>
                         </div>
@@ -69,10 +70,10 @@ class AdminDashboard extends Component {
                             {
                                 this.state.listTransaksiMenunggu.length > 0
                                 ?
-                                <MDBTable hover className="text-white" scrollY maxHeight="60vh">
+                                <MDBTable hover className="text-white" scrollY maxHeight="50vh">
                                 <MDBTableHead color="secondary-color text-center">
                                     <tr>
-                                        <th>UserID</th>
+                                        <th>Username</th>
                                         <th>Tanggal Transaksi</th>
                                         <th>Total</th>
                                         <th>Bukti</th>

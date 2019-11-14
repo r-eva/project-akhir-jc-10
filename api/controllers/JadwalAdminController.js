@@ -26,13 +26,14 @@ module.exports = {
         })
     },
     getJumlahPesananPerhari: (req, res) => {
-        var sql = `SELECT hd.id, hd.idUser, hd.idPaket,
+        var sql = `SELECT hd.id, hd.idUser, u.username, hd.idPaket,
                     kl.namaPaket, hd.TanggalMulai, hd.TanggalBerakhir,
-                    hd.JumlahBox, h.NamaPenerima, h.AlamatPenerima
+                    hd.JumlahBox, h.NamaPenerima, h.AlamatPenerima, h.KodePosPenerima
                     FROM history_detailproduct hd
                     JOIN kategori_langganan kl
                     JOIN history h
-                    on hd.idHistory = h.id && hd.idPaket = kl.id 
+                    JOIN users u
+                    on hd.idHistory = h.id && hd.idPaket = kl.id && hd.idUser = u.id
                     WHERE h.Status = 'Lunas'
                     && hd.TanggalMulai <= '${req.params.tanggal}'
                     && hd.TanggalBerakhir >= '${req.params.tanggal}';`

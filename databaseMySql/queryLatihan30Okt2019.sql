@@ -1,15 +1,41 @@
 	use final_project;
 	select * FROM history_detailProduct;
 	select * FROM history;
+    
+    SELECT namaPaket, (Durasi * JumlahBox) as Belanjaan)
+    FROM history_detailproduct hd
+    JOIN history h
+    JOIN kategori_langganan kl
+    on h.id = hd.idHistory && kl.id = hd.idPaket
+    WHERE h.Status = 'Lunas' 
+    && h.TanggalTransaksi >= '2019-11-01' && h.TanggalTransaksi <= '2019-12-01'
+    ORDER BY idPaket;
+    
+    
+	select * from cart;
+    select * from users;
+    show events;
+    
+	
+    SELECT * FROM history WHERE TanggalTransaksi >= '2019-11-01' && TanggalTransaksi <= '2019-12-01';
 
      SELECT hd.id, hd.idUser, hd.idPaket, kl.namaPaket, hd.TanggalMulai, hd.TanggalBerakhir, hd.JumlahBox
                     FROM history_detailproduct hd
                     JOIN kategori_langganan kl
                     JOIN history h
                     on hd.idHistory = h.id && hd.idPaket = kl.id
+                    WHERE h.Status = 'Lunas';
+			
+	SELECT hd.id, hd.idUser, hd.idPaket,
+                    kl.namaPaket, hd.TanggalMulai, hd.TanggalBerakhir,
+                    hd.JumlahBox, h.NamaPenerima, h.AlamatPenerima
+                    FROM history_detailproduct hd
+                    JOIN kategori_langganan kl
+                    JOIN history h
+                    on hd.idHistory = h.id && hd.idPaket = kl.id 
                     WHERE h.Status = 'Lunas'
-                    && hd.TanggalMulai >= '2019-11-14'
-                    && hd.TanggalBerakhir >= '2019-11-14';
+                    && hd.TanggalMulai <= '2019-11-15'
+                    && hd.TanggalBerakhir >= '2019-11-15';
                     
 
     SELECT h.id, hd.idPaket, hd.TanggalMulai, hd.TanggalBerakhir

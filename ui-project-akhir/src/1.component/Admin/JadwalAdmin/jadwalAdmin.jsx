@@ -7,6 +7,7 @@ import {urlApi} from '../../../helpers/database'
 import moment from 'moment'
 import TransaksiMenunggu from './TransaksiMenunggu'
 import DaftarPesanan from './DaftarPesanan'
+import PesananBulanIni from './PesananBulanIni'
 
 class jadwalAdmin extends Component {
 
@@ -148,7 +149,7 @@ class jadwalAdmin extends Component {
                                             </div>
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <MDBTable scrollY maxHeight="100vh">
+                                                    <MDBTable scrollY maxHeight="110vh">
                                                         <MDBTableHead color="secondary-color">
                                                             <tr>
                                                                 <th>Id</th>
@@ -168,6 +169,7 @@ class jadwalAdmin extends Component {
                                 <div className="col-7">
                                     <TransaksiMenunggu/>
                                     <DaftarPesanan tanggalDitambahkan={this.state.tanggalDitambahkan}/>
+                                    <PesananBulanIni/>
                                 </div>
                             </div>
                         </div>
