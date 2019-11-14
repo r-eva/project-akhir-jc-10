@@ -1,22 +1,27 @@
 	use final_project;
 	select * FROM history_detailProduct;
 	select * FROM history;
+    select * from users;
     
-    SELECT namaPaket, (Durasi * JumlahBox) as Belanjaan)
+    SELECT hd.idPaket, namaPaket, SUM(Durasi * JumlahBox) as totalTerjual, COUNT(hd.idHistory) as jumlahTransaksi
     FROM history_detailproduct hd
     JOIN history h
     JOIN kategori_langganan kl
     on h.id = hd.idHistory && kl.id = hd.idPaket
     WHERE h.Status = 'Lunas' 
     && h.TanggalTransaksi >= '2019-11-01' && h.TanggalTransaksi <= '2019-12-01'
-    ORDER BY idPaket;
+    GROUP BY namaPaket
+    ORDER BY totalTerjual DESC;
     
-    
-	select * from cart;
-    select * from users;
-    show events;
-    
-	
+	SELECT u.username, h.UserId, SUM(h.TotalBelanja) as TotalBelanjaan, COUNT(h.UserId) as JumlahTransaksi
+    FROM history h
+    JOIN users u
+    on h.UserId = u.id
+    WHERE h.Status = 'Lunas' 
+    && h.TanggalTransaksi >= '2019-11-01' && h.TanggalTransaksi <= '2019-12-01'
+    GROUP BY UserId
+    ORDER BY TotalBelanjaan DESC;
+
     SELECT * FROM history WHERE TanggalTransaksi >= '2019-11-01' && TanggalTransaksi <= '2019-12-01';
 
      SELECT hd.id, hd.idUser, hd.idPaket, kl.namaPaket, hd.TanggalMulai, hd.TanggalBerakhir, hd.JumlahBox

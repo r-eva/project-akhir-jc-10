@@ -17,7 +17,7 @@ import WaitingEmailVerification from './1.component/Register/WaitingEmailVerific
 import EmailVerified from './1.component/Register/EmailVerified'
 import ProductDetail from './1.component/Langganan/productDetail'
 import JadwalAdmin from './1.component/Admin/JadwalAdmin/jadwalAdmin'
-import AnaliticTransaksi from './1.component/Admin/Transaksi/Transaksi'
+import UserAnalytic from './1.component/Admin/UserAnalitik/UserAnalitik'
 
 class App extends Component {
     
@@ -53,7 +53,7 @@ class App extends Component {
                     <Route path="/emailverified" component={EmailVerified} exact />
                     <Route path="/product-detail/:id" component={ProductDetail} exact/>
                     <Route path="/jadwalAdmin" component={JadwalAdmin} exact/>
-                    <Route path="/analitikTransaksi" component={AnaliticTransaksi} exact/>
+                    <Route path="/analitikTransaksi" component={UserAnalytic} exact/>
                     <Route path='*' component={Main} />
                 </Switch>
                 <Footer/>

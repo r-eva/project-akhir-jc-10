@@ -9,5 +9,6 @@ router.post('/confirmemail', userController.confirmEmail)
 router.post('/resendemailconfirm', userController.resendEmailConfirm)
 router.post('/login', userController.login)
 router.post('/keeplogin', auth, userController.keepLogin)
+router.get('/getAllUsers', userController.getAllUserData)
 
 module.exports = router

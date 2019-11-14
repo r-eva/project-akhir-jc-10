@@ -86,5 +86,14 @@ module.exports = {
     },
     keepLogin: (req, res) => {
         return res.status(200).send({...req.user, token: req.token})
+    },
+    getAllUserData: (req, res) => {
+        var sql = `SELECT id, username, email, status, tanggalBergabung, role from users;`
+        sqlDB.query(sql,(err,result)=>{
+            if(err){
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
     }
 }

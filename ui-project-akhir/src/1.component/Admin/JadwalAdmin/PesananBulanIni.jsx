@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {urlApi} from '../../../helpers/database'
 import Axios from 'axios'
+import { MDBTableHead, MDBTable, MDBTableBody } from 'mdbreact'
 
 class PesananBulanIni extends Component {
 
@@ -22,7 +23,6 @@ class PesananBulanIni extends Component {
         Axios.get(urlApi + 'pesanan/getPesananBulanIni')
         .then(res => {
             this.setState({daftarPesananBulanIni: res.data})
-            console.log(this.state.daftarPesananBulanIni)
         }).catch(err => {
             console.log(err)
         })
@@ -40,7 +40,7 @@ class PesananBulanIni extends Component {
     getProdukTerbaik = () => {
         Axios.get(urlApi + 'pesanan/daftarProdukTerbaik')
         .then(res => {
-            this.setState({produkTerbaik: res.data[0]})
+            this.setState({produkTerbaik: res.data})
         }).catch(err => {
             console.log(err)
         })
@@ -61,6 +61,21 @@ class PesananBulanIni extends Component {
             return totalPendapatan = totalPendapatan + val.TotalBelanja
         })
         return new Intl.NumberFormat('id-ID').format(totalPendapatan)
+    }
+
+    renderProdukRanking = () => {
+        if(this.state.produkTerbaik.length !== 0) {
+            return this.state.produkTerbaik.map(val => {
+                return (
+                    <tr key={val.idPaket} className='text-dark'>
+                        <td>{val.idPaket}</td>
+                        <td>{val.namaPaket}</td>
+                        <td>{val.totalTerjual}</td>
+                        <td>{val.jumlahTransaksi}</td>
+                    </tr>
+                )
+            })
+        }
     }
 
     render() {
@@ -88,13 +103,39 @@ class PesananBulanIni extends Component {
                                         <h6>User Terbaik/id: {this.state.userTerbaik.username}/{this.state.userTerbaik.UserId} &nbsp;&nbsp; Rp. {new Intl.NumberFormat('id-ID').format(this.state.userTerbaik.TotalBelanjaan)}</h6>
                                     </div>
                                     <div className="col-6">
-                                        <h6>Paket Terlaris: {this.state.produkTerbaik.namaPaket} / {this.state.produkTerbaik.totalTerjual} box</h6>
+                                        {
+                                            this.state.produkTerbaik.length !== 0
+                                            ?
+                                            <h6>Paket Terlaris: {this.state.produkTerbaik[0].namaPaket} / {this.state.produkTerbaik[0].totalTerjual} box</h6>
+                                            :
+                                            null
+                                        }
                                     </div>
                                 </div>
-                            </>
+                            </> 
                             :
                             <h5 className="text-center">Belum Ada Pesanan Bulan Ini</h5>
                         }       
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header text-center bg-info">
+                        <h3>Product Sales Ranking</h3>
+                    </div>
+                    <div className="card-body mx-3">
+                        <MDBTable hover className="text-white text-center" scrollY maxHeight="60vh">
+                            <MDBTableHead color="secondary-color">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Paket</th>
+                                    <th>Total Terjual</th>
+                                    <th>Jumlah Trs</th>
+                                </tr>
+                            </MDBTableHead>
+                            <MDBTableBody>
+                                {this.renderProdukRanking()}
+                            </MDBTableBody>
+                        </MDBTable>
                     </div>
                 </div>
             </div>

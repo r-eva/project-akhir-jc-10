@@ -26,7 +26,7 @@ module.exports = {
         })
     },
     daftarProdukTerbaik: (req, res) => {
-        var sql = `SELECT namaPaket, SUM(Durasi * JumlahBox) as totalTerjual
+        var sql = `SELECT hd.idPaket, namaPaket, SUM(Durasi * JumlahBox) as totalTerjual, COUNT(hd.idHistory) as jumlahTransaksi
                     FROM history_detailproduct hd
                     JOIN history h
                     JOIN kategori_langganan kl
@@ -44,7 +44,7 @@ module.exports = {
         })
     },
     daftarUserTerbaik: (req, res) => {
-        var sql = `SELECT u.username, h.UserId, SUM(h.TotalBelanja) as TotalBelanjaan
+        var sql = `SELECT u.username, h.UserId, SUM(h.TotalBelanja) as TotalBelanjaan, COUNT(h.UserId) as JumlahTransaksi
                     FROM history h
                     JOIN users u
                     on h.UserId = u.id
