@@ -2,6 +2,10 @@
 	select * FROM history_detailProduct;
 	select * FROM history;
     select * from users;
+    SELECT * from kategori_langganan;
+    
+    SELECT * FROM kategori_langganan
+    WHERE discount > 0;
     
     SELECT hd.idPaket, namaPaket, SUM(Durasi * JumlahBox) as totalTerjual, COUNT(hd.idHistory) as jumlahTransaksi
     FROM history_detailproduct hd
