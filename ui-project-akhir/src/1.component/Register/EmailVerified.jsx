@@ -15,17 +15,19 @@ class EmailVerified extends Component {
 
     componentDidMount() {
         var params = queryString.parse(this.props.location.search)
-        axios.post(urlApi + 'user/confirmemail', {
-            email: params.email
-        })
-        .then((res) => {
-            this.setState({loading: false, message: 'Email Berhasil di Confirm'})
-            localStorage.setItem('token', res.data.token)
-            this.props.confirmLogin(res.data)
-        })
-        .catch((err) => {
-            this.setState({loading: false, message: 'Email Gagal di Confirm'})
-        })
+        console.log(params)
+        ///////////////////////buka emailnya dulu////////////////////////////////
+        // axios.post(urlApi + 'user/confirmemail', {
+        //     email: params.email
+        // })
+        // .then((res) => {
+        //     this.setState({loading: false, message: 'Email Berhasil di Confirm'})
+        //     localStorage.setItem('token', res.data.token)
+        //     this.props.confirmLogin(res.data)
+        // })
+        // .catch((err) => {
+        //     this.setState({loading: false, message: 'Email Gagal di Confirm'})
+        // })
     }
 
     render() {

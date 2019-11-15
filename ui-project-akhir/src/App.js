@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {keepLogin, checkLocalStorage} from './redux/1.actions/userAction'
-import Navigation from './1.component/Navbar/Navigation';
+import Navigation from './1.component/Navbar/Navbar';
 import Footer from './1.component/Footer/Footer';
 import Main from './1.component/Main/Main';
 import Langganan from './1.component/Langganan/Langganan';

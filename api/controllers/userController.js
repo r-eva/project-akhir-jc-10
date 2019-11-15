@@ -13,6 +13,10 @@ module.exports = {
         req.body.password = crypto.createHmac('sha256', secret)
             .update(req.body.password)
             .digest('hex')
+        
+        var emailVerification = crypto.createHmac('sha256', secret)
+        .update(req.body.email)
+        .digest('hex')
 
         var sql = `SELECT * FROM users WHERE email = '${req.body.email}';`
         sqlDB.query(sql, (err, result) => {
@@ -31,16 +35,18 @@ module.exports = {
                 to: req.body.email,
                 subject: 'Email Verification',
                 html: `Verify your email by clicking this link 
-                    <a href="http://localhost:3000/emailverified?email=${req.body.email}">Verification</a>`
+                    <a href="http://localhost:3000/emailverified?email=${emailVerification}">Verification</a>`
             }
     
             transporter.sendMail(mailOption, (err, result) => {
-                if (err) return res.status(500).send({message: 'Kirim email gagal!', err, error: false, email: req.body.email})
-                res.status(200).send({status: 'Send Email Success!', result, email: req.body.email})
+                if (err) return res.status(500).send({message: 'Kirim email gagal!', err, error: false, email: emailVerification})
+                res.status(200).send({status: 'Send Email Success!', result, email: emailVerification})
             })
         })
     },
     confirmEmail: (req, res) => {
+        /////buka dulu rahasia req.body.email, rubah jadi email dibawah
+        
         var sql = `UPDATE users SET status='Verified' WHERE email='${req.body.email}';`
         sqlDB.query(sql, (err, results) => {
             if (err) return res.status(500).send({status: 'error', err})

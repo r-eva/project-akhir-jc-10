@@ -121,8 +121,8 @@ class Main extends Component {
                                 <h6 className="font-weight-bold">We respect and appreciate the eating experience. Our mission isn't just
                                     provide food; it's to give you a full service, worry free dining experience.</h6>
                             </div>
-                            <div className="p-1 text-center text-md-left">
-                                <Link to='/Langganan'><MDBBtn color="danger" className="font-weight-bold">MULAI LANGGANAN</MDBBtn></Link>
+                            <div className="text-center text-md-left">
+                                <Link to='/Langganan'><MDBBtn color="danger" className="font-weight-bold" style={{marginTop: -10}}>MULAI LANGGANAN</MDBBtn></Link>
                             </div>
                         </div>
                     </div>

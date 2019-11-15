@@ -51,11 +51,13 @@ class Promo extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1227648/pexels-photo-1227648.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1234853/pexels-photo-1234853.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
                     <MDBCol className="py-5">
-                        <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">PROMO</MDBCardTitle>
-                        <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
-                        </p>
+                        <div className="py-5">
+                            <MDBCardTitle className="h1-responsive pt-5 mt-5 font-weight-bolder" style={{color: 'black'}}>PROMO</MDBCardTitle>
+                            <p className="mx-5 font-weight-bold" style={{color: 'black'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                            </p>
+                        </div>
                     </MDBCol>
                     </MDBCol>
                 </MDBJumbotron>

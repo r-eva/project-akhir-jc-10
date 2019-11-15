@@ -103,11 +103,13 @@ class Langganan extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1405762/pexels-photo-1405762.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=747&q=80)`, backgroundSize: 'cover'}}>
                     <MDBCol className="py-5">
-                        <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">LANGGANAN</MDBCardTitle>
-                        <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
-                        </p>
+                        <div className="py-5">
+                            <MDBCardTitle className="h1-responsive pt-5 mt-5 font-weight-bolder" style={{color: 'black'}}>LANGGANAN</MDBCardTitle>
+                            <p className="mx-5 font-weight-bold" style={{color: 'black'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                            </p>
+                        </div>
                     </MDBCol>
                     </MDBCol>
                 </MDBJumbotron>
@@ -136,7 +138,7 @@ class Langganan extends Component {
                             </div>
                             <div className="row">
                                 <div className="col-12 mb-2 mt-2">
-                                    <MDBBtn color="secondary" className="btn btn-block" onClick={this.getDataLangganan}>View All Menu</MDBBtn>
+                                    <MDBBtn color="blue-grey" className="btn btn-block" onClick={this.getDataLangganan}>View All Menu</MDBBtn>
                                 </div>
                             </div>
                         </div>
@@ -153,53 +155,20 @@ class Langganan extends Component {
                             {
                                 this.state.page === 0
                                 ?
-                                <input type="button" className='disabled' value="<<Previous Page"/>
+                                <input type="button" className='disabled btn btn-blue-grey rounded' value="Previous Page"/>
                                 :
-                                <input type="button" className='btn-secondary' value="<<Previous Page" onClick={() => this.setState({page: this.state.page - 1})}/>
+                                <input type="button" className='btn btn-blue-grey rounded' value="Previous Page" onClick={() => this.setState({page: this.state.page - 1})}/>
                             }
                             {
                                 this.state.dataLangganan.length - ((this.state.page + 1) * this.state.pageContent) <= 0
                                 ?
-                                <input type="button" className='ml-2 disabled' value="Next Page>>"/>
+                                <input type="button" className='ml-2 disabled btn btn-blue-grey rounded' value="Next Page"/>
                                 :
-                                <input type="button" className='btn-secondary ml-2' value="Next Page>>" onClick={() => this.setState({page: this.state.page + 1})}/>
+                                <input type="button" className='btn btn-blue-grey ml-2 rounded' value="Next Page" onClick={() => this.setState({page: this.state.page + 1})}/>
                             }
                         </div>
                     </div>
                 </div>
-                {/* <div className="row m-5">
-                    <div className="col-12 border">
-                        <div className="row container">
-                            <div className="col-12">
-                                <div className="row">
-                                    <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold py-0'><img src='https://www.pngtube.com/myfile/detail/494-4942817_indian-dinner-of-dreams-vietnamese-food-icons-png.png' alt='Meal Menu Icon' style={{width: '50px'}}></img>&nbsp;Meal Box</MDBBtn>                                
-                                    <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold py-0'><img src='https://i.pinimg.com/originals/63/0d/96/630d96bbb40088587c50e1fc7307c10a.png' alt='Snack Menu Icon' style={{width: '50px'}}></img>&nbsp;Snack Time</MDBBtn>
-                                    <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold px-2'><img src='https://cdn2.iconfinder.com/data/icons/sweet-and-dessert-line-color-patisserie/512/Cupcake-512.png' alt='Dessert Menu Icon' style={{width: '50px'}}></img>&nbsp;Dessert and Beverages</MDBBtn>
-                                    <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold px-4'><img src='https://cdn4.iconfinder.com/data/icons/baking-ingredients/100/baking_ingredients_food_color-19-512.png' alt='Other Menu Icon' style={{width: '50px'}}></img>&nbsp;Other</MDBBtn>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row container">
-                            {this.renderKategoriLangganan()}
-                        </div>
-                        <div className="col-12 text-center mt-3 mb-3">
-                            {
-                                this.state.page === 0
-                                ?
-                                <input type="button" className='disabled' value="<<Previous Page"/>
-                                :
-                                <input type="button" className='btn-secondary' value="<<Previous Page" onClick={() => this.setState({page: this.state.page - 1})}/>
-                            }
-                            {
-                                this.state.dataLangganan.length - ((this.state.page + 1) * this.state.pageContent) <= 0
-                                ?
-                                <input type="button" className='ml-2 disabled' value="Next Page>>"/>
-                                :
-                                <input type="button" className='btn-secondary ml-2' value="Next Page>>" onClick={() => this.setState({page: this.state.page + 1})}/>
-                            }
-                        </div>
-                    </div>
-                </div> */}
             </div>
         );
     }

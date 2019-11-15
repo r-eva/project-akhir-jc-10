@@ -43,27 +43,28 @@ class Register extends Component {
                                                 <MDBInput label="Email" icon="envelope" type="email" onChange={(e) => this.setState({inputEmail: e.target.value})}/>
                                                 <MDBInput label="Password" icon="lock" type="password" onChange={(e) => this.setState({inputPassword: e.target.value})}/>
                                                 <MDBInput label="Repeat Password" icon="exclamation-circle" type="password" onChange={(e) => this.setState({inputRepeatPassword: e.target.value})}/>
-                                            </MDBCardBody>
-                                            <p className="text-danger text-center" style={{fontSize: '15px'}}>
-                                                {this.props.registerForm.error} 
-                                            </p>
-                                            <div className="text-center">
-                                            {
-                                                    this.props.registerForm.loading === true
-                                                    ?
-                                                    <div className="text-center">
-                                                        <div className="spinner-border text-danger" role="status">
-                                                        <span className="sr-only">Loading...</span>
-                                                        </div>
-                                                    </div>
-                                                    :
-                                                    <>  
+                                                <p className="text-danger text-center" style={{fontSize: '15px'}}>
+                                                    {this.props.registerForm.error} 
+                                                </p>
+                                                <div className="text-center">
+                                                {
+                                                        this.props.registerForm.loading === true
+                                                        ?
                                                         <div className="text-center">
-                                                            <MDBBtn color="unique" type="submit" onClick={this.onRegisterBtnHandler} className='mb-5'>REGISTER</MDBBtn>
+                                                            <div className="spinner-border text-danger" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                            </div>
                                                         </div>
-                                                    </>
-                                                }
-                                            </div>
+                                                        :
+                                                        <>  
+                                                            <div className="text-center">
+                                                                <MDBBtn color="unique" type="submit" onClick={this.onRegisterBtnHandler} className='mb-3'>REGISTER</MDBBtn>
+                                                            </div>
+                                                        </>
+                                                    }
+                                                </div>
+                                            </MDBCardBody>
+                                            
                                         </MDBCard>
                                 </div>
                             </MDBCol>
