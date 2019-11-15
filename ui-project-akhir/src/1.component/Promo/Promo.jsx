@@ -28,11 +28,11 @@ class Promo extends Component {
     renderDataLanggananPromo = () => {
         var jsx = this.state.dataLanggananPromo.map(val => {
             return (
-                <div className="col-3" key={val.id}>
+                <div className="col-6 col-md-3" key={val.id}>
                     <MDBCard className="my-3">
                         <Link to={"product-detail/" + val.id}><MDBCardImage src={`${urlApi}${val.imagePath}`} alt='Img produk masih kosong' style={{
                             width:'255px', height: '200px', borderRadius: '4px', padding: '7px' 
-                            }}>
+                            }} className="img-fluid">
                         </MDBCardImage></Link>
                             <div className="discount">{val.discount}%</div>
                             <h4 className="product-name"><p className="font-weight-bolder text-white bg-success" style={{fontSize: '20px'}}>&nbsp;&nbsp;{val.namaPaket}</p></h4>

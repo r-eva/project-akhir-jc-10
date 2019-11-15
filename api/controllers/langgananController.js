@@ -1,6 +1,7 @@
 const { sqlDB } = require('../database')
 const { uploader } = require('../helpers/uploader')
 const fs = require('fs')
+const moment = require('moment')
 
 module.exports = {
     getKategoriLangganan: (req, res) => {
@@ -113,7 +114,7 @@ module.exports = {
             const { image } = req.files
             const data = JSON.parse(req.body.data)
             var insertData = []
-            insertData.push([data.namaPaket, data.harga, data.discount, data.deskripsi, `${path}/${image[0].filename}`])
+            insertData.push([data.namaPaket, data.harga, data.discount, data.deskripsi, `${path}/${image[0].filename}`, data.kategori])
 
             var sql = `SELECT * FROM kategori_langganan WHERE LOWER(namaPaket) LIKE LOWER('%${data.namaPaket}%');`
             sqlDB.query(sql, (err, result) => {
@@ -122,7 +123,7 @@ module.exports = {
                     return res.status(500).send({message: `Menu sudah ada, mohon cek kembali!`, err})
                 }
     
-                var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath) VALUES ?;`
+                var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
                 sqlDB.query(sql, [insertData], (err, results) => {
                     if(err) {
                         fs.unlinkSync('./public' + path + '/' + image[0].filename)
@@ -166,7 +167,7 @@ module.exports = {
             const { image } = req.files
             const data = JSON.parse(req.body.data)
             var insertData = []
-            insertData.push([data.namaPaket, data.harga, data.discount, data.deskripsi, `${path}/${image[0].filename}`])
+            insertData.push([data.namaPaket, data.harga, data.discount, data.deskripsi, `${path}/${image[0].filename}`, data.kategori])
 
             var sql = `SELECT * FROM kategori_langganan WHERE LOWER(namaPaket) LIKE LOWER('%${data.namaPaket}%');`
             sqlDB.query(sql, (err, result) => {
@@ -175,11 +176,11 @@ module.exports = {
                     return res.status(500).send({message: `Menu sudah ada, mohon cek kembali!`, err})
                 }
     
-                var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath) VALUES ?;`
+                var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
                 sqlDB.query(sql, [insertData], (err, results) => {
                     if(err) {
                         fs.unlinkSync('./public' + path + '/' + image[0].filename)
-                        return res.status(500).send({message: `Gagal insert paket langganan, mohon periksa kembali image yang anda upload sudah ada!`, err})
+                        return res.status(500).send({message: `Gagal insert paket langganan, mohon periksa kembali image atau data yang anda upload sudah ada!`, err})
                     }
     
                     var sql = `SELECT * FROM all_menu WHERE LOWER(Menu) LIKE LOWER('%${data.Menu}%');`
@@ -290,6 +291,44 @@ module.exports = {
             res.status(200).send(result)
         })
     },
+    getKategoriLanggananPerKategori: (req, res) => {
+        var sql = `SELECT * FROM kategori_langganan
+                    WHERE kategori = '${req.params.kategori}';`
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
+    },
+    getKategoriLanggananUnder20: (req, res) => {
+        var sql = `SELECT * FROM kategori_langganan
+                    WHERE harga - ((discount/100) * harga) < 20000;`
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
+    },
+    daftarProdukTerbaik: (req, res) => {
+        var sql = `SELECT kl.id, kl.namaPaket, kl.harga, kl.discount, kl.deskripsi, kl.imagePath, kl.kategori,
+                    SUM(Durasi * JumlahBox) as totalTerjual, COUNT(hd.idHistory) as jumlahTransaksi
+                    FROM history_detailproduct hd
+                    JOIN history h
+                    JOIN kategori_langganan kl
+                    on h.id = hd.idHistory && kl.id = hd.idPaket
+                    WHERE h.Status = 'Lunas' 
+                    && h.TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && h.TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}'
+                    GROUP BY namaPaket
+                    ORDER BY totalTerjual DESC
+                    LIMIT 4;`
+        sqlDB.query(sql, (err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            res.status(200).send(result)
+        })
+    }
 }
-
 

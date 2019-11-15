@@ -16,15 +16,92 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, 
 import HealtyImg1 from '../../fotoku/vegieSalad.jpeg'
 import HealtyImg2 from '../../fotoku/noncolesterol.jpeg'
 import HealtyImg3 from '../../fotoku/oatmeal.jpeg'
-import Western from '../../fotoku/western.jpg'
-import Javanese from '../../fotoku/javaneseCuisine.jpg'
-import BerryDessert from '../../fotoku/berryDessert.jpeg'
-import SweetManggo from '../../fotoku/dessert.jpeg'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import Axios from 'axios'
+import {urlApi} from '../../helpers/database'
 
 class Main extends Component {
+
+    state = {
+        dataLangganan: [],
+        dataMealBox: [],
+        dataSweetAndOthers: [],
+        randomMealBox: [],
+        randomSweet: []
+    }
+
+    componentDidMount () {
+        this.getDataLangganan()
+        this.getDataMealbox()
+        this.getDataSweetAndOthers()
+    }
+
+    getDataLangganan = () => {
+        Axios.get(urlApi + 'langganan/getKategoriLangganan')
+        .then(res => {
+            this.setState({dataLangganan: res.data})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    getDataMealbox = () => {
+        Axios.get(urlApi + 'langganan/getKategoriLanggananPerkategori/mealbox')
+        .then(res => {
+            var n = 2
+            var randomItems = res.data.sort(() => .5 - Math.random()).slice(0, n);
+            this.setState({dataMealBox: res.data, randomMealBox: randomItems})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    getDataSweetAndOthers = () => {
+        var tempData = []
+        Axios.get(urlApi + 'langganan/getKategoriLanggananPerkategori/sweets')
+        .then(res => {
+            tempData.push(...res.data)
+            Axios.get(urlApi + 'langganan/getKategoriLanggananPerkategori/snack')
+            .then(res => {
+                tempData.push(...res.data)
+                var n = 2
+                var randomItems = tempData.sort(() => .5 - Math.random()).slice(0, n);
+                this.setState({dataSweetAndOthers: tempData, randomSweet: randomItems})
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    renderMenuMealBox = () => {
+        var jsx = this.state.dataMealBox.map(val => {
+            return (
+                <div key={val.id}>
+                    <li>{val.namaPaket}</li>
+                </div>
+            )
+        })
+        return jsx
+    }
+
+    renderMenuSweetAndOthers = () => {
+        var jsx = this.state.dataSweetAndOthers.map(val => {
+            return (
+                <div key={val.id}>
+                    <li>{val.namaPaket}</li>
+                </div>
+            )
+        })
+        return jsx
+    }
 
     render() {
         if(this.props.user.role === 'admin')
@@ -186,33 +263,56 @@ class Main extends Component {
                         <div className="row d-flex flex-column-reverse flex-sm-row justify-content-sm-center">
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={Javanese} alt="Javanese" style={{width: '150'}}/>
+                                {
+                                    this.state.randomMealBox.length > 0
+                                    ?
+                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[0].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                    :
+                                    null
+                                }
                             <div className="card-body text-center">
-                                <h5>Javanese Cuisine</h5>
-                                <h6>Rp. 30.000,-</h6>
+                                {
+                                    this.state.randomMealBox.length > 0
+                                    ?
+                                    <>
+                                    <h5>{this.state.randomMealBox[0].namaPaket}</h5>
+                                    <h6>Rp. {new Intl.NumberFormat('id-ID').format(this.state.randomMealBox[0].harga - ((this.state.randomMealBox[0].discount/100) * this.state.randomMealBox[0].harga))}</h6>
+                                    </>
+                                    :
+                                    null
+                                }
                             </div>
                             </div>
                         </div>
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={Western} alt="Western" style={{width: '150'}}/>
+                                {
+                                    this.state.randomMealBox.length > 0
+                                    ?
+                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[1].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                    :
+                                    null
+                                }
                             <div className="card-body text-center">
-                                <h5>Western</h5>
-                                <h6>Rp. 40.000,-</h6>
+                                {
+                                    this.state.randomMealBox.length > 0
+                                    ?
+                                    <>
+                                    <h5>{this.state.randomMealBox[1].namaPaket}</h5>
+                                    <h6>Rp. {new Intl.NumberFormat('id-ID').format(this.state.randomMealBox[1].harga - ((this.state.randomMealBox[1].discount/100) * this.state.randomMealBox[1].harga))}</h6>
+                                    </>
+                                    :
+                                    null
+                                }
                             </div>
                             </div>
                         </div>
                         <div className="col-12 col-md-4 text-center text-sm-left mb-4 mb-sm-0">
                             <div className="card-body m-2 p-0 m-sm-2 m-sm-0">
-                            <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>MENU LANGGANAN
-                            </h5>
-                            <ul className="list-unstyled" style={{fontSize: '16px'}}>
-                                <li>Chinese Food</li>
-                                <li>Indonesian Food</li>
-                                <li>Basic Lunch</li>
-                                <li>Family Package</li>
-                                <li>Office Package</li>
-                            </ul>
+                            <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>MEAL BOX MENU</h5>
+                                <ul className="list-unstyled" style={{fontSize: '16px'}}>
+                                    {this.renderMenuMealBox()}
+                                </ul>
                             <Link to='/Langganan'><input type="button" defaultValue="LIHAT MENU LAINNYA" className="btn btn-success" /></Link>
                             </div>
                         </div>
@@ -223,19 +323,47 @@ class Main extends Component {
                         <div className="row d-flex flex-column-reverse flex-sm-row justify-content-sm-center">
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={BerryDessert} alt="Berry Dessert" style={{width: '150'}}/>
+                                {
+                                    this.state.randomSweet.length > 0
+                                    ?
+                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[1].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                    :
+                                    null
+                                }
                             <div className="card-body text-center">
-                                <h5>Coffee and Milk</h5>
-                                <h6>Rp. 15.000,-</h6>
+                                {
+                                    this.state.randomSweet.length > 0
+                                    ?
+                                    <>
+                                    <h5>{this.state.randomSweet[1].namaPaket}</h5>
+                                    <h6>Rp. {new Intl.NumberFormat('id-ID').format(this.state.randomSweet[1].harga - ((this.state.randomSweet[1].discount/100) * this.state.randomSweet[1].harga))}</h6>
+                                    </>
+                                    :
+                                    null
+                                }
                             </div>
                             </div>
                         </div>
                         <div className="col-12 col-md-4 mb-4 mb-sm-0">
                             <div className="card">
-                            <img className="card-img-top card-img-top-new" src={SweetManggo} alt="bunCha" style={{width: '150'}}/>
+                                {
+                                    this.state.randomSweet.length > 0
+                                    ?
+                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[0].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                    :
+                                    null
+                                }
                             <div className="card-body text-center">
-                                <h5>Traditional Dessert</h5>
-                                <h6>Rp. 20.000,-</h6>
+                                {
+                                    this.state.randomSweet.length > 0
+                                    ?
+                                    <>
+                                    <h5>{this.state.randomSweet[0].namaPaket}</h5>
+                                    <h6>Rp. {new Intl.NumberFormat('id-ID').format(this.state.randomSweet[0].harga - ((this.state.randomSweet[0].discount/100) * this.state.randomSweet[0].harga))}</h6>
+                                    </>
+                                    :
+                                    null
+                                }
                             </div>
                             </div>
                         </div>
@@ -244,10 +372,7 @@ class Main extends Component {
                             <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>SWEET AND OTHERS
                             </h5>
                             <ul className="list-unstyled" style={{fontSize: '16px'}}>
-                                <li>Fruit and Juice</li>
-                                <li>Fresh Milk and Cookies</li>
-                                <li>Coffee</li>
-                                <li>Appetizer</li>
+                                {this.renderMenuSweetAndOthers()}
                             </ul>
                             <Link to='/Langganan'><input type="button" className="btn btn-success" defaultValue="LIHAT MENU LAINNYA" /></Link>
                             </div>

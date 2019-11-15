@@ -154,6 +154,7 @@ class LanggananAdmin extends Component {
            harga: this.state.inputHargaEdit ? parseInt(this.state.inputHargaEdit) : objSelected.harga,
            discount: this.state.inputDiscountEdit ? parseInt(this.state.inputDiscountEdit) : objSelected.discount,
            deskripsi: this.state.inputDeskripsiEdit ? this.state.inputDeskripsiEdit : objSelected.deskripsi,
+           kategori: this.refs.inputKategori.value,
            imagePath: objSelected.imagePath   
        }
 
@@ -304,7 +305,14 @@ class LanggananAdmin extends Component {
                         <td>{val.Menu}</td>
                         <td>{val.urutan}</td>
                         <td><input type="button" className='btn btn-info' value="Edit" onClick={() => this.getAllMenu(val.id)}/></td>
-                        <td><input type="button" className='btn btn-danger' value="Delete" onClick={() => this.deleteJadwal(val.id)}/></td>
+                        {
+                            this.state.listJadwal.length === 1
+                            ?
+                            <td><h6>Cant be deleted, please add one more menu.</h6></td>
+                            :
+                            <td><input type="button" className='btn btn-danger' value="Delete" onClick={() => this.deleteJadwal(val.id)}/></td>
+                        }
+                        
                     </tr>
                 )
             }
@@ -469,8 +477,18 @@ class LanggananAdmin extends Component {
                                                         <h6 style={{marginBottom: -10}}>Deskripsi</h6>
                                                         <MDBInput hint={this.state.selectedProduct.deskripsi} type="textarea" onChange={(e)=> this.setState({inputDeskripsiEdit: e.target.value})} outline/>
                                                     </div>
+                                                    <div className="col-12">
+                                                        <h6>Kategori</h6>
+                                                        <select ref='inputKategori' className="browser-default custom-select mt-1">
+                                                            <option value={this.state.selectedProduct.kategori}>{this.state.selectedProduct.kategori.charAt(0).toUpperCase() + this.state.selectedProduct.kategori.substring(1)}</option>
+                                                            {this.state.selectedProduct.kategori === 'mealbox' ? null : <option value="mealbox">Meal Box</option>}
+                                                            {this.state.selectedProduct.kategori === 'sweets' ? null : <option value="sweets">Sweets</option>}
+                                                            {this.state.selectedProduct.kategori === 'snack' ? null : <option value="snack">Snack</option>}
+                                                            {this.state.selectedProduct.kategori === 'others' ? null : <option value="others">Others</option>}
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div className="row mt-2">
+                                                <div className="row mt-4">
                                                     <div className="col-12">
                                                         <div className="row">
                                                             <div className="col-10">

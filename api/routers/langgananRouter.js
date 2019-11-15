@@ -12,5 +12,8 @@ router.post('/addLanggananJadwalLama/', langgananController.addLanggananJadwalLa
 router.post('/addLanggananJadwalBaru/', langgananController.addLanggananJadwalBaru)
 router.delete('/hapusPaketLangganan/', langgananController.hapusPaketLangganan)
 router.get('/getKategoriLanggananPromo', langgananController.getKategoriLanggananPromo)
+router.get('/getKategoriLanggananPerkategori/:kategori', langgananController.getKategoriLanggananPerKategori)
+router.get('/getKategoriLanggananUnder20', langgananController.getKategoriLanggananUnder20)
+router.get('/daftarProdukTerbaik', langgananController.daftarProdukTerbaik)
 
 module.exports = router
