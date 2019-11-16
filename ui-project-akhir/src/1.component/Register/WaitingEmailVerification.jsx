@@ -6,19 +6,17 @@ import {urlApi} from '../../helpers/database'
 class WaitingEmailVerification extends Component {
 
     onBtnResendEmailClick = () => {
-        console.log(this.props.location.search)
         var params = queryString.parse(this.props.location.search)
-        console.log(params)
-        // axios.post(urlApi + 'user/resendemailconfirm', {
-        //     email: params.email
-        // })
-        // .then((res) => {
-        //     alert(res.data.message)
-        // })
-        // .catch((err) => {
-        //     console.log(err.response)
-        //     alert(err.response.data.message)
-        // })
+        axios.post(urlApi + 'user/resendemailconfirm', {
+            email: params.email
+        })
+        .then((res) => {
+            alert(res.data.message)
+        })
+        .catch((err) => {
+            console.log(err.response)
+            alert(err.response.data.message)
+        })
     }
 
     render() {

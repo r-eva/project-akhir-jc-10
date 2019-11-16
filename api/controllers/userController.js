@@ -13,10 +13,10 @@ module.exports = {
         req.body.password = crypto.createHmac('sha256', secret)
             .update(req.body.password)
             .digest('hex')
-        
-        var emailVerification = crypto.createHmac('sha256', secret)
-        .update(req.body.email)
-        .digest('hex')
+
+        var mykey = crypto.createCipher('aes-128-cbc', secret);
+        var emailVerification = mykey.update(req.body.email, 'utf8', 'hex')
+        emailVerification += mykey.final('hex');
 
         var sql = `SELECT * FROM users WHERE email = '${req.body.email}';`
         sqlDB.query(sql, (err, result) => {
@@ -45,12 +45,15 @@ module.exports = {
         })
     },
     confirmEmail: (req, res) => {
-        /////buka dulu rahasia req.body.email, rubah jadi email dibawah
-        
-        var sql = `UPDATE users SET status='Verified' WHERE email='${req.body.email}';`
+
+        var mykey = crypto.createDecipher('aes-128-cbc', secret);
+        var bukaEmail = mykey.update(req.body.email, 'hex', 'utf8')
+        bukaEmail += mykey.final('utf8')
+
+        var sql = `UPDATE users SET status='Verified' WHERE email='${bukaEmail}';`
         sqlDB.query(sql, (err, results) => {
             if (err) return res.status(500).send({status: 'error', err})
-            sql = `SELECT id, username, email, status, role from users WHERE email = '${req.body.email}'`
+            sql = `SELECT id, username, email, status, role from users WHERE email = '${bukaEmail}'`
             sqlDB.query(sql, (err, results) => {
                 if (err) return res.status(500).send({err})
                 var token = createJWTToken({...results[0]})
@@ -59,9 +62,14 @@ module.exports = {
         })
     }, 
     resendEmailConfirm: (req, res) => {
+
+       var mykey = crypto.createDecipher('aes-128-cbc', secret);
+        var bukaEmail = mykey.update(req.body.email, 'hex', 'utf8')
+        bukaEmail += mykey.final('utf8')
+
         var mailOption = {
             from: "ANNORA Catering and Resto <reginaevadewi@gmail.com>",
-            to: req.body.email,
+            to: bukaEmail,
             subject: 'Email Confirmation',
             html: `Verified your email by clicking this link
             <a href="http://localhost:3000/emailverified?email=${req.body.email}">Verified<a/>`

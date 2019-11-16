@@ -3,6 +3,7 @@ import './Navigation.css'
 import {connect} from 'react-redux'
 import {userLogout} from '../../redux/1.actions/userAction'
 import logo from '../../fotoku/annora.png'
+import logoOnscroll from '../../fotoku/annorawritingcut.png'
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler,
         MDBCollapse, MDBNavItem, MDBNavLink, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu,
         MDBDropdownItem, MDBIcon } from 'mdbreact'
