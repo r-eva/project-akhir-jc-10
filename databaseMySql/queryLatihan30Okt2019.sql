@@ -3,6 +3,22 @@
 	select * FROM history;
     select * from users;
     SELECT * from kategori_langganan;
+    SElect * from all_menu;
+    
+    SELECT kl.id, kl.namaPaket, kl.harga, kl.discount, kl.deskripsi, kl.imagePath, kl.kategori,
+                    SUM(Durasi * JumlahBox) as totalTerjual, COUNT(hd.idHistory) as jumlahTransaksi
+                    FROM history_detailproduct hd
+                    JOIN history h
+                    JOIN kategori_langganan kl
+                    on h.id = hd.idHistory && kl.id = hd.idPaket
+                    WHERE h.Status = 'Lunas'
+                    && h.TanggalTransaksi >= '2019-11-01' && h.TanggalTransaksi <= '2019-11-30'
+                    GROUP BY namaPaket
+                    ORDER BY totalTerjual DESC
+                    LIMIT 8;
+    
+    SELECT * FROM kategori_langganan
+	WHERE harga - ((discount/100) * harga) < 20000;
     
     SELECT * FROM kategori_langganan
     WHERE discount > 0;

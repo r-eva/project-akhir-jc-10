@@ -53,8 +53,8 @@ class History extends Component {
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga: {val.harga} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diskon: {val.discount} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Box: {val.JumlahBox} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal Berakir: {val.TanggalBerakhir.slice(0, 10)} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal Mulai: {val.TanggalMulai.slice(0, 10)} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal Berakir: {val.TanggalBerakhir.slice(0, 10)} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Durasi: {val.Durasi} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subtotal: {val.Durasi * val.JumlahBox * (val.harga - (val.harga * val.discount/100))} <br/>
                         </p>

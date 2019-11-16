@@ -47,3 +47,18 @@ export const checkLocalStorage = () => {
         })
     }
 }
+
+export const hitungCart = (id) => {
+    return (dispatch) => {
+        Axios.get(urlApi + `cart/getCartUser/` + id)
+        .then((res) => {
+            dispatch({
+                type: 'HITUNG_CART',
+                cartYangDitambah: res.data.length
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}

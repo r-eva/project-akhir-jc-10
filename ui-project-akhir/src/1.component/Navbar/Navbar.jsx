@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navigation.css'
 import {connect} from 'react-redux'
-import {userLogout} from '../../redux/1.actions/userAction'
+import {userLogout, hitungCart} from '../../redux/1.actions/userAction'
 import logo from '../../fotoku/annora.png'
 import logoOnscroll from '../../fotoku/annorawritingcut.png'
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler,
@@ -9,22 +9,37 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler,
         MDBDropdownItem, MDBIcon } from 'mdbreact'
 
 class Navbar extends React.Component {
-  constructor(props) {
+
+    state = {
+        cart: this.props.jumlahCart
+    }
+
+    componentDidMount() {
+        this.props.hitungCart(this.props.user.id)
+    }
+
+    componentDidUpdate(){
+        if (this.state.cart !== this.props.jumlahCart) {
+            this.props.hitungCart(this.props.user.id)
+        }
+    }
+
+    constructor(props) {
     super(props);
     this.state = {
       collapse: false,
       isWideEnough: false,
     };
     this.onClick = this.onClick.bind(this);
-  }
+    }
 
-  onClick() {
-    this.setState({
-      collapse: !this.state.collapse,
-    });
-  }
+    onClick() {
+        this.setState({
+        collapse: !this.state.collapse,
+        });
+    }
 
-  render() {
+    render() {
     return (
       <div>
         <header>
@@ -116,26 +131,26 @@ class Navbar extends React.Component {
                                 </>
                                 :
                                 <>
-                                <MDBDropdown nav inNavbar className="font-weight-bold">
-                                    <MDBDropdownToggle nav caret style={{color: 'black', textTransform: 'uppercase'}}>
-                                        Hello, {this.props.user.username}
-                                    </MDBDropdownToggle>
-                                    <MDBDropdownMenu right>
-                                        <MDBNavLink to="/Keranjang">
-                                            <MDBDropdownItem style={{color: 'black'}}>
-                                                <MDBIcon icon="shopping-bag" size="lg" border/> Cart
-                                            </MDBDropdownItem>
-                                        </MDBNavLink>
-                                        <MDBNavLink to="/History">
-                                            <MDBDropdownItem  style={{color: 'black'}}>
-                                                History
-                                            </MDBDropdownItem >
-                                        </MDBNavLink>
-                                            <MDBDropdownItem  style={{color: 'black'}} onClick={this.props.userLogout}>
-                                                Logout
-                                            </MDBDropdownItem >
-                                    </MDBDropdownMenu>
-                                </MDBDropdown>
+                                    <MDBNavItem> 
+                                        <MDBDropdown nav inNavbar className="font-weight-bold bg-rgba(255, 255, 255, 0.7) rgba-white-strong mr-1">
+                                            <MDBDropdownToggle nav caret style={{color: 'black', textTransform: 'uppercase'}}>
+                                                Hello, {this.props.user.username}
+                                            </MDBDropdownToggle>
+                                            <MDBDropdownMenu right>
+                                                <MDBNavLink to="/History">
+                                                    <MDBDropdownItem  style={{color: 'black'}}>
+                                                        History
+                                                    </MDBDropdownItem >
+                                                </MDBNavLink>
+                                                    <MDBDropdownItem  style={{color: 'black'}} onClick={this.props.userLogout}>
+                                                        Logout
+                                                    </MDBDropdownItem >
+                                            </MDBDropdownMenu>
+                                        </MDBDropdown>
+                                    </MDBNavItem>
+                                    <MDBNavItem> 
+                                        <MDBNavLink to="/Keranjang" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black'}}><MDBIcon icon="shopping-bag"/> CART {this.props.jumlahCart}</MDBNavLink>
+                                    </MDBNavItem>
                                 </>
                             }
                                 </>
@@ -155,11 +170,14 @@ class Navbar extends React.Component {
         </header>
       </div>
     );
-  }
+    }
 }
 
-const mapStateToProps = ({user}) => {
-    return {user}
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        jumlahCart: state.cart.jumlahCart
+    }
 }
 
-export default connect(mapStateToProps, {userLogout})(Navbar);
+export default connect(mapStateToProps, {userLogout, hitungCart})(Navbar);

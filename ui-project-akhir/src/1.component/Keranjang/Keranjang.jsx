@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import { MDBJumbotron, MDBCol, MDBCardTitle} from "mdbreact";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
 import swal from 'sweetalert'
 import moment from 'moment'
+import {hitungCart} from '../../redux/1.actions'
+import { MDBJumbotron, MDBCol, MDBCardTitle} from "mdbreact";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
 
 class Keranjang extends Component {
     
@@ -110,6 +112,7 @@ class Keranjang extends Component {
     deleteCart = (index) => {
         Axios.delete(urlApi + 'cart/deleteCartById/' + index) 
         .then((res)=> {
+            this.props.hitungCart(this.props.user.id)
             this.getDataApi(this.props.user.id)
             swal ('Delete item', 'Item deleted from cart', 'success')
         })
@@ -154,12 +157,11 @@ class Keranjang extends Component {
             swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
             
             Axios.post(urlApi + 'history/addHistoryDetail/' + this.props.user.id, {idHistory: res.data[0].id})
-            .then((res) => {
-                swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
-                
+            .then((res) => {                
                 for (var j = 0; j < this.state.cart.length; j++) {
                     Axios.delete(urlApi + 'cart/deleteCartById/'+ this.state.cart[j].id)
                     .then((res) => {
+                        this.props.hitungCart(this.props.user.id)
                         swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
                     })
                     .catch((err) => {
@@ -360,4 +362,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Keranjang)
+export default connect(mapStateToProps, {hitungCart})(Keranjang)

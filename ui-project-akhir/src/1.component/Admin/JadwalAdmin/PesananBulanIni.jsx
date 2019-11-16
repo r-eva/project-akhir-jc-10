@@ -92,7 +92,7 @@ class PesananBulanIni extends Component {
                             <>
                                 <div className="row">
                                     <div className="col-6">
-                                        <h6>Total Pendapatan: Rp. {this.totalPendapatan()} / {this.state.daftarPesananBulanIni.length} transaksi</h6>
+                                        <h6>Total Pendapatan: Rp. {this.totalPendapatan()}/{this.state.daftarPesananBulanIni.length} transaksi</h6>
                                     </div>
                                     <div className="col-6">
                                         <h6>Total Box Terjual: {this.state.jumlahBoxTerjualBulanIni} box</h6>
@@ -106,7 +106,7 @@ class PesananBulanIni extends Component {
                                         {
                                             this.state.produkTerbaik.length !== 0
                                             ?
-                                            <h6>Paket Terlaris: {this.state.produkTerbaik[0].namaPaket} / {this.state.produkTerbaik[0].totalTerjual} box</h6>
+                                            <h6>Paket Terlaris: {this.state.produkTerbaik[0].namaPaket}/{this.state.produkTerbaik[0].totalTerjual} box</h6>
                                             :
                                             null
                                         }

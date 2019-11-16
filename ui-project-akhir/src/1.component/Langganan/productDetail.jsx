@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
-import { MDBJumbotron, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBBtnGroup} from "mdbreact";
 import { urlApi } from '../../helpers/database';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {hitungCart} from '../../redux/1.actions'
 import moment from 'moment'
 import swal from 'sweetalert'
-import axios from 'axios'
+import { MDBJumbotron, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBBtnGroup} from "mdbreact";
 
 class productDetail extends Component {
 
@@ -119,10 +119,11 @@ class productDetail extends Component {
                      Durasi: ubahDurasi
                  }
 
-                 axios.post(urlApi + 'cart/addToCart', objKeranjang)
+                 Axios.post(urlApi + 'cart/addToCart', objKeranjang)
                  .then(res => {
-                     swal({icon: "success", text: "Produk berhasil ditambahkan ke cart."})
                      this.setState({inputTanggalMulai: ''})
+                     this.props.hitungCart(this.props.user.id)
+                     swal({icon: "success", text: "Produk berhasil ditambahkan ke cart."})
                  }).catch(err => {
                      console.log(err)
                      swal({icon: "warning", text: "Produk gagal ditambahkan."})
@@ -300,4 +301,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(productDetail);
+export default connect(mapStateToProps, {hitungCart})(productDetail);
