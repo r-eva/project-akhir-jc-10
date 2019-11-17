@@ -8,6 +8,7 @@ import moment from 'moment'
 import TransaksiMenunggu from './TransaksiMenunggu'
 import DaftarPesanan from './DaftarPesanan'
 import PesananBulanIni from './PesananBulanIni'
+import './jadwalAdmin.css'
 
 class jadwalAdmin extends Component {
 
@@ -105,6 +106,7 @@ class jadwalAdmin extends Component {
         if(this.props.user.role !== 'admin')
         return <Redirect to="/" exact/>
         return (
+            <div className='background-main-admin'>
             <div className="pt-md-5 mt-5 mx-4">
                 <div className="mt-md-5 pt-md-3">
                     <div className="card mb-5">
@@ -175,6 +177,7 @@ class jadwalAdmin extends Component {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         );
     }

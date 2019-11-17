@@ -85,7 +85,7 @@ class Main extends Component {
         var jsx = this.state.dataMealBox.map(val => {
             return (
                 <div key={val.id}>
-                    <li>{val.namaPaket}</li>
+                    <MDBCardText>{val.namaPaket}</MDBCardText>
                 </div>
             )
         })
@@ -96,7 +96,7 @@ class Main extends Component {
         var jsx = this.state.dataSweetAndOthers.map(val => {
             return (
                 <div key={val.id}>
-                    <li>{val.namaPaket}</li>
+                    <MDBCardText>{val.namaPaket}</MDBCardText>
                 </div>
             )
         })
@@ -118,11 +118,11 @@ class Main extends Component {
                         </div>
                         <div className="d-md-flex flex-row">
                             <div className="p-2">
-                                <h6 className="font-weight-bold">We respect and appreciate the eating experience. Our mission isn't just
+                                <h6 className="font-weight-bold" style={{fontFamily: 'Brush Script MT', fontSize:'25px'}}>We respect and appreciate the eating experience. Our mission isn't just
                                     provide food; it's to give you a full service, worry free dining experience.</h6>
                             </div>
                             <div className="text-center text-md-left">
-                                <Link to='/Langganan'><MDBBtn color="danger" className="font-weight-bold" style={{marginTop: -10}}>MULAI LANGGANAN</MDBBtn></Link>
+                                <Link to='/Langganan'><MDBBtn color="danger" className="font-weight-bold">START SUBSCRIPTION</MDBBtn></Link>
                             </div>
                         </div>
                     </div>
@@ -199,9 +199,8 @@ class Main extends Component {
                 <section className="container mb-md-1 pb-md-4">
                     <div className="row">
                         <div className="col justify-text-center">
-                            <h1 className="display-4 text-center text-danger">MENU SEHAT ANNORA</h1>
-                            <p className="lead text-center">Annora menyediakan makanan enak, sehat, dan bergizi. Kamu bisa pilih sesuai
-                                dengan kategori dietmu.
+                            <h1 className="display-4 text-center text-danger">ANNORA HEALTY FOOD</h1>
+                            <p className="lead text-center">Annora provides delicious, tasty and healthy food. Please chose your meal today pursuant to your diet preference.
                             </p>
                         </div>
                     </div>
@@ -212,13 +211,15 @@ class Main extends Component {
                         <div className="col-sm-12 col-md-4">
                             <MDBCol>
                                 <MDBCard className="mb-4 mb-md-0">
-                                    <MDBCardImage className="img-fluid" src={HealtyImg1} style={{width: '150'}} waves/>
+                                    <MDBView hover zoom>
+                                        <MDBCardImage className="img-fluid" src={HealtyImg1} style={{width: '150'}} waves/>
+                                    </MDBView>
                                     <MDBCardBody>
                                     <MDBCardTitle>High Protein Vegan Meal</MDBCardTitle>
                                     <MDBCardText>
-                                        Buat kamu yang berhenti makan daging, kamu bisa pesan sayur sayuran aja.
+                                        For you whose avoid eating animal-based foods, you may order our vegan menu.
                                     </MDBCardText>
-                                    <Link to='/product-detail/13'><MDBBtn color="danger">PESAN SEKARANG</MDBBtn></Link>
+                                    <Link to='/product-detail/13'><MDBBtn color="danger">ORDER NOW</MDBBtn></Link>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -226,13 +227,15 @@ class Main extends Component {
                         <div className="col-sm-12 col-md-4">
                             <MDBCol>
                                 <MDBCard className="mb-4 mb-md-0">
-                                    <MDBCardImage className="img-fluid" src={HealtyImg2} style={{width: '150'}} waves/>
+                                    <MDBView hover zoom>
+                                        <MDBCardImage className="img-fluid" src={HealtyImg2} style={{width: '150'}} waves/>
+                                    </MDBView>
                                     <MDBCardBody>
                                     <MDBCardTitle>Non-Collesterol</MDBCardTitle>
                                     <MDBCardText>
-                                        Kamu juga bisa pesan menu lezat tanpa khawatir kolesterol tinggimu kambuh.
+                                     We offer a diet rich in vegetables, poultry, fish, and nuts to low your cholesterol.
                                     </MDBCardText>
-                                    <Link to='/product-detail/8'><MDBBtn color="danger">PESAN SEKARANG</MDBBtn></Link>
+                                    <Link to='/product-detail/8'><MDBBtn color="danger">ORDER NOW</MDBBtn></Link>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -240,13 +243,15 @@ class Main extends Component {
                         <div className="col-sm-12 col-md-4">
                             <MDBCol>
                                 <MDBCard className="mb-4 mb-md-0">
-                                    <MDBCardImage className="img-fluid" src={HealtyImg3} style={{width: '150'}} waves/>
+                                    <MDBView hover zoom>
+                                        <MDBCardImage className="img-fluid" src={HealtyImg3} style={{width: '150'}} waves/>
+                                    </MDBView>
                                     <MDBCardBody>
                                     <MDBCardTitle>Low-Carb</MDBCardTitle>
                                     <MDBCardText>
-                                        Kalau kamu lagi diet, ganti karbohidratmu pakai overnight oatmeal dari Annora.
+                                        Overnight oat is well-balanced breakfast which contain carbs, protein, and fiber.
                                     </MDBCardText>
-                                    <Link to='/product-detail/2'><MDBBtn color="danger">PESAN SEKARANG</MDBBtn></Link>
+                                    <Link to='/product-detail/2'><MDBBtn color="danger">ORDER NOW</MDBBtn></Link>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
@@ -266,7 +271,9 @@ class Main extends Component {
                                 {
                                     this.state.randomMealBox.length > 0
                                     ?
-                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[0].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                    <MDBView hover zoom>
+                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[0].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                    </MDBView>
                                     :
                                     null
                                 }
@@ -289,7 +296,9 @@ class Main extends Component {
                                 {
                                     this.state.randomMealBox.length > 0
                                     ?
-                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[1].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                    <MDBView hover zoom>
+                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[1].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                    </MDBView>
                                     :
                                     null
                                 }
@@ -309,11 +318,11 @@ class Main extends Component {
                         </div>
                         <div className="col-12 col-md-4 text-center text-sm-left mb-4 mb-sm-0">
                             <div className="card-body m-2 p-0 m-sm-2 m-sm-0">
-                            <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>MEAL BOX MENU</h5>
+                                <MDBCardTitle className="font-weight-bold">MEAL BOX MENU</MDBCardTitle>
                                 <ul className="list-unstyled" style={{fontSize: '16px'}}>
                                     {this.renderMenuMealBox()}
                                 </ul>
-                            <Link to='/Langganan'><input type="button" defaultValue="LIHAT MENU LAINNYA" className="btn btn-success" /></Link>
+                            <Link to='/Langganan'><input type="button" defaultValue="OTHER MENU" className="btn btn-success" /></Link>
                             </div>
                         </div>
                         </div>
@@ -326,7 +335,9 @@ class Main extends Component {
                                 {
                                     this.state.randomSweet.length > 0
                                     ?
-                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[1].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                    <MDBView hover zoom>
+                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[1].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                    </MDBView>
                                     :
                                     null
                                 }
@@ -349,7 +360,9 @@ class Main extends Component {
                                 {
                                     this.state.randomSweet.length > 0
                                     ?
-                                    <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[0].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                    <MDBView hover zoom>
+                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[0].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                    </MDBView>
                                     :
                                     null
                                 }
@@ -369,12 +382,13 @@ class Main extends Component {
                         </div>
                         <div className="col-12 col-md-4 text-center text-sm-left mb-4 mb-sm-0">
                             <div className="card-body m-2 p-0 m-sm-2 m-sm-0">
-                            <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>SWEET AND OTHERS
+                                <MDBCardTitle className="font-weight-bold">SWEET AND OTHERS</MDBCardTitle>
+                            <h5 className="card-title text-danger" style={{textDecorationLine: 'underline'}}>
                             </h5>
                             <ul className="list-unstyled" style={{fontSize: '16px'}}>
                                 {this.renderMenuSweetAndOthers()}
                             </ul>
-                            <Link to='/Langganan'><input type="button" className="btn btn-success" defaultValue="LIHAT MENU LAINNYA" /></Link>
+                            <Link to='/Langganan'><input type="button" className="btn btn-success" defaultValue="OTHER MENU" /></Link>
                             </div>
                         </div>
                         </div>
@@ -387,7 +401,7 @@ class Main extends Component {
                 <MDBContainer className='mb-5'>
                     <div className="col-md justify-text-center mb-3">
                         <h1 className="text-center text-danger">READY TO COOK</h1>
-                        <h5 className="text-center">Annora menyediakan sayuran, buah, bahan masakan, dan sambal.</h5>
+                        <h5 className="text-center">The ingredients on this package are semi-cooked. All you need is following the steps and prepare it properly.</h5>
                     </div>
                     <MDBCarousel
                         activeItem={1}
@@ -400,7 +414,7 @@ class Main extends Component {
                             <MDBCarouselItem itemId="1">
                                 <MDBView>
                                     <img
-                                        className="d-block w-100 border border-light bg-light p-1"
+                                        className="d-block w-100 border border-light"
                                         style={{
                                         objectFit: "cover"
                                     }}
@@ -410,41 +424,41 @@ class Main extends Component {
                                     <MDBMask overlay="black-light"/>
                                 </MDBView>
                                 <MDBCarouselCaption>
-                                    <h3 className="h3-responsive font-weight-bold">SAYUR DAN BUAH SEGAR</h3>
-                                    <p className="font-weight-bold">Apel, Jeruk, Kiwi</p>
+                                    <h3 className="h3-responsive font-weight-bold">VEGETABLES AND FRUITS ARE FRESH</h3>
+                                    <p className="font-weight-bold">Cucumbers, radishes, Nuts, Berries and Seeds</p>
                                 </MDBCarouselCaption>
                             </MDBCarouselItem>
                             <MDBCarouselItem itemId="2">
                                 <MDBView>
                                     <img
-                                        className="d-block w-100 border border-light bg-light p-1"
+                                        className="d-block w-100 border border-light"
                                         style={{
                                         objectFit: "cover"
                                     }}
                                         height="450"
                                         src={CarouselImg2}
                                         alt="Second slide"/>
-                                    <MDBMask overlay="black-strong"/>
+                                    <MDBMask overlay="black-light"/>
                                 </MDBView>
                                 <MDBCarouselCaption>
-                                    <h3 className="h3-responsive font-weight-bold">PASTA</h3>
-                                    <p className="font-weight-bold">Macaroni, Fusilli, Farfalle</p>
+                                    <h3 className="h3-responsive font-weight-bold">PASTA PACKAGE</h3>
+                                    <p className="font-weight-bold">Several kind of pasta, such as Macaroni, Fusilli, and Farfalle</p>
                                 </MDBCarouselCaption>
                             </MDBCarouselItem>
                             <MDBCarouselItem itemId="3">
                                 <MDBView>
                                     <img
-                                        className="d-block w-100 border border-light bg-light p-1"
+                                        className="d-block w-100 border border-light"
                                         style={{
                                         objectFit: "cover"
                                     }}
                                         height="450"
                                         src={CarouselImg3}
                                         alt="Third slide"/>
-                                    <MDBMask overlay="black-slight"/>
+                                    <MDBMask overlay="black-light"/>
                                 </MDBView>
                                 <MDBCarouselCaption>
-                                    <h3 className="h3-responsive font-weight-bold">BUMBU DAN BAHAN MAKANAN SIAP PROSES</h3>
+                                    <h3 className="h3-responsive font-weight-bold">THE SPICES AND MATERIAL ARE READY TO COOK</h3>
                                     <p className="font-weight-bold">Roasted Chicken, Salmon Fillet, Tenderloin Steak</p>
                                 </MDBCarouselCaption>
                             </MDBCarouselItem>

@@ -3,7 +3,7 @@ import {Redirect, Link} from 'react-router-dom'
 import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
 import {connect} from 'react-redux'
-import { MDBJumbotron, MDBCol, MDBCardTitle, MDBCard, MDBCardImage} from "mdbreact";
+import { MDBJumbotron, MDBCol, MDBCard, MDBCardImage} from "mdbreact";
 
 class Promo extends Component {
 
@@ -51,11 +51,13 @@ class Promo extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1234853/pexels-photo-1234853.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/545042/pexels-photo-545042.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
                     <MDBCol className="py-5">
                         <div className="py-5">
-                            <MDBCardTitle className="h1-responsive pt-5 mt-5 font-weight-bolder" style={{color: 'black'}}>PROMO</MDBCardTitle>
-                            <p className="mx-5 font-weight-bold" style={{color: 'black'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                            <div className="pt-5 mt-5">
+                            <h1 style={{marginRight: '560px', marginLeft: '560px'}} className="h1-responsive font-weight-bold bg-rgba(233, 30, 99, 0.7) rgba-pink-strong">PROMO</h1>
+                            </div>
+                            <p className="mx-5 bg-#rgba(76, 175, 80, 0.1) rgba-green-slight font-weight-bold" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '23px'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
                             </p>
                         </div>
                     </MDBCol>

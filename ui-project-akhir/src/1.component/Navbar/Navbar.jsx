@@ -2,7 +2,8 @@ import React from 'react';
 import './Navigation.css'
 import {connect} from 'react-redux'
 import {userLogout, hitungCart} from '../../redux/1.actions/userAction'
-import logo from '../../fotoku/annora.png'
+import {Link} from 'react-router-dom'
+import logo from '../../fotoku/annorabaru.png'
 import logoOnscroll from '../../fotoku/annorawritingcut.png'
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler,
         MDBCollapse, MDBNavItem, MDBNavLink, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu,
@@ -41,8 +42,6 @@ class Navbar extends React.Component {
 
     render() {
     return (
-      <div>
-        <header>
             <MDBNavbar color="bg-#ffffff white" fixed="top" dark expand="md" scrolling transparent>
                 {
                     this.props.user.role === 'admin'
@@ -80,7 +79,7 @@ class Navbar extends React.Component {
                                 :
                                 <>
                                     <MDBNavItem> 
-                                        <MDBNavLink to="/Langganan" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginRight: '5px'}}>LANGGANAN</MDBNavLink>
+                                        <MDBNavLink to="/Langganan" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginRight: '5px'}}>SUBSCRIBE</MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem> 
                                         <MDBNavLink to="/Promo" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black'}}>PROMO</MDBNavLink>
@@ -91,7 +90,7 @@ class Navbar extends React.Component {
                         :
                         <>  
                             <MDBNavItem> 
-                                <MDBNavLink to="/Langganan" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginRight: '5px'}}>LANGGANAN</MDBNavLink>
+                                <MDBNavLink to="/Langganan" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginRight: '5px'}}>SUBSCRIBE</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem> 
                                 <MDBNavLink to="/Promo" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black'}}>PROMO</MDBNavLink>
@@ -102,9 +101,9 @@ class Navbar extends React.Component {
                 {
                     this.props.user.role === 'admin'
                     ?
-                    <MDBNavLink to ="/jadwalAdmin" className="d-none d-md-block justify-content-between"><img src={logo} width={200} alt='LinkMain'/></MDBNavLink>
+                    <MDBNavLink to ="/jadwalAdmin" className="d-none d-md-block justify-content-between"><img src={logo} width={200} alt='LinkMain' /></MDBNavLink>
                     :
-                    <MDBNavLink to ="/" className="d-none d-md-block justify-content-between"><img src={logo} width={200} alt='LinkMain'/></MDBNavLink>
+                    <MDBNavLink to ="/" className="d-none d-md-block justify-content-between"><img src={logo} width={180} alt='LinkMain'/></MDBNavLink>
                 }
                 <MDBNavbarNav className="ml-auto font-weight-bold" right>
                     {
@@ -115,14 +114,11 @@ class Navbar extends React.Component {
                                 this.props.user.role === 'admin'
                                 ?
                                 <>
-                                <MDBDropdown nav inNavbar className="font-weight-bold">
+                                <MDBDropdown className="font-weight-bold bg-rgba(255, 255, 255, 0.7) rgba-white-strong">
                                     <MDBDropdownToggle nav caret style={{color: 'black', textTransform: 'uppercase'}}>
                                         Hello, {this.props.user.username}
                                     </MDBDropdownToggle>
-                                    <MDBDropdownMenu className="dropdown-default" right>
-                                        <MDBDropdownItem style={{color: 'black'}}>
-                                            Edit Profile
-                                        </MDBDropdownItem>
+                                    <MDBDropdownMenu right style={{border: 'none'}}>
                                         <MDBDropdownItem style={{color: 'black'}} onClick={this.props.userLogout}>
                                             Logout
                                         </MDBDropdownItem>
@@ -132,24 +128,24 @@ class Navbar extends React.Component {
                                 :
                                 <>
                                     <MDBNavItem> 
-                                        <MDBDropdown nav inNavbar className="font-weight-bold bg-rgba(255, 255, 255, 0.7) rgba-white-strong mr-1">
+                                        <MDBDropdown className="font-weight-bold bg-rgba(255, 255, 255, 0.7) rgba-white-strong">
                                             <MDBDropdownToggle nav caret style={{color: 'black', textTransform: 'uppercase'}}>
                                                 Hello, {this.props.user.username}
                                             </MDBDropdownToggle>
-                                            <MDBDropdownMenu right>
-                                                <MDBNavLink to="/History">
-                                                    <MDBDropdownItem  style={{color: 'black'}}>
-                                                        History
-                                                    </MDBDropdownItem >
-                                                </MDBNavLink>
-                                                    <MDBDropdownItem  style={{color: 'black'}} onClick={this.props.userLogout}>
-                                                        Logout
-                                                    </MDBDropdownItem >
+                                            <MDBDropdownMenu right style={{border: 'none'}}>
+                                                <MDBDropdownItem  style={{color: 'black'}}>
+                                                    <Link to="/History" style={{marginLeft: -10, marginRight: 50}} className="font-weight-bold">
+                                                        HISTORY
+                                                    </Link>
+                                                </MDBDropdownItem >
+                                                <MDBDropdownItem  style={{color: 'black'}} onClick={this.props.userLogout} className="font-weight-bold">
+                                                    LOGOUT
+                                                </MDBDropdownItem >
                                             </MDBDropdownMenu>
                                         </MDBDropdown>
                                     </MDBNavItem>
                                     <MDBNavItem> 
-                                        <MDBNavLink to="/Keranjang" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black'}}><MDBIcon icon="shopping-bag"/> CART {this.props.jumlahCart}</MDBNavLink>
+                                        <MDBNavLink to="/Keranjang" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginLeft: '5px'}}><MDBIcon icon="shopping-bag"/> CART {this.props.jumlahCart}</MDBNavLink>
                                     </MDBNavItem>
                                 </>
                             }
@@ -167,8 +163,6 @@ class Navbar extends React.Component {
                 </MDBNavbarNav>
                 </MDBCollapse>
             </MDBNavbar>
-        </header>
-      </div>
     );
     }
 }

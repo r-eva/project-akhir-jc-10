@@ -3,7 +3,7 @@ import './Langganan.css';
 import {Redirect, Link} from 'react-router-dom'
 import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
-import { MDBJumbotron, MDBCol, MDBCardTitle, MDBBtn, MDBCard, MDBCardImage} from "mdbreact";
+import { MDBJumbotron, MDBCol, MDBBtn, MDBCard, MDBCardImage, MDBView} from "mdbreact";
 import {connect} from 'react-redux'
 
 
@@ -65,11 +65,15 @@ class Langganan extends Component {
         var jsx = showData.map(val => {
             return (
                 <div className="col-6 col-md-3" key={val.id}>
-                    <MDBCard className="my-3">
-                        <Link to={"product-detail/" + val.id}><MDBCardImage src={`${urlApi}${val.imagePath}`} alt='Img produk masih kosong' className= "img-fluid" style={{
+                    <MDBCard className="my-4">
+                        <Link to={"product-detail/" + val.id}>
+                        <MDBView hover zoom>
+                            <MDBCardImage src={`${urlApi}${val.imagePath}`} alt='Img produk masih kosong' className= "img-fluid" style={{
                             width:'255px', height: '200px', borderRadius: '4px', padding: '6px' 
                             }}>
-                        </MDBCardImage></Link>
+                            </MDBCardImage>
+                        </MDBView>
+                        </Link>
                             {
                                 val.discount > 0
                                 ?
@@ -103,11 +107,13 @@ class Langganan extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=747&q=80)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1410236/pexels-photo-1410236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
                     <MDBCol className="py-5">
                         <div className="py-5">
-                            <MDBCardTitle className="h1-responsive pt-5 mt-5 font-weight-bolder" style={{color: 'black'}}>LANGGANAN</MDBCardTitle>
-                            <p className="mx-5 font-weight-bold" style={{color: 'black'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                            <div className="pt-5 mt-5 ">
+                                <h1 style={{marginRight: '530px', marginLeft: '530px'}} className="h1-responsive font-weight-bold bg-rgba(255, 152, 0, 0.7) rgba-orange-strong">SUBSCRIBE</h1>
+                            </div>
+                                <p className="mx-5 font-weight-bold bg-rgba(255, 255, 255, 0.3) rgba-white-light" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '23px'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
                             </p>
                         </div>
                     </MDBCol>
@@ -115,7 +121,7 @@ class Langganan extends Component {
                 </MDBJumbotron>
                 <div className='container'>
                     <div className="row">
-                        <div className="col-12">
+                        <div className="col-12 mt-4">
                             <div className="row">
                                 <div className="col-6 col-md-2">
                                 <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold btn btn-block' onClick={() => this.getDataLanggananByKategori('mealbox')}><img src='https://www.pngtube.com/myfile/detail/494-4942817_indian-dinner-of-dreams-vietnamese-food-icons-png.png' alt='Meal Menu Icon' style={{width: '50px'}}></img><br/>Meal Box</MDBBtn>
@@ -136,11 +142,18 @@ class Langganan extends Component {
                                 <MDBBtn outline color="blue-grey" className='mb-2 font-weight-bold btn btn-block' onClick={this.getDataLanggananUnder20}><img src='https://www.searchpng.com/wp-content/uploads/2019/02/Like-Button-Instagram-PNG.png' alt='Other Menu Icon' style={{width: '50px'}}></img><br/>Under 20K</MDBBtn>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-12 mb-2 mt-2">
-                                    <MDBBtn color="blue-grey" className="btn btn-block" onClick={this.getDataLangganan}>View All Menu</MDBBtn>
+                            <div className="row my-5">
+                                <div className="col-12">
+                                    <MDBBtn color="blue-grey" className="btn btn-block" onClick={this.getDataLangganan}>View All Menu</MDBBtn> 
                                 </div>
                             </div>
+                            <div className="row">
+                                <div className="col-12 mb-5">                
+                                    <h3 className="text-center">“By choosing healthy over skinny, you are choosing self-love over self-judgement.”</h3>
+                                    <h5 className="blockquote-footer text-center"><cite title="Source Title">Steve Maraboli</cite></h5>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     <div className="row">
@@ -157,14 +170,14 @@ class Langganan extends Component {
                                 ?
                                 <input type="button" className='disabled btn btn-blue-grey rounded' value="Previous Page"/>
                                 :
-                                <input type="button" className='btn btn-blue-grey rounded' value="Previous Page" onClick={() => this.setState({page: this.state.page - 1})}/>
+                                <input type="button" className='btn btn-primary rounded' value="Previous Page" onClick={() => this.setState({page: this.state.page - 1})}/>
                             }
                             {
                                 this.state.dataLangganan.length - ((this.state.page + 1) * this.state.pageContent) <= 0
                                 ?
                                 <input type="button" className='ml-2 disabled btn btn-blue-grey rounded' value="Next Page"/>
                                 :
-                                <input type="button" className='btn btn-blue-grey ml-2 rounded' value="Next Page" onClick={() => this.setState({page: this.state.page + 1})}/>
+                                <input type="button" className='btn btn-primary ml-2 rounded' value="Next Page" onClick={() => this.setState({page: this.state.page + 1})}/>
                             }
                         </div>
                     </div>
