@@ -133,16 +133,22 @@ class Navbar extends React.Component {
                                             </MDBDropdownToggle>
                                             <MDBDropdownMenu right style={{border: 'none'}}>
                                                 <MDBDropdownItem  style={{color: 'black'}}>
-                                                    <Link to="/History" style={{marginLeft: -10, marginRight: 50}} className="font-weight-bold">
+                                                    <Link to="/History" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
                                                         HISTORY
                                                     </Link>
                                                 </MDBDropdownItem >
                                                 <MDBDropdownItem  style={{color: 'black'}}>
-                                                    <Link to="/Keranjang" style={{marginLeft: -10, marginRight: 50}} className="font-weight-bold">
+                                                    <Link to="/Keranjang" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
                                                         CART
                                                     </Link>
                                                 </MDBDropdownItem >
-                                                <MDBDropdownItem  style={{color: 'black', fontSize: '15px'}} onClick={this.props.userLogout} className="font-weight-bold">
+                                                <MDBDropdownItem  style={{color: 'black'}}>
+                                                    <Link to="/Wishlist" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
+                                                        WISHLIST
+                                                    </Link>
+                                                </MDBDropdownItem >
+                                                <MDBDropdownItem divider/>
+                                                <MDBDropdownItem style={{marginLeft: -5, color: 'black', fontSize: '15px'}} onClick={this.props.userLogout} className="font-weight-bold">
                                                     LOGOUT
                                                 </MDBDropdownItem >
                                             </MDBDropdownMenu>

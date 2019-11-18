@@ -6,7 +6,7 @@ import {urlApi} from '../../helpers/database'
 import swal from 'sweetalert'
 import moment from 'moment'
 import {hitungCart} from '../../redux/1.actions'
-import { MDBJumbotron, MDBCol, MDBCardTitle} from "mdbreact";
+import { MDBJumbotron, MDBCol} from "mdbreact";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
@@ -225,18 +225,26 @@ class Keranjang extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/414660/pexels-photo-414660.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1660030/pexels-photo-1660030.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
                     <MDBCol className="py-5">
-                        <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">CART</MDBCardTitle>
-                        <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
-                        </p>
+                        <div className="pt-5 pb-5">
+                            <div className="pt-5 mt-5">
+                                <h1 style={{marginRight: '580px', marginLeft: '580px'}} className="title-product-detail h1-responsive font-weight-bold bg-rgba(244, 67, 54, 0.7) rgba-red-strong">CART</h1>
+                            </div>
+                            <div className="mx-md-5 px-md-5">
+                                <p className="mx-4 mx-md-5 pl-md-5 pr-md-5 bg-rgba(255, 255, 255, 0.7) rgba-white-strong font-weight-bold tagline-title" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '24px'}}>
+                                    “A fit, healthy body; that is the best fashion statement”<br/>
+                                    <span style={{fontSize: '15px', fontFamily: 'sans-serif'}}>― Jess C Scott</span>
+                                </p>
+                            </div>
+                        </div>
                     </MDBCol>
                     </MDBCol>
                 </MDBJumbotron>
                 {
                     this.state.cart.length === 0
                     ?
-                    <h1 className="text-center mt-5" style={{marginBottom: '500px'}}>CART ANDA KOSONG</h1>
+                    <h1 className="h1-responsive text-center mt-5" style={{marginBottom: '500px'}}>YOUR CART IS EMPTY</h1>
                     :
                     <>
                         <div className="container-fluid">

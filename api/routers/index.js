@@ -6,6 +6,7 @@ const historyRouter = require('./historyRouter')
 const adminDasboardRouter = require('./adminDasboardRouter')
 const jadwalAdminRouter = require('./jadwalAdminRouter')
 const pesananRouter = require('./pesananRouter')
+const wishlistRouter = require('./wishlistRouter')
 
 module.exports = {
     userRouter,
@@ -15,5 +16,6 @@ module.exports = {
     historyRouter,
     adminDasboardRouter,
     jadwalAdminRouter,
-    pesananRouter
+    pesananRouter,
+    wishlistRouter
 }

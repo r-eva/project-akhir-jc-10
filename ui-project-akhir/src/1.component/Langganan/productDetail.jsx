@@ -23,6 +23,7 @@ class productDetail extends Component {
 
     componentDidMount = () => {
         this.getDataApi()
+        this.getWishlist()
     }
 
     getDataApi = () => {
@@ -83,6 +84,45 @@ class productDetail extends Component {
             )
         })
         return jsx   
+    }
+
+    getWishlist = () => {
+        var obj = {
+            idUser: this.props.user.id,
+            idPaket: this.props.match.params.id
+        }
+        Axios.post(urlApi + 'wishlist/getWishListByIdUserPaket/', obj)
+        .then(res => {
+            if(res.data.length > 0){
+                this.setState({wishlist: true})
+            }
+        })
+        .catch(err => console.log(err))
+    }
+
+    toggleWishlist = () => {
+        var obj = {
+            idPaket: this.props.match.params.id,
+            idUser: this.props.user.id
+            
+        }
+        Axios.post(urlApi + 'wishlist/getWishListByIdUserPaket/', obj)
+        .then(res => {
+            if(this.state.wishlist){
+                Axios.delete(urlApi + 'wishlist/deleteWishlistById/' + res.data[0].id)
+                .then(res => {
+                    this.setState({wishlist: false})
+                })
+                .catch(err => console.log(err))
+            }else{
+                Axios.post(urlApi + 'wishlist/addToWishlist/', obj)
+                .then(res => {
+                    this.setState({wishlist: true})
+                })
+                .catch(err => console.log(err))
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     onTambahKeranjangBtnClick = () => {
@@ -173,9 +213,10 @@ class productDetail extends Component {
                             <h1 style={{color:'#4c4c4c'}}>{this.state.dataPaketLangganan.namaPaket} &nbsp;
                             {   this.state.wishlist 
                                 ? 
-                                <MDBIcon far icon="heart" onClick={() => this.setState({wishlist : !this.state.wishlist})} style={{color:'red',fontSize:32, cursor:'pointer'}}/>
+                                <MDBIcon icon="heart"  onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/> 
                                 :
-                                <MDBIcon icon="heart"  onClick={() => this.setState({wishlist : !this.state.wishlist})} style={{color:'red',fontSize:32, cursor:'pointer'}}/> 
+                                <MDBIcon far icon="heart" onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/>
+                                
                             }
                             </h1>
                             {
