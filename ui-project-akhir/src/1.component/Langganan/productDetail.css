@@ -1,0 +1,6 @@
+@media screen and (max-width: 768px) { /* Bootstrap's mobile view breakpoint */
+    .title-product-detail {
+      margin-left: 100px!important;
+      margin-right: 100px!important;
+    }
+}

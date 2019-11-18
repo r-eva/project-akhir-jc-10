@@ -25,3 +25,16 @@
 .food-container {
     height: 80vmax
 }
+
+@media screen and (max-width: 768px) { /* Bootstrap's mobile view breakpoint */
+    .title-h1 {
+      margin-left: 140px!important;
+      margin-right: 140px!important;
+    }
+    .tagline-title {
+        font-size:4vw!important
+    }
+    .tagline-menu {
+        font-size:4vw!important
+    }
+}

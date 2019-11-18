@@ -55,9 +55,9 @@ class Promo extends Component {
                     <MDBCol className="py-5">
                         <div className="py-5">
                             <div className="pt-5 mt-5">
-                            <h1 style={{marginRight: '560px', marginLeft: '560px'}} className="h1-responsive font-weight-bold bg-rgba(233, 30, 99, 0.7) rgba-pink-strong">PROMO</h1>
+                            <h1 style={{marginRight: '560px', marginLeft: '560px'}} className="title-h1 h1-responsive font-weight-bold bg-rgba(233, 30, 99, 0.7) rgba-pink-strong">PROMO</h1>
                             </div>
-                            <p className="mx-5 bg-#rgba(76, 175, 80, 0.1) rgba-green-slight font-weight-bold" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '23px'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                            <p className="mx-5 bg-rgba(255, 255, 255, 0.3) rgba-white-light font-weight-bold tagline-title" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '24px'}}>A healthy diet doesn't have to be expensive.There are plenty of affordable, nutrient-dense foods you can purchase without breaking the bank. The menu listed below are both cheap and healthy, making them a great addition to your diet.
                             </p>
                         </div>
                     </MDBCol>

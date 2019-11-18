@@ -5,8 +5,9 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {hitungCart} from '../../redux/1.actions'
 import moment from 'moment'
+import './productDetail.css'
 import swal from 'sweetalert'
-import { MDBJumbotron, MDBCol, MDBCardTitle, MDBIcon, MDBBtn, MDBBtnGroup} from "mdbreact";
+import { MDBJumbotron, MDBCol, MDBIcon, MDBBtn, MDBBtnGroup} from "mdbreact";
 
 class productDetail extends Component {
 
@@ -69,10 +70,10 @@ class productDetail extends Component {
             return (
                 <div key={val.tanggal}>
                     <div className="row">
-                        <div className="col-4">
+                        <div className="col-3">
                             <p style={{fontWeight: 'bolder'}}>{val.tanggal}</p>
                         </div>
-                        <div className="col-8">
+                        <div className="col-9">
                             <p className='mb-0 pb-0'>{val.Menu}</p>
                             <p className="mt-0 pb-0">{val.Deskripsi}</p>
                         </div>
@@ -85,12 +86,12 @@ class productDetail extends Component {
     }
 
     onTambahKeranjangBtnClick = () => {
-        if (this.state.inputTanggalMulai === '' || this.refs.inputDurasi.value === "Pilih hari") {
-            swal({icon: "warning", text: "Mohon lengkapi seluruh data!"})
+        if (this.state.inputTanggalMulai === '' || this.refs.inputDurasi.value === "Choose") {
+            swal({icon: "warning", text: "Please complete all data required!"})
         } else if (moment(this.state.inputTanggalMulai).weekday() === moment().day("Sunday").weekday() || moment(this.state.inputTanggalMulai).weekday() === moment().day("Saturday").weekday()) {
-            swal({icon: "warning", text: "Mohon input tanggal mulai selain weekend!"})
+            swal({icon: "warning", text: "Please input the starting date other than Saturday and Sunday!"})
         } else if (moment(this.state.inputTanggalMulai).format('L') === moment(new Date()).format('L') && moment(new Date()).format('H') > 8 && moment(new Date()).format('s') > 0) {
-            swal({icon: "warning", text: "Batas waktu pemesanan untuk hari ini adalah Pukul 08.00. Mohon input tanggal lain!"})
+            swal({icon: "warning", text: "Order for today shall be no later than 08.00 am."})
         }
         else {
             if (moment(this.state.inputTanggalMulai).format('L') >= moment().format('L')) {
@@ -123,13 +124,13 @@ class productDetail extends Component {
                  .then(res => {
                      this.setState({inputTanggalMulai: ''})
                      this.props.hitungCart(this.props.user.id)
-                     swal({icon: "success", text: "Produk berhasil ditambahkan ke cart."})
+                     swal({icon: "success", text: "Your order has been added to cart."})
                  }).catch(err => {
                      console.log(err)
-                     swal({icon: "warning", text: "Produk gagal ditambahkan."})
+                     swal({icon: "warning", text: "Fail to add product to cart."})
                  })
             } else {
-                swal({icon: "warning", text: "Mohon input tanggal mulai dari hari ini!"})
+                swal({icon: "warning", text: "You can not input date that has passed!"})
             }    
         }
     }
@@ -138,41 +139,37 @@ class productDetail extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1054289/pexels-photo-1054289.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
-                    <MDBCol className="py-5">
-                        <div className="py-5">
-                            <MDBCardTitle className="h1-responsive pt-5 mt-5 font-weight-bolder" style={{color: 'black'}}>PRODUCT DETAIL</MDBCardTitle>
-                            <p className="mx-5 font-weight-bold" style={{color: 'black'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
-                            </p>
+                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/33307/carrot-kale-walnuts-tomatoes.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="pt-5 pb-5">
+                        <div className="pt-5 pb-5">
+                            <div className="pt-5 mt-5">
+                                <h1 style={{marginRight: '470px', marginLeft: '470px'}} className="title-product-detail h1-responsive font-weight-bold bg-rgba(244, 67, 54, 0.7) rgba-red-strong">PRODUCT DETAIL</h1>
+                            </div>
+                            <div className="mx-md-5 px-md-5">
+                                <p className="mx-4 mx-md-5 pl-md-5 pr-md-5 bg-rgba(255, 255, 255, 0.7) rgba-white-strong font-weight-bold tagline-title" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '24px'}}>
+                                    “One cannot think well, love well, sleep well, if one has not dined well.”<br/>
+                                    <span style={{fontSize: '15px', fontFamily: 'sans-serif'}}>― Virginia Woolf, A Room of One's Own</span>
+                                </p>
+                            </div>
                         </div>
                     </MDBCol>
                     </MDBCol>
                 </MDBJumbotron>
-                <div className='container-fluid m-5'>
-                    <div className="row">
-                        <div className='col-md-7'>
+                <div className='container mt-md-5'>
+                    <div className="row mt-md-5 pt-md-5">
+                        <div className='col-12 col-md-7'>
                             <div>
                                 {
                                     this.state.dataPaketLangganan.imagePath !== undefined
                                     ?
-                                    <img src={`${urlApi}${this.state.dataPaketLangganan.imagePath}`} className="rounded float-left mb-5" alt="Img produk masih kosong" style={{height: '600px', width: '750px'}}/>
+                                    <img src={`${urlApi}${this.state.dataPaketLangganan.imagePath}`} className="rounded float-left img-fluid mb-5" alt="Img produk masih kosong" style={{height: '600px', width: '750px'}}/>
                                     :
                                     null
                                 }
                             </div>
-                            <div>
-                                    {
-                                        this.state.dataJadwalPaketLangganan !== '' && this.state.dataPaketLangganan !== ''
-                                        ?
-                                        <>
-                                            {this.susunJadwalBulanIni()}
-                                        </>
-                                        :
-                                        null
-                                    }
-                            </div>
+                           
                         </div>
-                        <div className='col-md-5'>
+                        <div className='col-12 col-md-5'>
                             <h1 style={{color:'#4c4c4c'}}>{this.state.dataPaketLangganan.namaPaket} &nbsp;
                             {   this.state.wishlist 
                                 ? 
@@ -216,77 +213,95 @@ class productDetail extends Component {
                                         marginTop:'20px'}}>Rp. {this.state.dataPaketLangganan.harga - (this.state.dataPaketLangganan.harga * (this.state.dataPaketLangganan.discount/100))}
                             </div>
                             <div className='row mt-4'>
-                                <div className='col-md-8'>
+                                <div className='col-12'>
                                     <p style={{color:'#606060', fontStyle:"italic"}}>{this.state.dataPaketLangganan.deskripsi}
                                     </p>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className='col-md-6'>
-                                    <div style={{marginTop:'15px', fontSize:'16px', fontWeight:'700', color:'#606060'}}>Jumlah box per hari</div>
+                                    <div style={{marginTop:'15px', fontSize:'16px', fontWeight:'700', color:'#606060'}}>Amount of Box Per day</div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="row">
-                                    <div className="col-5 pr-2 pl-3">
-                                        <div className="border my-2">
-                                            <p className='ml-2'>{this.state.jumlahBox} Box</p>
-                                        </div>
+                            <div className="row">
+                                <div className="col-5 pr-2 pl-3">
+                                    <div className="border my-2">
+                                        <p className='ml-2'>{this.state.jumlahBox} Box</p>
                                     </div>
-                                    <div className="col-4 p-0">
-                                        <MDBBtnGroup>
-                                            <MDBBtn outline color="warning" className='btn btn-block ml-0 mr-1 my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} onClick={() => this.setState({jumlahBox: this.state.jumlahBox + 1})}>+</MDBBtn>
-                                            {
-                                                this.state.jumlahBox === 1 
-                                                ?
-                                                <MDBBtn outline color="secondary" className='btn btn-block my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} disabled>-</MDBBtn>
-                                                :
-                                                <MDBBtn outline color="warning" className='btn btn-block my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} onClick={() => this.setState({jumlahBox: this.state.jumlahBox - 1})}>-</MDBBtn>
-                                            } 
-                                        </MDBBtnGroup>
+                                </div>
+                                <div className="col-7 p-0">
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <MDBBtnGroup>
+                                                <MDBBtn outline color="warning" className='btn btn-block ml-0 mr-1 my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} onClick={() => this.setState({jumlahBox: this.state.jumlahBox + 1})}>+</MDBBtn>
+                                                {
+                                                    this.state.jumlahBox === 1 
+                                                    ?
+                                                    <MDBBtn outline color="secondary" className='btn btn-block my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} disabled>-</MDBBtn>
+                                                    :
+                                                    <MDBBtn outline color="warning" className='btn btn-block my-2' size='sm' style={{fontSize:'16px', fontWeight:'700', color:'#606060'}} onClick={() => this.setState({jumlahBox: this.state.jumlahBox - 1})}>-</MDBBtn>
+                                                } 
+                                            </MDBBtnGroup>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className='col-5 pr-2 pl-3'>
-                                    <div style={{marginTop:'15px', fontSize:'16px', fontWeight:'700', color:'#606060'}}>Tanggal Mulai</div>
+                                    <div style={{marginTop:'15px', fontSize:'16px', fontWeight:'700', color:'#606060'}}>Starting Date</div>
                                 </div>
-                                <div className="col-4 p-0">
-                                    <div style={{marginTop:'15px', fontSize:'16px', fontWeight:'700', color:'#606060'}}>Durasi</div>
+                                <div className="col-7 p-0">
+                                    <div style={{marginTop:'15px', fontSize:'16px', fontWeight:'700', color:'#606060'}}>Duration</div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="row">
-                                    <div className="col-5 pr-2 pl-3">
-                                        <input type="date" className="form-control py-0" min={this.state.tanggalHariIni} onChange={(e) => this.setState({inputTanggalMulai: e.target.value})}/>
-                                    </div>
-                                    <div className="col-3 p-0 pr-3">
-                                        <select ref='inputDurasi' className="browser-default custom-select">
-                                            <option>Pilih hari</option>
-                                            <option value="2 hari">2 hari</option>
-                                            <option value="5 hari">5 hari</option>
-                                            <option value="10 hari">10 hari</option>
-                                            <option value="20 hari">20 hari</option>
-                                        </select>
-                                    </div>
+                            <div className="row">
+                                <div className="col-5 pr-2 pl-3">
+                                    <input type="date" className="form-control" min={this.state.tanggalHariIni} onChange={(e) => this.setState({inputTanggalMulai: e.target.value})}/>
                                 </div>
-                                <div className="row">
-                                    <div className="col-8 pr-2 pl-3">
-                                        <p style={{fontSize: '15px', color: 'grey'}}>Kami tidak mengantar makanan pada hari Sabtu dan Minggu.</p>
-                                    </div>
+                                 <div className="col-4 pl-0 pr-4">
+                                    <select ref='inputDurasi' className="browser-default custom-select">
+                                        <option>Choose</option>
+                                        <option value="2 hari">2 day</option>
+                                        <option value="5 hari">5 day</option>
+                                        <option value="10 hari">10 day</option>
+                                        <option value="20 hari">20 day</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-12 pr-2 pl-3">
+                                    <p style={{fontSize: '15px', color: 'grey'}}>We do not deliver food in Saturday and Sunday.</p>
                                 </div>
                             </div>
                             <div className='row mt-4'>
-                                <div className="col-md-8">
+                                <div className="col-9">
                                     {
                                         this.props.user.id !== 0
                                         ?
-                                        <input type="button" onClick={this.onTambahKeranjangBtnClick} className='btn btn-success btn-block' value="Tambah ke Keranjang"/>
+                                        <input type="button" onClick={this.onTambahKeranjangBtnClick} className='btn btn-success btn-block mb-5 mb-md-0' value="ADD TO CART"/>
                                         :
-                                        <Link to='/Login' style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block' value="Tambah ke Keranjang"/></Link>
+                                        <Link to='/Login' style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block mb-5 mb-md-0' value="Tambah ke Keranjang"/></Link>
                                     }
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <div className="col-12">
+                            <h1 style={{textDecoration: 'underline'}}>This Month's Schedule</h1>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12 mb-5">
+                                {
+                                    this.state.dataJadwalPaketLangganan !== '' && this.state.dataPaketLangganan !== ''
+                                    ?
+                                    <>
+                                        {this.susunJadwalBulanIni()}
+                                    </>
+                                    :
+                                    null
+                                }
                         </div>
                     </div>
                 </div>

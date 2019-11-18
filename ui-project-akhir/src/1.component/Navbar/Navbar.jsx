@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {userLogout, hitungCart} from '../../redux/1.actions/userAction'
 import {Link} from 'react-router-dom'
 import logo from '../../fotoku/annorabaru.png'
-import logoOnscroll from '../../fotoku/annorawritingcut.png'
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler,
         MDBCollapse, MDBNavItem, MDBNavLink, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu,
         MDBDropdownItem, MDBIcon } from 'mdbreact'
@@ -119,7 +118,7 @@ class Navbar extends React.Component {
                                         Hello, {this.props.user.username}
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu right style={{border: 'none'}}>
-                                        <MDBDropdownItem style={{color: 'black'}} onClick={this.props.userLogout}>
+                                        <MDBDropdownItem style={{color: 'black', fontSize: '15px'}} onClick={this.props.userLogout}>
                                             Logout
                                         </MDBDropdownItem>
                                     </MDBDropdownMenu>
@@ -138,14 +137,19 @@ class Navbar extends React.Component {
                                                         HISTORY
                                                     </Link>
                                                 </MDBDropdownItem >
-                                                <MDBDropdownItem  style={{color: 'black'}} onClick={this.props.userLogout} className="font-weight-bold">
+                                                <MDBDropdownItem  style={{color: 'black'}}>
+                                                    <Link to="/Keranjang" style={{marginLeft: -10, marginRight: 50}} className="font-weight-bold">
+                                                        CART
+                                                    </Link>
+                                                </MDBDropdownItem >
+                                                <MDBDropdownItem  style={{color: 'black', fontSize: '15px'}} onClick={this.props.userLogout} className="font-weight-bold">
                                                     LOGOUT
                                                 </MDBDropdownItem >
                                             </MDBDropdownMenu>
                                         </MDBDropdown>
                                     </MDBNavItem>
                                     <MDBNavItem> 
-                                        <MDBNavLink to="/Keranjang" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginLeft: '5px'}}><MDBIcon icon="shopping-bag"/> CART {this.props.jumlahCart}</MDBNavLink>
+                                        <MDBNavLink to="/keranjang" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginLeft: '5px'}}><MDBIcon icon="shopping-bag"/> {this.props.jumlahCart}</MDBNavLink>
                                     </MDBNavItem>
                                 </>
                             }

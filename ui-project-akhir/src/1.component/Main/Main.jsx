@@ -118,7 +118,7 @@ class Main extends Component {
                         </div>
                         <div className="d-md-flex flex-row">
                             <div className="p-2">
-                                <h6 className="font-weight-bold" style={{fontFamily: 'Brush Script MT', fontSize:'25px'}}>We respect and appreciate the eating experience. Our mission isn't just
+                                <h6 className="font-weight-bold bg-rgba(255, 255, 255, 0.3) rgba-white-slight" style={{fontFamily: 'Brush Script MT', fontSize:'25px'}}>We respect and appreciate the eating experience. Our mission isn't just
                                     provide food; it's to give you a full service, worry free dining experience.</h6>
                             </div>
                             <div className="text-center text-md-left">
@@ -141,7 +141,7 @@ class Main extends Component {
                                 width={70}
                                 alt=""/>
                             <div className="media-body">
-                                <h6 className="mt-0">Freshness Guaranteed.</h6>
+                                <h6 className="mt-0 font-weight-bold">Freshness Guaranteed.</h6>
                                 Orders are only prepared an hour before delivery – made with only the freshest
                                 ingredients. We stress a lot on quality. {/* NESTED MEDIA OBJECT 1 */}
                                 <div className="media mt-3">
@@ -152,7 +152,7 @@ class Main extends Component {
                                             alt=""/>
                                     </div>
                                     <div className="media-body">
-                                        <h6 className="mt-0">Incredible value.</h6>
+                                        <h6 className="mt-0 font-weight-bold">Incredible value.</h6>
                                         We have something here that works for any budget. Not all good things come with
                                         a hefty price tag.
                                     </div>
@@ -170,7 +170,7 @@ class Main extends Component {
                                 width={65}
                                 alt=""/>
                             <div className="media-body mt-3">
-                                <h6 className="mt-0">Consistently good food.</h6>
+                                <h6 className="mt-0 font-weight-bold">Consistently good food.</h6>
                                 We’ve got one chef-in-charge for each item on our menu. That’s how serious we
                                 are about consistency. {/* NESTED MEDIA OBJECT 2 */}
                                 <div className="media mt-4">
@@ -181,7 +181,7 @@ class Main extends Component {
                                             alt=""/>
                                     </div>
                                     <div className="media-body">
-                                        <h6 className="mt-0">Impeccable presentation.</h6>
+                                        <h6 className="mt-0 font-weight-bold">Impeccable presentation.</h6>
                                         Whether it’s buffet setups or packaged meals – we make sure everything you
                                         receive is impeccably presented.
                                     </div>
@@ -199,7 +199,7 @@ class Main extends Component {
                 <section className="container mb-md-1 pb-md-4">
                     <div className="row">
                         <div className="col justify-text-center">
-                            <h1 className="display-4 text-center text-danger">ANNORA HEALTY FOOD</h1>
+                            <h1 className="display-4 text-center text-danger font-weight-bold">ANNORA HEALTY FOOD</h1>
                             <p className="lead text-center">Annora provides delicious, tasty and healthy food. Please chose your meal today pursuant to your diet preference.
                             </p>
                         </div>
@@ -400,7 +400,7 @@ class Main extends Component {
                 {/* CAROUSEL READYTOCOOK */}
                 <MDBContainer className='mb-5'>
                     <div className="col-md justify-text-center mb-3">
-                        <h1 className="text-center text-danger">READY TO COOK</h1>
+                        <h1 className="text-center text-danger font-weight-bold">READY TO COOK</h1>
                         <h5 className="text-center">The ingredients on this package are semi-cooked. All you need is following the steps and prepare it properly.</h5>
                     </div>
                     <MDBCarousel

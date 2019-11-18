@@ -111,9 +111,9 @@ class Langganan extends Component {
                     <MDBCol className="py-5">
                         <div className="py-5">
                             <div className="pt-5 mt-5 ">
-                                <h1 style={{marginRight: '530px', marginLeft: '530px'}} className="h1-responsive font-weight-bold bg-rgba(255, 152, 0, 0.7) rgba-orange-strong">SUBSCRIBE</h1>
+                                <h1 style={{marginRight: '530px', marginLeft: '530px'}} className="title-h1 h1-responsive font-weight-bold bg-rgba(255, 152, 0, 0.7) rgba-orange-strong">SUBSCRIBE</h1>
                             </div>
-                                <p className="mx-5 font-weight-bold bg-rgba(255, 255, 255, 0.3) rgba-white-light" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '23px'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
+                                <p className="mx-5 font-weight-bold bg-rgba(255, 255, 255, 0.3) rgba-white-strong tagline-title" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '24px'}}>Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
                             </p>
                         </div>
                     </MDBCol>
@@ -149,7 +149,7 @@ class Langganan extends Component {
                             </div>
                             <div className="row">
                                 <div className="col-12 mb-5">                
-                                    <h3 className="text-center">“By choosing healthy over skinny, you are choosing self-love over self-judgement.”</h3>
+                                    <h3 className="text-center tagline-menu">“By choosing healthy over skinny, you are choosing self-love over self-judgement.”</h3>
                                     <h5 className="blockquote-footer text-center"><cite title="Source Title">Steve Maraboli</cite></h5>
                                 </div>
                             </div>
