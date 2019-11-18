@@ -27,7 +27,7 @@ CREATE TABLE `all_menu` (
   `Menu` varchar(45) NOT NULL,
   `Deskripsi` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +56,7 @@ CREATE TABLE `cart` (
   `Durasi` int(11) NOT NULL,
   `JumlahBox` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=269 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +65,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (283,3,7,'2019-11-19','2019-11-25',5,2),(284,3,5,'2019-11-19','2019-12-02',10,2);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +86,7 @@ CREATE TABLE `connection_table` (
   KEY `fk_idKategori_idx` (`idKategori`),
   CONSTRAINT `fk_idKategori` FOREIGN KEY (`idKategori`) REFERENCES `kategori_langganan` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_idMenu` FOREIGN KEY (`idMenu`) REFERENCES `all_menu` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +119,7 @@ CREATE TABLE `history` (
   `BatasAkhirBayar` varchar(40) NOT NULL,
   `buktiPembayaranPath` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +128,7 @@ CREATE TABLE `history` (
 
 LOCK TABLES `history` WRITE;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` VALUES (153,'2019-11-14 13:17:02',3,1005000,'Regina Eva','Garden Grove Raya','45736',0,'Lunas','2019-11-14 15:17:02','/images/buktipembayaran/TOK1573712243501.jpg'),(154,'2019-11-14 13:24:58',2,485500,'Pak Ogah','Jalan di rumahnya','1213',0,'Lunas','2019-11-14 15:24:58','/images/buktipembayaran/TOK1573712734285.jpg'),(155,'2019-11-14 13:50:37',4,497500,'Mandasari','Jalan Murti Raya','1234',0,'Lunas','2019-11-14 15:50:37','/images/buktipembayaran/TOK1573714248734.png'),(156,'2019-11-14 13:58:11',3,495000,'Regina Gmail','sadwewa','2345',0,'Lunas','2019-11-14 15:58:11','/images/buktipembayaran/TOK1573714705052.jpeg'),(157,'2019-11-14 14:01:45',3,255000,'Reginsdakös','rwadcsa','1234',0,'Lunas','2019-11-14 16:01:45','/images/buktipembayaran/TOK1573714933665.jpg');
+INSERT INTO `history` VALUES (153,'2019-11-14 13:17:02',3,1005000,'Regina Eva','Garden Grove Raya','45736',0,'Lunas','2019-11-14 15:17:02','/images/buktipembayaran/TOK1573712243501.jpg'),(154,'2019-11-14 13:24:58',2,485500,'Pak Ogah','Jalan di rumahnya','1213',0,'Lunas','2019-11-14 15:24:58','/images/buktipembayaran/TOK1573712734285.jpg'),(155,'2019-11-14 13:50:37',4,497500,'Mandasari','Jalan Murti Raya','1234',0,'Lunas','2019-11-14 15:50:37','/images/buktipembayaran/TOK1573714248734.png'),(156,'2019-11-14 13:58:11',3,495000,'Regina Gmail','sadwewa','2345',0,'Lunas','2019-11-14 15:58:11','/images/buktipembayaran/TOK1573714705052.jpeg'),(157,'2019-11-14 14:01:45',3,255000,'Reginsdakös','rwadcsa','1234',0,'Lunas','2019-11-14 16:01:45','/images/buktipembayaran/TOK1573714933665.jpg'),(158,'2019-11-16 01:09:36',3,150000,'dnsalkjdölwa','wadawea','1213',0,'Lunas','2019-11-16 03:09:36','/images/buktipembayaran/TOK1573841473634.jpg'),(159,'2019-11-16 14:17:46',35,230000,'sdaldsla','slkjdiaeiw','123',0,'Lunas','2019-11-16 16:17:46','/images/buktipembayaran/TOK1573889134002.jpg'),(160,'2019-11-16 14:22:51',35,862500,'ewqa','e2asasawwda','1234',0,'Lunas','2019-11-16 16:22:51','/images/buktipembayaran/TOK1573889151350.jpg'),(161,'2019-11-16 14:25:08',35,300000,'fasfada','weawaxs','1234',1,'Canceled By User','2019-11-16 16:25:08',NULL),(162,'2019-11-16 14:26:36',35,427500,'jdhfs','wqewq','1213',0,'Lunas','2019-11-16 16:26:36','/images/buktipembayaran/TOK1573889215742.jpg'),(163,'2019-11-16 14:49:51',35,460000,'wadwae','ewada','1234',0,'Lunas','2019-11-16 16:49:51','/images/buktipembayaran/TOK1573890607975.jpg'),(164,'2019-11-16 14:52:06',2,810000,'erwr','erawa','123',0,'Menunggu Konfirmasi Admin','2019-11-16 16:52:06','/images/buktipembayaran/TOK1573890783691.jpg');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +149,7 @@ CREATE TABLE `history_detailproduct` (
   `JumlahBox` int(11) NOT NULL,
   `idHistory` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +158,7 @@ CREATE TABLE `history_detailproduct` (
 
 LOCK TABLES `history_detailproduct` WRITE;
 /*!40000 ALTER TABLE `history_detailproduct` DISABLE KEYS */;
-INSERT INTO `history_detailproduct` VALUES (189,3,3,'2019-11-14','2019-11-20',5,3,153),(190,3,8,'2019-11-18','2019-11-22',5,2,153),(191,3,9,'2019-11-15','2019-11-18',2,2,153),(192,2,5,'2019-11-15','2019-11-18',2,3,154),(193,2,7,'2019-11-15','2019-11-21',5,2,154),(194,4,3,'2019-11-15','2019-11-21',5,3,155),(195,4,19,'2019-11-15','2019-11-21',5,1,155),(196,3,13,'2019-11-21','2019-11-27',5,2,156),(197,3,6,'2019-11-20','2019-12-03',10,1,156),(198,3,8,'2019-11-19','2019-11-25',5,2,157);
+INSERT INTO `history_detailproduct` VALUES (189,3,3,'2019-11-14','2019-11-20',5,3,153),(190,3,8,'2019-11-18','2019-11-22',5,2,153),(191,3,9,'2019-11-15','2019-11-18',2,2,153),(192,2,5,'2019-11-15','2019-11-18',2,3,154),(193,2,7,'2019-11-15','2019-11-21',5,2,154),(194,4,3,'2019-11-15','2019-11-21',5,3,155),(195,4,19,'2019-11-15','2019-11-21',5,1,155),(196,3,13,'2019-11-21','2019-11-27',5,2,156),(197,3,6,'2019-11-20','2019-12-03',10,1,156),(198,3,8,'2019-11-19','2019-11-25',5,2,157),(199,3,3,'2019-11-18','2019-11-22',5,1,158),(200,35,2,'2019-11-18','2019-11-22',5,2,159),(201,35,19,'2019-11-18','2019-11-22',5,2,159),(202,35,13,'2019-11-22','2019-11-28',5,3,160),(203,35,6,'2019-11-19','2019-11-25',5,4,160),(204,35,9,'2019-11-19','2019/11/20',2,2,161),(205,35,5,'2019-11-18','2019-11-29',10,3,162),(206,35,7,'2019-11-21','2019-11-22',2,2,163),(207,35,1,'2019-11-18','2019-11-22',5,2,163),(208,2,11,'2019-11-20','2019/11/21',2,3,164),(209,2,18,'2019-11-18','2019-11-29',10,4,164);
 /*!40000 ALTER TABLE `history_detailproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,8 +176,9 @@ CREATE TABLE `kategori_langganan` (
   `discount` int(2) NOT NULL,
   `deskripsi` varchar(300) DEFAULT NULL,
   `imagePath` varchar(200) DEFAULT NULL,
+  `kategori` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +187,7 @@ CREATE TABLE `kategori_langganan` (
 
 LOCK TABLES `kategori_langganan` WRITE;
 /*!40000 ALTER TABLE `kategori_langganan` DISABLE KEYS */;
-INSERT INTO `kategori_langganan` VALUES (1,'Javanese Cuisine',30000,0,'Traditional Food of Java with Authentic Taste ','/images/langganan/TOK1572884305194.jpg'),(2,'Overnight Oat',15000,10,'Rolled or old fashioned oats that have been soaked overnight in almond milk or coconut milk mixed with favourite fruit.','/images/langganan/TOK1572884502280.jpg'),(3,'Chinese Food',30000,0,'Chinese cuisine which  includes cuisine originating from the diverse regions of China. The menu includes sweet and Sour Pork, Kung Pao Chicken, Dumpling, Peking Roasted Duck, etc. ','/images/langganan/TOK1572884552974.jpeg'),(4,'Fresh Milk and Cookies',15000,0,'The milk accompanied with sweet cookies.','/images/langganan/TOK1572884571743.jpeg'),(5,'Coffee',15000,5,'Several kind of coffee from Sulawesi, Flores, East Timor, Bali and Java.','/images/langganan/TOK1572884625940.jpeg'),(6,'Ready to Cook',30000,20,'Paket makanan dan sambal yang siap diolah.','/images/langganan/TOK1572884641839.jpeg'),(7,'Western',40000,0,'This menu is mainly based on English and Italian dishes that have been adapted to the local palate.','/images/langganan/TOK1572884665166.jpg'),(8,'Less Collesterol',30000,15,'This menu is less colesterol.','/images/langganan/TOK1572884682960.jpeg'),(9,'Family',75000,0,'Paket besar menu keluarga, cukup untuk 3 - 4 orang.','/images/langganan/TOK1572884699040.jpeg'),(10,'Office',300000,10,'Paket besar makanan untuk makanan terbaik untuk karyawan, tingkatkan produktivitas dan efisiensi waktu kerja.','/images/langganan/TOK1572884735361.jpeg'),(11,'Appetizer',15000,0,'Makanan pembuka sebagai pembangkit nafsu makan yang sehat dan rendah kalori.','/images/langganan/TOK1572884744825.jpeg'),(12,'Indonesian Food',30000,0,'Paket makanan Indonesia termasuk sate, pepes, dan sop.','/images/langganan/TOK1572884755875.jpg'),(13,'Vegie Salad',30000,15,'Salad sayur-sayuran, cocok untuk kamu yang sedang diet.','/images/langganan/TOK1572884782004.jpeg'),(18,'Basic Lunch',20000,10,'Makan siang dengan porsi kecil dan harga ekonomis.','/images/langganan/TOK1572884792699.jpeg'),(19,'Buah dan Juice',10000,5,'Paket buah dan juice untuk vitamin kamu setiap hari.','/images/langganan/TOK1573203890050.jpeg');
+INSERT INTO `kategori_langganan` VALUES (1,'Javanese Cuisine',30000,0,'Traditional Food of Java with Authentic Taste ','/images/langganan/TOK1572884305194.jpg','mealbox'),(2,'Overnight Oat',15000,10,'Rolled or old fashioned oats that have been soaked overnight in almond milk or coconut milk mixed with favourite fruit.','/images/langganan/TOK1572884502280.jpg','others'),(3,'Chinese Food',30000,0,'Chinese cuisine which  includes cuisine originating from the diverse regions of China. The menu includes sweet and Sour Pork, Kung Pao Chicken, Dumpling, Peking Roasted Duck, etc. ','/images/langganan/TOK1572884552974.jpeg','mealbox'),(4,'Milk and Cookies',15000,0,'The milk accompanied with sweet cookies.','/images/langganan/TOK1572884571743.jpeg','sweets'),(5,'Coffee',15000,5,'Several kind of coffee from Sulawesi, Flores, East Timor, Bali and Java.','/images/langganan/TOK1572884625940.jpeg','others'),(6,'Ready to Cook',30000,20,'Paket makanan dan sambal yang siap diolah.','/images/langganan/TOK1572884641839.jpeg','others'),(7,'Western',40000,0,'This menu is mainly based on English and Italian dishes that have been adapted to the local palate.','/images/langganan/TOK1572884665166.jpg','mealbox'),(8,'Less Collesterol',30000,15,'This menu is less colesterol.','/images/langganan/TOK1572884682960.jpeg','others'),(9,'Family',75000,0,'Paket besar menu keluarga, cukup untuk 3 - 4 orang.','/images/langganan/TOK1572884699040.jpeg','mealbox'),(10,'Office',300000,10,'Paket besar makanan untuk makanan terbaik untuk karyawan, tingkatkan produktivitas dan efisiensi waktu kerja.','/images/langganan/TOK1572884735361.jpeg','mealbox'),(11,'Appetizer',15000,0,'Makanan pembuka sebagai pembangkit nafsu makan yang sehat dan rendah kalori.','/images/langganan/TOK1572884744825.jpeg','snack'),(12,'Indonesian Food',30000,0,'Paket makanan Indonesia termasuk sate, pepes, dan sop.','/images/langganan/TOK1572884755875.jpg','mealbox'),(13,'Vegie Salad',30000,15,'Salad sayur-sayuran, cocok untuk kamu yang sedang diet.','/images/langganan/TOK1572884782004.jpeg','others'),(18,'Basic Lunch',20000,10,'Makan siang dengan porsi kecil dan harga ekonomis.','/images/langganan/TOK1572884792699.jpeg','mealbox'),(19,'Fruit and Juice',10000,5,'Paket buah dan juice untuk vitamin kamu setiap hari.','/images/langganan/TOK1573203890050.jpeg','sweets');
 /*!40000 ALTER TABLE `kategori_langganan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,12 +202,12 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
+  `email` varchar(64) DEFAULT NULL,
   `status` varchar(10) NOT NULL,
   `tanggalBergabung` datetime NOT NULL,
   `role` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,8 +216,33 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Bos Annora','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadm@yahoo.co.id','Verified','2019-10-10 20:32:46','admin'),(2,'Pak Ogah','9072c1f79fb6bac0e2ea4c60ca6f0c9ac3799b3664ba78f6a9e42a2d805f0bf7','andre@mail.com','Verified','2019-10-11 11:09:44','user'),(3,'reginaeva','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadewi@gmail.com','Verified','2019-10-15 17:12:21','user'),(4,'mandasari','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','r.mandasari@protonmail.com','Verified','2019-10-17 15:35:21','user');
+INSERT INTO `users` VALUES (1,'Bos Annora','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadm@yahoo.co.id','Verified','2019-10-10 20:32:46','admin'),(2,'Pak Ogah','9072c1f79fb6bac0e2ea4c60ca6f0c9ac3799b3664ba78f6a9e42a2d805f0bf7','andre@mail.com','Verified','2019-10-11 11:09:44','user'),(3,'reginaeva','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','reginaevadewi@gmail.com','Verified','2019-10-15 17:12:21','user'),(4,'mandasari','83848ece03d1ffe0377dcfa5a43f30ea234776a220d69ce46dd23e9beccf6ea4','r.mandasari@protonmail.com','Verified','2019-10-17 15:35:21','user'),(35,'siti','9072c1f79fb6bac0e2ea4c60ca6f0c9ac3799b3664ba78f6a9e42a2d805f0bf7','siti@mail.com','Verified','2019-11-16 13:15:25','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `wishlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idPaket` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+LOCK TABLES `wishlist` WRITE;
+/*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
+INSERT INTO `wishlist` VALUES (1,4,3),(3,10,3);
+/*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -227,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-15  0:18:10
+-- Dump completed on 2019-11-18 21:38:52
