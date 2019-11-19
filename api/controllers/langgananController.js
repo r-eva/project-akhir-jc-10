@@ -120,7 +120,7 @@ module.exports = {
             sqlDB.query(sql, (err, result) => {
                 if (err) return res.status(500).send({message: `Database Error`, err})
                 if (result.length > 0) {
-                    return res.status(500).send({message: `Menu sudah ada, mohon cek kembali!`, err})
+                    return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
                 }
     
                 var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
@@ -173,19 +173,19 @@ module.exports = {
             sqlDB.query(sql, (err, result) => {
                 if (err) return res.status(500).send({message: `Database Error`, err})
                 if (result.length > 0) {
-                    return res.status(500).send({message: `Menu sudah ada, mohon cek kembali!`, err})
+                    return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
                 }
     
                 var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
                 sqlDB.query(sql, [insertData], (err, results) => {
                     if(err) {
                         fs.unlinkSync('./public' + path + '/' + image[0].filename)
-                        return res.status(500).send({message: `Gagal insert paket langganan, mohon periksa kembali image atau data yang anda upload sudah ada!`, err})
+                        return res.status(500).send({message: `Failed to insert new package, image or data you add already exist, please check again!`, err})
                     }
     
                     var sql = `SELECT * FROM all_menu WHERE LOWER(Menu) LIKE LOWER('%${data.Menu}%');`
                     sqlDB.query(sql, (err, result2) => {
-                        if (err) return res.status(500).send({message: `Menu baru yang anda input sudah ada, mohon cek kembali!`, err})
+                        if (err) return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
                         if (result2.length > 0) {
 
                             var sql = `SELECT MAX(id) as maximum FROM kategori_langganan;`
@@ -197,7 +197,7 @@ module.exports = {
                                     if (err) {
                                         return res.status(500).send({message: `Kesalahan system dalam add kategori!`, err})
                                     }
-                                    return res.status(500).send({message: `Menu baru sudah ada dalam daftar menu, mohon cek kembali!`, err})
+                                    return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
                                 })
                             })    
                         }
@@ -242,7 +242,6 @@ module.exports = {
         })
     },
     hapusPaketLangganan: (req, res) => {
-
         var sql = `SELECT imagePath FROM kategori_langganan WHERE id = ${req.body.idLangganan};`
         sqlDB.query(sql, (err, results) => {
             if(err) {
@@ -265,18 +264,22 @@ module.exports = {
                         return res.status(500).send({message: `Gagal delete Paket Langganan`, err})
                     }
 
-                    var listId = []
-                    for (i = 0; i < results1.length; i++) {
-                        listId[i] = results1[i].id
-                    }
-
-                    var sql = `DELETE FROM all_menu WHERE id IN (${[...listId]})`
-                    sqlDB.query(sql, (err, results2) => {
-                        if(err) {
-                            return res.status(500).send({message: `Gagal delete all menu`, err})
+                    if (results1.length === 0) {
+                        res.status(200).send(results1)
+                    } else {
+                        var listId = []
+                        for (i = 0; i < results1.length; i++) {
+                            listId[i] = results1[i].id
                         }
-                        res.status(200).send(results2)
-                    })
+
+                        var sql = `DELETE FROM all_menu WHERE id IN (${[...listId]})`
+                        sqlDB.query(sql, (err, results2) => {
+                            if(err) {
+                                return res.status(500).send({message: `Gagal delete all menu`, err})
+                            }
+                            res.status(200).send(results2)
+                        })
+                    }
                 })
             })
         })
@@ -318,7 +321,7 @@ module.exports = {
                     JOIN history h
                     JOIN kategori_langganan kl
                     on h.id = hd.idHistory && kl.id = hd.idPaket
-                    WHERE h.Status = 'Lunas' 
+                    WHERE h.Status = 'PAID OFF' 
                     && h.TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && h.TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}'
                     GROUP BY namaPaket
                     ORDER BY totalTerjual DESC

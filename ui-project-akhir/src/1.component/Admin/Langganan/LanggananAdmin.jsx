@@ -170,8 +170,8 @@ class LanggananAdmin extends Component {
 
     onBtnDeletePaketClick = (idPaket, jadwal) => {
         swal({
-            title: "Anda yakin?",
-            text: "Setelah paket terhapus, anda tidak dapat mengembalikan paket tersebut!",
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this package!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -193,7 +193,7 @@ class LanggananAdmin extends Component {
                 .then((res)=>{
                     this.getDataPaket()
                     this.setState({boxDetail: false, selectedProduct: null, editImageClick: 0})
-                    swal("Selamat! Paket ini telah terhapus!", {
+                    swal("Congratulation! This package has been deleted!", {
                         icon: "success",
                     });
                 }).catch((err)=> {
@@ -204,7 +204,7 @@ class LanggananAdmin extends Component {
                     }
                 })
             } else {
-              swal("Paket anda tidak terhapus.");
+              swal("Your package has not been deleted.");
             }
         })
     }
@@ -273,7 +273,7 @@ class LanggananAdmin extends Component {
     renderProduct = () => {
         return this.state.listPaket.map(val => {
             return (
-                <tr key={val.id} className='text-dark' style={{cursor: 'pointer'}}  onClick={() => this.detailProductClicked(val)}>
+                <tr key={val.id} className='text-dark text-center' style={{cursor: 'pointer'}}  onClick={() => this.detailProductClicked(val)}>
                     <td>{val.id}</td>
                     <td>{val.namaPaket}</td>
                     <td>{val.harga}</td>
@@ -351,22 +351,23 @@ class LanggananAdmin extends Component {
         if (this.props.role !== 'admin' || this.props.role === '')
         return <Redirect to="/" exact/>
         return (
-            <div className="container-fluid mt-5 pt-md-5">
-                <div className="row mt-5 mb-5 mr-3 ml-3">
+            <div className="background-main-admin">
+            <div className="container-fluid card-main card-main-mobile">
+                <div className="row mr-3 ml-3">
                     <div className="col-12">
                         <div className="card">
-                            <div className="card-header text-center bg-info">
-                                <h3>PRODUK LANGGANAN</h3>
+                            <div className="card-header text-center" style={{backgroundColor: '#E32E89'}}>
+                                <h3>SUBCRIPTION PRODUCT</h3>
                             </div>
                             <div className="card-body">
                                 <MDBTable hover className="text-white" scrollY maxHeight="60vh">
-                                        <MDBTableHead color="secondary-color">
+                                        <MDBTableHead color="text-center text-white" style={{backgroundColor: '#60217B'}}>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Nama Paket</th>
-                                                <th>Harga</th>
-                                                <th>Deskripsi</th>
-                                                <th>Diskon</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Description</th>
+                                                <th>Discount</th>
                                             </tr>
                                         </MDBTableHead>
                                         <MDBTableBody>
@@ -392,36 +393,36 @@ class LanggananAdmin extends Component {
                                         </div>
                                         <div className="row">
                                             <div className="col-12 text-center">
-                                                <h3>MANAGE PRODUCT LANGGANAN</h3>
+                                                <h3 className="h3-responsive">MANAGE SUBSCRIPTION PRODUCT</h3>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="card-body">
                                         <div className="row justify-content-center mb-4 ml-3 mr-4">
                                             <div className="col-12 col-md-4">
-                                                <label htmlFor="inputPlaceholderEx">Nama Paket</label>
+                                                <label htmlFor="inputPlaceholderEx">Package Name</label>
                                                 <input placeholder={this.state.selectedProduct.namaPaket} type="text" id="inputPlaceholderEx" className="form-control"  onChange={(e) => this.setState({inputNamaPaketEdit: e.target.value})}/>
                                             </div>
-                                            <div className="col-4">
-                                                <label htmlFor="inputPlaceholderEx1">Harga Paket</label>
+                                            <div className="col-6 col-md-4">
+                                                <label htmlFor="inputPlaceholderEx1">Price</label>
                                                 <input placeholder={this.state.selectedProduct.harga} type="number" id="inputPlaceholderEx1" className="form-control" onChange={(e)=> this.setState({inputHargaEdit: parseInt(e.target.value)})}/>
                                             </div>
-                                            <div className="col-4">
+                                            <div className="col-6 col-md-4">
                                                 <label htmlFor="inputPlaceholderEx2">Discount</label>
                                                 <input placeholder={this.state.selectedProduct.discount} type="number" id="inputPlaceholderEx2" className="form-control" onChange={(e) => this.setState({inputDiscountEdit: e.target.value})}/>
                                             </div>
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">
-                                            <div className="col-5">
+                                            <div className="col-12 col-md-5">
                                                 <div className="row">
                                                     <div className="col-12">
                                                         <img src={`${urlApi}${this.state.selectedProduct.imagePath}`} style={{
                                                             width:'450px', height: '300px', borderRadius: '4px',
-                                                        }} alt='Img produk masih kosong'></img>
+                                                        }} alt='Img produk masih kosong' className='img-fluid'></img>
                                                     </div> 
                                                 </div>
                                                 <div className="row">
-                                                    <div className="col-12">
+                                                    <div className="col-12 text-center">
                                                         {
                                                             this.state.selectedProduct.imagePath === "" 
                                                             ?
@@ -464,17 +465,17 @@ class LanggananAdmin extends Component {
                                                                         ?
                                                                         <input type="button" value="Upload New Image" className="btn btn-info btn-block" onClick={() => this.onBtnAddImageLanggananClick(this.state.selectedProduct.id)} />
                                                                         :
-                                                                        <input type="button" value="Upload Edit Image" className="btn btn-info btn-block" onClick={() => this.onBtnEditImageLanggananClick(this.state.selectedProduct.id)} />
+                                                                        <input type="button" value="Upload Edit Image" className="btn btn-info btn-block mb-3" onClick={() => this.onBtnEditImageLanggananClick(this.state.selectedProduct.id)} />
                                                                     }
                                                                 </>  
                                                         }
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-7">
+                                            <div className="col-12 col-md-7">
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <h6 style={{marginBottom: -10}}>Deskripsi</h6>
+                                                        <h6 style={{marginBottom: -10}}>Description</h6>
                                                         <MDBInput hint={this.state.selectedProduct.deskripsi} type="textarea" onChange={(e)=> this.setState({inputDeskripsiEdit: e.target.value})} outline/>
                                                     </div>
                                                     <div className="col-12">
@@ -491,10 +492,10 @@ class LanggananAdmin extends Component {
                                                 <div className="row mt-4">
                                                     <div className="col-12">
                                                         <div className="row">
-                                                            <div className="col-10">
-                                                                <h5>JADWAL CATERING</h5>
+                                                            <div className="col-9 col-md-10">
+                                                                <h5>CATERING SCHEDULE</h5>
                                                             </div>
-                                                            <div className="col-2">
+                                                            <div className="col-3 col-md-2">
                                                                 <MDBBtn gradient="aqua" size="sm" onClick={this.toggle(9)}>
                                                                     <MDBIcon icon="pencil-alt" />
                                                                 </MDBBtn>
@@ -506,8 +507,8 @@ class LanggananAdmin extends Component {
                                                                     <MDBTableHead color="secondary-color">
                                                                         <tr>
                                                                             <th>Menu</th>
-                                                                            <th>Deskripsi</th>
-                                                                            <th>Urutan</th>
+                                                                            <th>Description</th>
+                                                                            <th>Order</th>
                                                                         </tr>
                                                                     </MDBTableHead>
                                                                     <MDBTableBody>
@@ -522,7 +523,7 @@ class LanggananAdmin extends Component {
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">
                                             <div className="col-12">
-                                                <input type="button" value="HAPUS PAKET INI" className="btn btn-danger btn-block font-weight-bolder" onClick={() => this.onBtnDeletePaketClick(this.state.selectedProduct.id, this.state.listJadwal)}/>
+                                                <input type="button" value="DELETE THIS PACKAGE" className="btn btn-danger btn-block font-weight-bolder" onClick={() => this.onBtnDeletePaketClick(this.state.selectedProduct.id, this.state.listJadwal)}/>
                                             </div>
                                         </div>
                                         <div className="row mb-4 ml-3 mr-4">
@@ -544,17 +545,19 @@ class LanggananAdmin extends Component {
                     ?
                     <>
                         <MDBModal isOpen={this.state.modal9} toggle={this.toggle(9)} fullHeight position="top">
-                            <MDBModalHeader toggle={this.toggle(9)} className="justify-content-center">Jadwal Catering {this.state.selectedProduct.namaPaket}</MDBModalHeader>
+                            <MDBModalHeader toggle={this.toggle(9)} style={{backgroundColor: '#E32E89'}}>
+                                <h3 className="text-center font-weight-bold">{this.state.selectedProduct.namaPaket} Catering Schedule</h3>
+                            </MDBModalHeader>
                             <MDBModalBody>
                                 <div className='container-fluid'>
                                     <div className="row">
-                                        <div className="col-7">
-                                            <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>Edit Jadwal</h5>
+                                        <div className="col-12 col-md-7 mt-3">
+                                            <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>EDIT SCHEDULE</h5>
                                             <MDBTable scrollY maxHeight="80vh">
                                                 <MDBTableHead color="success-color">
                                                     <tr>
                                                         <th>Menu</th>
-                                                        <th>Urutan</th>
+                                                        <th>Order</th>
                                                         <th>Edit</th>
                                                         <th>Delete</th>
                                                     </tr>
@@ -564,19 +567,19 @@ class LanggananAdmin extends Component {
                                                 </MDBTableBody>
                                             </MDBTable>
                                         </div>
-                                        <div className="col-5">
-                                            <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>Tambah Jadwal</h5>
+                                        <div className="col-12 col-md-5 mt-3">
+                                            <h5 style={{textDecoration: 'underline', marginBottom: '20px', color: 'purple'}}>ADD SCHEDULE</h5>
                                             <div className="row">
                                                 <div className="col-12">
                                                     {
                                                         this.state.tambahJadwalClick === false
                                                         ?
-                                                        <MDBBtn color="secondary" onClick={() => this.getAllMenuTambahJadwal()}>Ambil Dari Menu Tersedia</MDBBtn>   
+                                                        <MDBBtn color="secondary" onClick={() => this.getAllMenuTambahJadwal()}>GET FROM LIST MENU</MDBBtn>   
                                                         :
                                                         <div className="row ml-3">
                                                             <div className="row">
                                                                 <div className="col-12">
-                                                                    <p className="font-weight-bold">Ambil Dari Menu Tersedia</p>
+                                                                    <p className="font-weight-bold">GET FROM LIST MENU</p>
                                                                 </div>
                                                             </div>
                                                             <div className="row">
@@ -587,7 +590,7 @@ class LanggananAdmin extends Component {
                                                                     </select>
                                                                 </div>
                                                                 <div className="col-5">
-                                                                    <MDBBtn color="success" onClick={this.tambahJadwalMenuBaru}>Tambah Jadwal</MDBBtn>
+                                                                    <MDBBtn color="success" onClick={this.tambahJadwalMenuBaru}>ADD SCHEDULE</MDBBtn>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -596,12 +599,12 @@ class LanggananAdmin extends Component {
                                             </div>
                                             <div className="row">
                                                 <div className="col-12 mt-3 ml-3">
-                                                    <p className="font-weight-bold">Tambah Menu Baru:</p>
-                                                    <label htmlFor="inputPlaceholderEx">Nama Menu</label>
-                                                    <input placeholder="Input Nama Menu" type="text" id="inputPlaceholderEx" className="form-control mb-3" onChange={(e) => this.setState({inputNamaMenuBaru: e.target.value})}/>
-                                                    <h6 style={{marginBottom: -10}}>Deskripsi</h6>
-                                                    <MDBInput hint="Input Deskripsi Paket" type="textarea" outline onChange={(e) => this.setState({inputDeskripsiMenu: e.target.value})}/>
-                                                    <MDBBtn color="success" onClick={this.tambahMenuDanJadwal}>Tambah Jadwal</MDBBtn>
+                                                    <p className="font-weight-bold">NEW MENU:</p>
+                                                    <label htmlFor="inputPlaceholderEx">Menu Name</label>
+                                                    <input placeholder="Input Menu Name" type="text" id="inputPlaceholderEx" className="form-control mb-3" onChange={(e) => this.setState({inputNamaMenuBaru: e.target.value})}/>
+                                                    <h6 style={{marginBottom: -10}}>Description</h6>
+                                                    <MDBInput hint="Input Description" type="textarea" outline onChange={(e) => this.setState({inputDeskripsiMenu: e.target.value})}/>
+                                                    <MDBBtn color="success" onClick={this.tambahMenuDanJadwal}>Add Schedule</MDBBtn>
                                                 </div>
                                             </div>
                                         </div>
@@ -616,7 +619,7 @@ class LanggananAdmin extends Component {
                     :
                     null
                 }
-               
+               </div>
             </div>
         );
     }

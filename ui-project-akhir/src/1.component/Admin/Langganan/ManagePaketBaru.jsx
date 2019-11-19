@@ -53,7 +53,7 @@ class ManagePaketBaru extends Component {
         var options
         if (this.state.tambahJadwalDariMenuClick) {
             if ( this.state.inputNamaPaketAdd && this.state.inputHargaAdd && this.state.inputDiscountAdd
-                && this.state.imageLanggananAdd && this.state.selectedNewMenu !== '' && this.refs.inputKategori.value !== "Pilih Kategori") {
+                && this.state.imageLanggananAdd && this.state.selectedNewMenu !== '' && this.refs.inputKategori.value !== "Choose Category") {
                 formdata = new FormData();
                 options = {
                     headers: {
@@ -81,6 +81,7 @@ class ManagePaketBaru extends Component {
                         tambahJadwalDariMenuClick: false, listAllMenuTambahJadwal: [],
                         inputNamaMenuBaru: '', inputDeskripsiMenu: '', selectedNewMenu: ''
                     })
+                    swal ('Success','', 'success')
                     window.location.reload()
                 }).catch((err) => {
                     swal ('Eror', `${err.response.data.message}`, 'error')
@@ -93,7 +94,7 @@ class ManagePaketBaru extends Component {
 
         } else {
             if ( this.state.inputNamaPaketAdd && this.state.inputHargaAdd && this.state.inputDiscountAdd
-                && this.state.imageLanggananAdd && this.state.inputNamaMenuBaru !== '' && this.state.inputDeskripsiMenu !== '' && this.refs.inputKategori.value !== "Pilih Kategori") {
+                && this.state.imageLanggananAdd && this.state.inputNamaMenuBaru !== '' && this.state.inputDeskripsiMenu !== '' && this.refs.inputKategori.value !== "Choose Category") {
                 
                 formdata = new FormData();
                 options = {
@@ -123,6 +124,7 @@ class ManagePaketBaru extends Component {
                         tambahJadwalDariMenuClick: false, listAllMenuTambahJadwal: [],
                         inputNamaMenuBaru: '', inputDeskripsiMenu: '', selectedNewMenu: ''
                     })
+                    swal ('Success', '', 'success')
                     window.location.reload()
                 }).catch((err) => {
                     swal ('Eror', `${err.response.data.message}`, 'error')
@@ -146,44 +148,44 @@ class ManagePaketBaru extends Component {
 
     render() {
         return (
-                <div className="mb-5">
+                <div className="my-5">
                     <div className="row m-3">
                         <div className="col-12">
                             <div className="card">
-                                <div className="card-header text-center bg-info">
-                                    <h3>ADD PRODUCT LANGGANAN</h3>
+                                <div className="card-header text-center" style={{backgroundColor: '#E32E89'}}>
+                                    <h3>ADD PACKAGE</h3>
                                 </div>
                                 <div className="card-body mx-3">
                                     <div className="row justify-content-center">
                                         <div className="col-12 col-md-4">
-                                            <label htmlFor="inputPlaceholderEx">Nama Paket</label>
-                                            <input placeholder="Input Nama Paket" type="text" id="inputPlaceholderEx" className="form-control"  onChange={(e) => this.setState({inputNamaPaketAdd: e.target.value})}/>
+                                            <label htmlFor="inputPlaceholderEx">Name</label>
+                                            <input placeholder="Input Package Name" type="text" id="inputPlaceholderEx" className="form-control"  onChange={(e) => this.setState({inputNamaPaketAdd: e.target.value})}/>
                                         </div>
-                                        <div className="col-4">
-                                            <label htmlFor="inputPlaceholderEx1">Harga Paket</label>
-                                            <input placeholder="Input Harga Paket" type="number" id="inputPlaceholderEx1" className="form-control" onChange={(e)=> this.setState({inputHargaAdd: parseInt(e.target.value)})}/>
+                                        <div className="col-6 col-md-4">
+                                            <label htmlFor="inputPlaceholderEx1">Price</label>
+                                            <input placeholder="Input Package Price" type="number" id="inputPlaceholderEx1" className="form-control" onChange={(e)=> this.setState({inputHargaAdd: parseInt(e.target.value)})}/>
                                         </div>
-                                        <div className="col-4">
+                                        <div className="col-6 col-md-4">
                                             <label htmlFor="inputPlaceholderEx2">Discount</label>
-                                            <input placeholder="Input Discount Paket (optional)" type="number" id="inputPlaceholderEx2" className="form-control" onChange={(e) => this.setState({inputDiscountAdd: e.target.value})}/>
+                                            <input placeholder="Input Package Discount (optional)" type="number" id="inputPlaceholderEx2" className="form-control" onChange={(e) => this.setState({inputDiscountAdd: e.target.value})}/>
                                         </div>
                                     </div>
                                     <div className="row justify-content-center mt-4">
-                                        <div className="col-4">
-                                            <h6 style={{marginBottom: -10}}>Deskripsi</h6>
-                                            <MDBInput hint="Input Deskripsi Paket" type="textarea" onChange={(e)=> this.setState({inputDeskripsiAdd: e.target.value})} outline/>
+                                        <div className="col-6 col-md-4">
+                                            <h6 style={{marginBottom: -10}}>Description</h6>
+                                            <MDBInput hint="Input Package Description" type="textarea" onChange={(e)=> this.setState({inputDeskripsiAdd: e.target.value})} outline/>
                                         </div>
-                                        <div className="col-4">
-                                            <h6>Kategori</h6>
+                                        <div className="col-6 col-md-4">
+                                            <h6>Category</h6>
                                             <select ref='inputKategori' className="browser-default custom-select mt-1">
-                                                <option>Pilih Kategori</option>
+                                                <option>Chose Category</option>
                                                 <option value="mealbox">Meal Box</option>
                                                 <option value="sweets">Sweets</option>
                                                 <option value="snack">Snack</option>
                                                 <option value="others">Others</option>
                                             </select>
                                         </div>
-                                        <div className="col-4">
+                                        <div className="col-12 col-md-4">
                                             <h6 className="mb-3">Upload Image</h6>
                                             <div className="row">
                                                 <div className="col">
@@ -193,9 +195,9 @@ class ManagePaketBaru extends Component {
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <div className="col-12">
+                                        <div className="col-12 mt-3">
                                             <div>
-                                                <h5 className='text-center'>TAMBAH 1 JADWAL CATERING</h5>
+                                                <h5 className='text-center'>ADD ONE SCHEDULE</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -214,7 +216,7 @@ class ManagePaketBaru extends Component {
                                                                     <div className="row">
                                                                         <div className="col-12 mt-3 text-center">
                                                                             <select onChange={this.getMenuTambahJadwal}>
-                                                                                <option>Mohon Pilih Menu</option>
+                                                                                <option>Please Choose Menu</option>
                                                                                     {this.renderPilihanMenuUntukTambah()}
                                                                             </select>
                                                                         </div>
@@ -232,12 +234,12 @@ class ManagePaketBaru extends Component {
                                                                     <div className="row">
                                                                         <div className="col-12">
                                                                             <div className="col-12">
-                                                                                <label htmlFor="inputPlaceholderEx">Nama Menu</label>
-                                                                                <input placeholder="Input Nama Menu" type="text" id="inputPlaceholderEx" className="form-control mb-3" onChange={(e) => this.setState({inputNamaMenuBaru: e.target.value})}/>
+                                                                                <label htmlFor="inputPlaceholderEx">Menu Name</label>
+                                                                                <input placeholder="Input Menu Name" type="text" id="inputPlaceholderEx" className="form-control mb-3" onChange={(e) => this.setState({inputNamaMenuBaru: e.target.value})}/>
                                                                             </div>
                                                                             <div className="col-12">
-                                                                                <h6 style={{marginBottom: -10}}>Deskripsi</h6>
-                                                                                <MDBInput hint="Input Deskripsi Paket" type="textarea" outline onChange={(e) => this.setState({inputDeskripsiMenu: e.target.value})}/>
+                                                                                <h6 style={{marginBottom: -10}}>Description</h6>
+                                                                                <MDBInput hint="Input Menu Description" type="textarea" outline onChange={(e) => this.setState({inputDeskripsiMenu: e.target.value})}/>
                                                                             </div>   
                                                                         </div>
                                                                     </div>
@@ -253,10 +255,10 @@ class ManagePaketBaru extends Component {
                                                     :
                                                     <>
                                                         <div className="col-6 text-center">
-                                                            <MDBBtn color="secondary" onClick={() => this.getAllMenuTambahJadwal()}>Ambil Dari Menu Tersedia</MDBBtn>
+                                                            <MDBBtn clasName="px-0" color="secondary" onClick={() => this.getAllMenuTambahJadwal()}>List Menu</MDBBtn>
                                                         </div>
                                                         <div className="col-6 text-center">
-                                                            <MDBBtn color="secondary" onClick={() => this.setState({tambahJadwalDariMenuClick: false, tambahJadwal: true})}>Tambah Menu Baru</MDBBtn>
+                                                            <MDBBtn color="secondary" onClick={() => this.setState({tambahJadwalDariMenuClick: false, tambahJadwal: true})}>Add New Menu</MDBBtn>
                                                         </div>
                                                     </>
                                                 }
@@ -265,7 +267,7 @@ class ManagePaketBaru extends Component {
                                     </div>
                                     <div className="row">
                                         <div className="col-12 my-3">
-                                            <MDBBtn color="success" className="btn btn-block" onClick={this.tambahPaketLanggananDanJadwal}>Tambah Produk Langganan</MDBBtn>
+                                            <MDBBtn color="success" className="btn btn-block" onClick={this.tambahPaketLanggananDanJadwal}>ADD PACKAGE</MDBBtn>
                                         </div>
                                     </div>
                                 </div>

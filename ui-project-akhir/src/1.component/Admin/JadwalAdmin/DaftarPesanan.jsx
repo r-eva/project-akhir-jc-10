@@ -43,7 +43,6 @@ class DaftarPesanan extends Component {
             var jsx = this.state.seluruhPesananHariIni.map(val => {
                 return (
                     <tr key={val.id} className="text-center">
-                        <td>{val.idUser}</td>
                         <td>{val.namaPaket}</td>
                         <td>{val.TanggalMulai.slice(0, 10)}</td>
                         <td>{val.TanggalBerakhir.slice(0, 10)}</td>
@@ -61,22 +60,21 @@ class DaftarPesanan extends Component {
     render() {
         return (
             <div>
-                <div className="card mb-3">
-                    <div className="card-header text-center bg-success">
-                        <h3>Daftar Pesanan {moment().add(this.props.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h3>
+                <div className="card mb-5">
+                    <div className="card-header text-center" style={{backgroundColor: '#E32E89'}}>
+                        <h3>ORDER LIST {moment().add(this.props.tanggalDitambahkan, 'days').format("D MMMM YYYY").toUpperCase()}</h3>
                     </div>
                     <div className="card-body">
                         {
                             this.state.seluruhPesananHariIni.length > 0
                             ?
-                            <MDBTable hover scrollY maxHeight="60vh">
-                            <MDBTableHead color="secondary-color text-center">
+                            <MDBTable hover scrollY maxHeight="76vh">
+                            <MDBTableHead color="text-center text-white" style={{backgroundColor: '#60217B'}}>
                                 <tr>
-                                    <th>User ID</th>
-                                    <th>Paket</th>
-                                    <th>Mulai</th>
-                                    <th>Sampai</th>
-                                    <th>Jumlah Box</th>
+                                    <th>Package</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Qty</th>
                                     <th>Detail</th>
                                 </tr>
                             </MDBTableHead>

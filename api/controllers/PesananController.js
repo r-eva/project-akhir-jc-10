@@ -16,7 +16,7 @@ module.exports = {
         FROM history_detailproduct hd
         JOIN history h
         on h.id = hd.idHistory
-        WHERE h.Status = 'Lunas' 
+        WHERE h.Status = 'PAID OFF' 
         && h.TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && h.TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}';`
         sqlDB.query(sql, (err, result) => {
             if (err) {
@@ -31,7 +31,7 @@ module.exports = {
                     JOIN history h
                     JOIN kategori_langganan kl
                     on h.id = hd.idHistory && kl.id = hd.idPaket
-                    WHERE h.Status = 'Lunas' 
+                    WHERE h.Status = 'PAID OFF' 
                     && h.TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && h.TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}'
                     GROUP BY namaPaket
                     ORDER BY totalTerjual DESC;`
@@ -48,7 +48,7 @@ module.exports = {
                     FROM history h
                     JOIN users u
                     on h.UserId = u.id
-                    WHERE h.Status = 'Lunas' 
+                    WHERE h.Status = 'PAID OFF' 
                     && h.TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && h.TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}'
                     GROUP BY UserId
                     ORDER BY TotalBelanjaan DESC;`

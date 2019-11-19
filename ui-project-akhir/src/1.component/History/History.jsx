@@ -90,7 +90,7 @@ class History extends Component {
                         ?
                         <>  
                             {
-                                val.Status === 'Menunggu Konfirmasi Admin' || val.Status === 'Lunas'
+                                val.Status === 'Waiting for Admin Confirmation' || val.Status === 'PAID OFF'
                                 ?
                                 <>
                                 <td><input type="button" className="btn btn-dark btn-block" value="Cancel" disabled/></td>
@@ -128,7 +128,7 @@ class History extends Component {
 
     uploadBuktiBayar = (id) => {
         if (this.state.buktiPembayaran === null) {
-            swal ('Error', `Mohon isi bukti pembayaran!`, 'error')
+            swal ('Error', `Please import your payment receipt!`, 'error')
         } else { 
             var formdata = new FormData();
 
@@ -146,7 +146,7 @@ class History extends Component {
                     this.submitPembayaranSukses(this.state.belanjaDiproses.id)
                 }).catch(err => {
                     console.log(err.response)
-                    swal ('Eror', 'Upload bukti pembayaran gagal!', 'error')
+                    swal ('Eror', 'Failed to upload your payment receipt!', 'error')
                 })
         }
         
@@ -161,7 +161,7 @@ class History extends Component {
                 buktiPembayaran: null,
                 uploadBuktiBayarSuccess: false})
             })
-            swal ('Terima kasih telah berbelanja!', `Pesanan anda segera dikirimkan ke tempat tujuan.`, 'success')
+            swal ('Thank you for shopping!', `Your order will be sent to your place shortly.`, 'success')
         .catch((err) => {
             console.log(err)
         })
@@ -224,7 +224,7 @@ class History extends Component {
                             <div className="row justify-content-center mb-5">
                                 <div className="col-5 mb-3">
                                     <div className="card-header text-center font-weight-bold">
-                                        <h5>Silakan Masukkan Bukti Pembayaran Anda</h5>
+                                        <h5>Please Upload Your Payment Receipt</h5>
                                     </div>
                                     <div className="card-body text-center">
                                         <input type="file" onChange={this.imagePembayaranChosed}/>

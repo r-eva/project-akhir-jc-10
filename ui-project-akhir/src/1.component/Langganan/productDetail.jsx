@@ -7,7 +7,7 @@ import {hitungCart} from '../../redux/1.actions'
 import moment from 'moment'
 import './productDetail.css'
 import swal from 'sweetalert'
-import { MDBJumbotron, MDBCol, MDBIcon, MDBBtn, MDBBtnGroup} from "mdbreact";
+import { MDBJumbotron, MDBCol, MDBIcon, MDBBtn, MDBBtnGroup, MDBView} from "mdbreact";
 
 class productDetail extends Component {
 
@@ -202,7 +202,9 @@ class productDetail extends Component {
                                 {
                                     this.state.dataPaketLangganan.imagePath !== undefined
                                     ?
-                                    <img src={`${urlApi}${this.state.dataPaketLangganan.imagePath}`} className="rounded float-left img-fluid mb-5" alt="Img produk masih kosong" style={{height: '600px', width: '750px'}}/>
+                                    <MDBView hover zoom>
+                                        <img src={`${urlApi}${this.state.dataPaketLangganan.imagePath}`} className="rounded float-left img-fluid mb-5" alt="Img produk masih kosong" style={{height: '600px', width: '750px'}}/>
+                                    </MDBView>
                                     :
                                     null
                                 }

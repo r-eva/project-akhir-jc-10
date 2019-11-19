@@ -34,7 +34,7 @@ module.exports = {
                     JOIN history h
                     JOIN users u
                     on hd.idHistory = h.id && hd.idPaket = kl.id && hd.idUser = u.id
-                    WHERE h.Status = 'Lunas'
+                    WHERE h.Status = 'PAID OFF'
                     && hd.TanggalMulai <= '${req.params.tanggal}'
                     && hd.TanggalBerakhir >= '${req.params.tanggal}';`
         sqlDB.query(sql, (err, result) => {

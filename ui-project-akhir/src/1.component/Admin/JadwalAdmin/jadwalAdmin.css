@@ -1,3 +1,13 @@
 .background-main-admin {
-    background-color: #95b3bd!important;
+    background:  #FCFAFA
+}
+
+.card-main {
+    padding: 170px 0 100px
+}
+
+@media screen and (max-width: 768px){
+    .card-main-mobile {
+        padding: 150px 0 0 !important
+    }
 }

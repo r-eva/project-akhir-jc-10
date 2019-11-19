@@ -150,7 +150,7 @@ class Keranjang extends Component {
             AlamatPenerima: this.state.alamatPenerima,
             KodePosPenerima: this.state.kodePosPenerima,
             Cancel: 0,
-            Status: 'Belum Dibayar',
+            Status: 'Has not Been Paid',
             BatasAkhirBayar: BatasAkhirBayar
         }
         Axios.post(urlApi + 'history/addToHistory', postingHistory)

@@ -99,22 +99,22 @@ class AdminDashboard extends Component {
         return (
                 <div>
                     <div className="card mb-3">
-                        <div className="card-header text-center bg-danger">
-                            <h3>Transaksi Menunggu Konfirmasi</h3>
+                        <div className="card-header text-center" style={{backgroundColor: '#7FBB28'}}>
+                            <h3>WAITING CONFIRMATION</h3>
                         </div>
                         <div className="card-body">
                             {
                                 this.state.listTransaksiMenunggu.length > 0
                                 ?
                                 <MDBTable hover className="text-white" scrollY maxHeight="50vh">
-                                    <MDBTableHead color="secondary-color text-center">
+                                    <MDBTableHead color="text-center text-white" style={{backgroundColor: '#0085C7'}}>
                                         <tr>
                                             <th>Username</th>
-                                            <th>Tanggal Transaksi</th>
+                                            <th>Transaction Date</th>
                                             <th>Total</th>
                                             <th>Detail</th>
-                                            <th>Bukti</th>
-                                            <th>Konfirmasi</th>
+                                            <th>Receipt</th>
+                                            <th>Confirmation</th>
                                         </tr>
                                     </MDBTableHead>
                                     <MDBTableBody>

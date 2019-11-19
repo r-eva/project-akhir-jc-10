@@ -9,7 +9,7 @@ module.exports = {
                     FROM history h
                     JOIN users u
                     on h.UserId = u.id
-                    WHERE h.Status = 'Menunggu Konfirmasi Admin'`
+                    WHERE h.Status = 'Waiting for Admin Confirmation'`
         sqlDB.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send(err)
@@ -24,7 +24,7 @@ module.exports = {
                 return res.status(500).send({message: `Gagal menambah jadwal`, err})
             }
             fs.unlinkSync('./public' + results[0].buktiPembayaranPath)
-            var sql =  `UPDATE history SET Status="Lunas" WHERE id=${req.params.id};`
+            var sql =  `UPDATE history SET Status="PAID OFF" WHERE id=${req.params.id};`
             sqlDB.query(sql, (err, result) => {
                 if (err) {
                     return res.status(500).send(err)

@@ -124,7 +124,7 @@ module.exports = {
         })
     },
     pembayaranSubmit: (req, res) => {
-        var sql =  `UPDATE history SET Status="Menunggu Konfirmasi Admin" WHERE id=${req.params.id};
+        var sql =  `UPDATE history SET Status="Waiting for Admin Confirmation" WHERE id=${req.params.id};
         DROP EVENT event${req.params.id};`
         sqlDB.query(sql, (err, result) => {
             if (err) {

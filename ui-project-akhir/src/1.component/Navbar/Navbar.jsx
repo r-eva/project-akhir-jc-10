@@ -74,7 +74,7 @@ class Navbar extends React.Component {
                                 ?
                                 <>
                                     <MDBNavItem>
-                                        <MDBNavLink to="/Admin/Langganan" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginRight: '5px'}}>PRODUK</MDBNavLink>
+                                        <MDBNavLink to="/Admin/Langganan" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black', marginRight: '5px'}}>PRODUCT</MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem>
                                         <MDBNavLink to="/analitikTransaksi" className="bg-rgba(255, 255, 255, 0.7) rgba-white-strong" style={{color: 'black'}}>USER</MDBNavLink>
@@ -119,11 +119,11 @@ class Navbar extends React.Component {
                                 ?
                                 <>
                                 <MDBDropdown className="font-weight-bold bg-rgba(255, 255, 255, 0.7) rgba-white-strong">
-                                    <MDBDropdownToggle nav caret style={{color: 'black', textTransform: 'uppercase'}}>
-                                        Hello, {this.props.user.username}
+                                    <MDBDropdownToggle nav caret style={{color: 'black', textTransform: 'uppercase', marginLeft: 5}}>
+                                    Hello, {this.props.user.username}
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu right style={{border: 'none'}}>
-                                        <MDBDropdownItem style={{color: 'black', fontSize: '15px'}} onClick={this.props.userLogout}>
+                                        <MDBDropdownItem style={{marginRight: '93px', color: 'black', fontSize: '15px'}}  onClick={this.props.userLogout}>
                                             Logout
                                         </MDBDropdownItem>
                                     </MDBDropdownMenu>

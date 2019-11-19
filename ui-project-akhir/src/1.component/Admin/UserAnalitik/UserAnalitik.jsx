@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { MDBTableHead, MDBTable, MDBTableBody } from 'mdbreact'
 import Axios from 'axios'
 import { urlApi } from '../../../helpers/database'
+import { connect } from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 class Transaksi extends Component {
 
@@ -37,7 +39,7 @@ class Transaksi extends Component {
     renderDataUsers = () => {
         return this.state.daftarUser.map(val => {
             return (
-                <tr key={val.id} className='text-dark'>
+                <tr key={val.id} className='text-dark text-center'>
                     <td>{val.id}</td>
                     <td>{val.username}</td>
                     <td>{val.email}</td>
@@ -63,17 +65,20 @@ class Transaksi extends Component {
     }
 
     render() {
+        if (this.props.role !== 'admin' || this.props.role === '')
+        return <Redirect to="/" exact/>
         return (
-            <div className='container-fluid mt-5 pt-md-5'>
-                <div className="row mt-5 mb-5 mr-3 ml-3">
-                    <div className="col-7">
+            <div className="background-main-admin">
+            <div className="container-fluid card-main card-main-mobile">
+                <div className="row mx-3">
+                    <div className="col-12">
                         <div className="card">
-                            <div className="card-header text-center bg-info">
+                            <div className="card-header text-center" style={{backgroundColor: '#E32E89'}}>
                                 <h3>USERS DATA</h3>
                             </div>
                             <div className="card-body mx-3">
                                 <MDBTable hover className="text-white" scrollY maxHeight="60vh">
-                                    <MDBTableHead color="secondary-color">
+                                    <MDBTableHead color="text-center text-white" style={{backgroundColor: '#60217B'}}>
                                         <tr>
                                             <th>ID</th>
                                             <th>Username</th>
@@ -90,19 +95,21 @@ class Transaksi extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='col-5'>
+                </div>
+                <div className="row my-5 mx-3">
+                    <div className='col-12'>
                         <div className="card">
-                            <div className="card-header text-center bg-info">
-                                <h3>User Transaction Ranking</h3>
+                            <div className="card-header text-center" style={{backgroundColor: '#E32E89'}}>
+                                <h3>USER TRANSACTION RANKING</h3>
                             </div>
                             <div className="card-body mx-3">
                                 <MDBTable hover className="text-white text-center" scrollY maxHeight="60vh">
-                                    <MDBTableHead color="secondary-color">
+                                    <MDBTableHead color="text-center text-white" style={{backgroundColor: '#60217B'}}>
                                         <tr>
                                             <th>Username</th>
                                             <th>UserId</th>
-                                            <th>Total</th>
-                                            <th>Jumlah Trs</th>
+                                            <th>Total Spending</th>
+                                            <th>Total Transaction</th>
                                         </tr>
                                     </MDBTableHead>
                                     <MDBTableBody>
@@ -114,8 +121,15 @@ class Transaksi extends Component {
                     </div>
                 </div>
             </div>
+            </div>
         );
     }
 }
 
-export default Transaksi;
+const mapStateToProps = (state) => {
+    return {
+        role : state.user.role
+    }
+}
+
+export default connect(mapStateToProps)(Transaksi);

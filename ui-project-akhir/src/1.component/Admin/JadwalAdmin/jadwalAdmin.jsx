@@ -8,6 +8,7 @@ import moment from 'moment'
 import TransaksiMenunggu from './TransaksiMenunggu'
 import DaftarPesanan from './DaftarPesanan'
 import PesananBulanIni from './PesananBulanIni'
+import ProductSalesRanking from './productSalesRanking'
 import './jadwalAdmin.css'
 
 class jadwalAdmin extends Component {
@@ -91,7 +92,7 @@ class jadwalAdmin extends Component {
         if (this.state.allJadwalLangganan.length !== 0) {
             var jsx = this.state.allJadwalLangganan[this.state.tanggalDitambahkan].map(val => {
                 return (
-                    <tr key={val.id}>
+                    <tr key={val.id} className="text-center">
                         <td>{val.id}</td>
                         <td>{val.namaPaket}</td>
                         <td>{val.Menu}</td>
@@ -106,75 +107,77 @@ class jadwalAdmin extends Component {
         if(this.props.user.role !== 'admin')
         return <Redirect to="/" exact/>
         return (
-            <div className="pt-md-5 mt-5 mx-4">
-                <div className="mt-md-5 pt-md-3">
-                    <div className="card mb-5">
-                        <div className="card-header text-center bg-info">
-                            <h3>JADWAL CATERING DAN TRANSAKSI BULAN INI</h3>
-                        </div>
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-5">
-                                    <div className="card mb-5">
-                                        <div className="card-header text-center bg-success">
-                                            <h3>Jadwal Catering</h3>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="row">
-                                                <div className="col-5">
-                                                    <h6 style={{paddingTop: '20px'}}>{moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
-                                                </div>
-                                                <div className="col-7 text-right">
-                                                    <div className="row mb-3">
-                                                        <div className="col-6">
-                                                            {
-                                                                this.state.tanggalDitambahkan === 0
-                                                                ?
-                                                                <button type="button" className="btn btn-dark btn-block" disabled>Back</button>
-                                                                :
-                                                                <button type="button" className="btn btn-success btn-block" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan - 1})}>Back</button>
-                                                            }
-                                                        
-                                                        </div>
-                                                        <div className="col-6">
-                                                            {
-                                                                moment().add(this.state.tanggalDitambahkan, 'days').format("D") === `${moment().daysInMonth()}`
-                                                                ?
-                                                                <button type="button" className="btn btn-dark btn-block" disabled>Next</button>
-                                                                :
-                                                                <button type="button" className="btn btn-success btn-block" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 1})}>Next</button>
-                                                            }
+            <div className="background-main-admin">
+                <div className="container-fluid card-main card-main-mobile">
+                                <div className="row mx-3">
+                                    <div className="col-12 col-md-5">
+                                        <div className="card my-4">
+                                            <div className="card-header text-center" style={{backgroundColor: '#E32E89'}}>
+                                                <h3>CATERING SCHEDULE</h3>
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="row my-3">
+                                                    <div className="col-5">
+                                                        <h6>{moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
+                                                    </div>
+                                                    <div className="col-7 text-right">
+                                                        <div className="row">
+                                                            <div className="col-6">
+                                                                {
+                                                                    this.state.tanggalDitambahkan === 0
+                                                                    ?
+                                                                    <button className="btn btn-dark btn-block p-1 m-0" disabled>Back</button>
+                                                                    :
+                                                                    <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan - 1})}>Back</button>
+                                                                }
+                                                            
+                                                            </div>
+                                                            <div className="col-6">
+                                                                {
+                                                                    moment().add(this.state.tanggalDitambahkan, 'days').format("D") === `${moment().daysInMonth()}`
+                                                                    ?
+                                                                    <button className="btn btn-dark btn-block p-1 m-0" disabled>Next</button>
+                                                                    :
+                                                                    <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 1})}>Next</button>
+                                                                }
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <MDBTable scrollY maxHeight="110vh">
-                                                        <MDBTableHead color="secondary-color">
-                                                            <tr>
-                                                                <th>Id</th>
-                                                                <th>Paket</th>
-                                                                <th>Menu</th>
-                                                            </tr>
-                                                        </MDBTableHead>
-                                                        <MDBTableBody>
-                                                            {this.renderJadwalMemasak()}   
-                                                        </MDBTableBody>
-                                                    </MDBTable>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <MDBTable scrollY maxHeight="100vh">
+                                                            <MDBTableHead color="text-center text-white" style={{backgroundColor: '#60217B'}}>
+                                                                <tr>
+                                                                    <th>Id</th>
+                                                                    <th>Package</th>
+                                                                    <th>Menu</th>
+                                                                </tr>
+                                                            </MDBTableHead>
+                                                            <MDBTableBody>
+                                                                {this.renderJadwalMemasak()}   
+                                                            </MDBTableBody>
+                                                        </MDBTable>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="col-12 col-md-7 my-4">
+                                        <DaftarPesanan tanggalDitambahkan={this.state.tanggalDitambahkan}/>
+                                        <PesananBulanIni/>
+                                    </div>
                                 </div>
-                                <div className="col-7">
-                                    <TransaksiMenunggu/>
-                                    <DaftarPesanan tanggalDitambahkan={this.state.tanggalDitambahkan}/>
-                                    <PesananBulanIni/>
+                                <div className="row mx-3">
+                                    <div className="col-12 mt-4">
+                                        <TransaksiMenunggu/>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                                <div className="row my-5 mx-3">
+                                    <div className="col-12">
+                                        <ProductSalesRanking/>
+                                    </div>
+                                </div>
                 </div>
             </div>
         );

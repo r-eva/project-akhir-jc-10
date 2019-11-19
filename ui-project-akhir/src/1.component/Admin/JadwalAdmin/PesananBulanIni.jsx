@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import {urlApi} from '../../../helpers/database'
 import Axios from 'axios'
-import { MDBTableHead, MDBTable, MDBTableBody } from 'mdbreact'
 
 class PesananBulanIni extends Component {
 
     state = {
         daftarPesananBulanIni: [],
         jumlahBoxTerjualBulanIni: 0,
+        userTerbaik: '',
         produkTerbaik: '',
-        userTerbaik: ''
     }
+
 
     componentDidMount () {
         this.getPesananBulanIni()
         this.getJumlahBoxTerjualBulanIni()
-        this.getProdukTerbaik()
         this.getUserTerbaik()
+        this.getProdukTerbaik()
     }
 
     getPesananBulanIni = () => {
@@ -63,27 +63,13 @@ class PesananBulanIni extends Component {
         return new Intl.NumberFormat('id-ID').format(totalPendapatan)
     }
 
-    renderProdukRanking = () => {
-        if(this.state.produkTerbaik.length !== 0) {
-            return this.state.produkTerbaik.map(val => {
-                return (
-                    <tr key={val.idPaket} className='text-dark'>
-                        <td>{val.idPaket}</td>
-                        <td>{val.namaPaket}</td>
-                        <td>{val.totalTerjual}</td>
-                        <td>{val.jumlahTransaksi}</td>
-                    </tr>
-                )
-            })
-        }
-    }
 
     render() {
         return (
             <div>
                 <div className="card mb-3">
-                    <div className="card-header text-center bg-success">
-                        <h3>Seluruh Pesanan Bulan Ini</h3>
+                    <div className="card-header text-center" style={{backgroundColor: '#E32E89'}}>
+                        <h3>THIS MONTH TRANSACTION</h3>
                     </div>
                     <div className="card-body">
                         {
@@ -91,22 +77,22 @@ class PesananBulanIni extends Component {
                             ?
                             <>
                                 <div className="row">
-                                    <div className="col-6">
-                                        <h6>Total Pendapatan: Rp. {this.totalPendapatan()}/{this.state.daftarPesananBulanIni.length} transaksi</h6>
+                                    <div className="col-7">
+                                        <h6>Total Income: Rp. {this.totalPendapatan()}/{this.state.daftarPesananBulanIni.length} transaksi</h6>
                                     </div>
-                                    <div className="col-6">
-                                        <h6>Total Box Terjual: {this.state.jumlahBoxTerjualBulanIni} box</h6>
+                                    <div className="col-5">
+                                        <h6>Box Qty: {this.state.jumlahBoxTerjualBulanIni} box</h6>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-6">
-                                        <h6>User Terbaik/id: {this.state.userTerbaik.username}/{this.state.userTerbaik.UserId} &nbsp;&nbsp; Rp. {new Intl.NumberFormat('id-ID').format(this.state.userTerbaik.TotalBelanjaan)}</h6>
+                                    <div className="col-7">
+                                        <h6>Best User/id: {this.state.userTerbaik.username}/{this.state.userTerbaik.UserId} &nbsp;&nbsp; Rp. {new Intl.NumberFormat('id-ID').format(this.state.userTerbaik.TotalBelanjaan)}</h6>
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-5">
                                         {
                                             this.state.produkTerbaik.length !== 0
                                             ?
-                                            <h6>Paket Terlaris: {this.state.produkTerbaik[0].namaPaket}/{this.state.produkTerbaik[0].totalTerjual} box</h6>
+                                            <h6>Best Package: {this.state.produkTerbaik[0].namaPaket}/{this.state.produkTerbaik[0].totalTerjual} box</h6>
                                             :
                                             null
                                         }
@@ -118,26 +104,7 @@ class PesananBulanIni extends Component {
                         }       
                     </div>
                 </div>
-                <div className="card">
-                    <div className="card-header text-center bg-info">
-                        <h3>Product Sales Ranking</h3>
-                    </div>
-                    <div className="card-body mx-3">
-                        <MDBTable hover className="text-white text-center" scrollY maxHeight="60vh">
-                            <MDBTableHead color="secondary-color">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama Paket</th>
-                                    <th>Total Terjual</th>
-                                    <th>Jumlah Trs</th>
-                                </tr>
-                            </MDBTableHead>
-                            <MDBTableBody>
-                                {this.renderProdukRanking()}
-                            </MDBTableBody>
-                        </MDBTable>
-                    </div>
-                </div>
+                
             </div>
         );
     }
