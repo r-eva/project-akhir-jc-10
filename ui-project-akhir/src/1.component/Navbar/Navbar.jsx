@@ -11,8 +11,13 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler,
 class Navbar extends React.Component {
 
     state = {
-        cart: this.props.jumlahCart
+        cart: this.props.jumlahCart,
+        isOpenDropdown: false
     }
+
+    toggleCollapse = () => {
+        this.setState({ isOpenDropdown: !this.state.isOpenDropdown });
+      }
 
     componentDidMount() {
         this.props.hitungCart(this.props.user.id)

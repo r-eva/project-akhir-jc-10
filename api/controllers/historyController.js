@@ -77,10 +77,14 @@ module.exports = {
         })
     },
     getHistoryDetailById: (req, res) => {
-        var sql = `SELECT *
+        var sql = `SELECT kl.namaPaket, kl.harga, kl.discount, hd.JumlahBox,
+                    hd.TanggalMulai, hd.TanggalBerakhir, hd.Durasi,
+                    hd.id as id, h.id as idHistory, h.TotalBelanja,
+                    h.NamaPenerima, h.AlamatPenerima, h.KodePosPenerima
                     FROM history_detailProduct hd
                     JOIN kategori_langganan kl
-                    on hd.idPaket = kl.id
+                    JOIN history h
+                    on hd.idPaket = kl.id && h.id = hd.idHistory
                     WHERE idHistory = ${req.params.id};`
         sqlDB.query(sql, (err, result) => {
             if (err) {

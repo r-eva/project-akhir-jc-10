@@ -5,6 +5,7 @@ import { MDBJumbotron, MDBCol} from "mdbreact";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Redirect} from 'react-router-dom'
+import { MDBTableHead, MDBTable, MDBTableBody} from 'mdbreact'
 
 class Wishlist extends Component {
 
@@ -31,9 +32,16 @@ class Wishlist extends Component {
     renderWishlist = () => {
         let jsx = this.state.data.map((val, idx) => {
             return (
-                <tr key={val.id}>
+                <tr key={val.id} className="text-center">
                     <td>{idx+1}</td>
                     <td><Link to={"product-detail/" + val.idPaket}>{val.namaPaket}</Link></td>
+                    <td>
+                        <Link to={"product-detail/" + val.idPaket}><img src={`${urlApi}${val.imagePath}`} style={{
+                        width:'170px', height: '170px', borderRadius: '4px', padding: '5px'
+                        }} alt='Cannot Get Transfer Proof'></img></Link>
+                    </td>
+                    <td>{val.harga}</td>
+                    <td>{val.discount}</td>
                 </tr>
             )
         })
@@ -47,7 +55,7 @@ class Wishlist extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/33307/carrot-kale-walnuts-tomatoes.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1438672/pexels-photo-1438672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
                     <MDBCol className="pt-5 pb-5">
                         <div className="pt-5 pb-5">
                             <div className="pt-5 mt-5">
@@ -55,8 +63,8 @@ class Wishlist extends Component {
                             </div>
                             <div className="mx-md-5 px-md-5">
                                 <p className="mx-4 mx-md-5 pl-md-5 pr-md-5 bg-rgba(255, 255, 255, 0.7) rgba-white-strong font-weight-bold tagline-title" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '24px'}}>
-                                    “One cannot think well, love well, sleep well, if one has not dined well.”<br/>
-                                    <span style={{fontSize: '15px', fontFamily: 'sans-serif'}}>― Virginia Woolf, A Room of One's Own</span>
+                                    “The best meal at my restaurant is the whole right side of the menu.”<br/>
+                                    <span style={{fontSize: '15px', fontFamily: 'sans-serif'}}>― Junior Seau</span>
                                 </p>
                             </div>
                         </div>
@@ -69,18 +77,24 @@ class Wishlist extends Component {
                     <h1 className="text-center mt-5" style={{marginBottom: '500px'}}>WISH LIST IS EMPTY</h1>
                     :
                     <div className="container">
-                        <h2 className="text-center mt-5">Wish List</h2>
-                        <table className="table my-5 text-center">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Item Name</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderWishlist()}
-                            </tbody>
-                        </table>
+                            <div className="card mb-5">
+                                <div className="card-body">
+                                    <MDBTable hover scrollY maxHeight="100vh">
+                                        <MDBTableHead color="success-color text-center text-white">
+                                            <tr>
+                                                <th className="font-weight-bold">No. </th>
+                                                <th className="font-weight-bold">ITEM NAME</th>
+                                                <th className="font-weight-bold">IMAGE</th>
+                                                <th className="font-weight-bold">PRICE</th>
+                                                <th className="font-weight-bold">DISCOUNT</th>
+                                            </tr>
+                                        </MDBTableHead>
+                                        <MDBTableBody>
+                                                {this.renderWishlist()}
+                                        </MDBTableBody>
+                                    </MDBTable>
+                                </div>
+                            </div>
                     </div>
                 }
             </div>

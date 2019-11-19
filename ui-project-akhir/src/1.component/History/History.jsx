@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import './History.css'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import { MDBJumbotron, MDBCol, MDBCardTitle} from "mdbreact";
+import { MDBJumbotron, MDBCol} from "mdbreact";
 import Axios from 'axios'
 import {urlApi} from '../../helpers/database'
 import swal from 'sweetalert'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { MDBTableHead, MDBTable, MDBTableBody} from 'mdbreact'
+import foto from '../../fotoku/histori.jpeg'
 
 class History extends Component {
 
@@ -49,13 +51,13 @@ class History extends Component {
         var jsx = this.state.historyDetail.map((val, idx) => {
             return (
                     <div key = {val.id} >
-                        <p>{idx + 1}. Paket {val.namaPaket} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harga: {val.harga} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diskon: {val.discount} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Box: {val.JumlahBox} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal Mulai: {val.TanggalMulai.slice(0, 10)} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal Berakir: {val.TanggalBerakhir.slice(0, 10)} <br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Durasi: {val.Durasi} <br/>
+                        <p>{idx + 1}. Package {val.namaPaket} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price: {val.harga} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Discount: {val.discount} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amount of Box: {val.JumlahBox} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start Date: {val.TanggalMulai.slice(0, 10)} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Date: {val.TanggalBerakhir.slice(0, 10)} <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duration: {val.Durasi} <br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subtotal: {val.Durasi * val.JumlahBox * (val.harga - (val.harga * val.discount/100))} <br/>
                         </p>
                     </div>      
@@ -92,12 +94,12 @@ class History extends Component {
                                 ?
                                 <>
                                 <td><input type="button" className="btn btn-dark btn-block" value="Cancel" disabled/></td>
-                                <td><input type="button" className="btn btn-dark btn-block" value="Upload Bukti Bayar" disabled/></td>
+                                <td><input type="button" className="btn btn-dark btn-block" value="Upload Payment Receipt" disabled/></td>
                                 </>
                                 :
                                 <>
                                 <td><input type="button" className="btn btn-danger btn-block" value="Cancel" onClick={()=> this.onBtnDeleteHistoryClick(val.id)}/></td>
-                                <td><input type="button" className="btn btn-success btn-block" value="Upload Bukti Bayar" onClick={() => this.setState({keluarBoxPembayaran: 1, belanjaDiproses: val})}/></td>
+                                <td><input type="button" className="btn btn-success btn-block" value="Upload Payment Receipt" onClick={() => this.setState({keluarBoxPembayaran: 1, belanjaDiproses: val})}/></td>
                                 </>
                                 
                             }
@@ -171,11 +173,19 @@ class History extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-white text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/616404/pexels-photo-616404.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-center" style={{ backgroundImage: `url(${foto})`, backgroundSize: 'cover'}}>
                     <MDBCol className="py-5">
-                        <MDBCardTitle className="h1-responsive pt-5 m-5 font-weight-bolder">HISTORY</MDBCardTitle>
-                        <p className="mx-5 mb-5 font-weight-bold">Annora Restaurant will feature an outstanding New Traditional-Javaneshe menu with a touch of Western influence in an upscale and cozy atmosphere. The menu is inspired from different cuisine's specialties and will appeal to a wide and varied clientele.
-                        </p>
+                        <div className="pt-5 pb-5">
+                            <div className="pt-5 mt-5">
+                                <h1 style={{marginRight: '540px', marginLeft: '540px'}} className="title-product-detail h1-responsive font-weight-bold bg-rgba(244, 67, 54, 0.7) rgba-red-strong">HISTORY</h1>
+                            </div>
+                            <div className="mx-md-5 px-md-5">
+                                <p className="mx-4 mx-md-5 pl-md-5 pr-md-5 bg-rgba(255, 255, 255, 0.7) rgba-white-strong font-weight-bold tagline-title" style={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '24px'}}>
+                                    “Eat food. Not too much. Mostly plants.”<br/>
+                                    <span style={{fontSize: '15px', fontFamily: 'sans-serif'}}>― Michael Pollan, In Defense of Food: An Eater's Manifesto</span>
+                                </p>
+                            </div>
+                        </div>
                     </MDBCol>
                     </MDBCol>
                 </MDBJumbotron>
@@ -185,22 +195,29 @@ class History extends Component {
                     <h1 className="text-center mt-5" style={{marginBottom: '500px'}}>HISTORY ANDA KOSONG</h1>
                     :
                     <div className="container-fluid">
-                        <table className='table mt-3 mb-5'>
-                            <thead>
-                            <tr className="text-center">
-                                <th>Tanggal Transaksi</th>
-                                <th>Total Tagihan</th>
-                                <th>Status</th>
-                                <th>Batas Waktu Pembayaran</th>
-                                <th>Detail</th>
-                                <th>Cancel</th>
-                                <th>Bayar</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderHistory()}
-                            </tbody>
-                        </table>
+
+
+                        <div className="card mb-5">
+                            <div className="card-body">
+                                <MDBTable hover scrollY maxHeight="100vh">
+                                    <MDBTableHead color="success-color text-center text-white">
+                                        <tr>
+                                            <th className="font-weight-bold">TRANSACTION DATE</th>
+                                            <th className="font-weight-bold">TOTAL INVOICE</th>
+                                            <th className="font-weight-bold">STATUS</th>
+                                            <th className="font-weight-bold">PAYMENT DEADLINE</th>
+                                            <th className="font-weight-bold">DETAIL</th>
+                                            <th className="font-weight-bold">CANCEL</th>
+                                            <th className="font-weight-bold">PAY</th>
+                                        </tr>
+                                    </MDBTableHead>
+                                    <MDBTableBody>
+                                        {this.renderHistory()}
+                                    </MDBTableBody>
+                                
+                                </MDBTable>
+                            </div>
+                        </div>
                         {
                             this.state.keluarBoxPembayaran === 1
                             ?
@@ -235,11 +252,20 @@ class History extends Component {
                             ?
                             <>
                                 <Modal isOpen={this.state.historyMode}>
-                                    <ModalHeader>
-                                        <p className="font font-weight-bold">DETAIL TRANSAKSI ANDA</p>
+                                    <ModalHeader className="bg-warning text-center justify-content-center ">
+                                        <p className="font-weight-bold" style={{fontSize: '20px'}}>YOUR TRANSACTION DETAIL</p>
                                     </ModalHeader>
                                     <ModalBody>
                                         {this.renderHistoryDetail()}
+                                        <br/>
+                                        <div className="font-weight-bold">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;TOTAL: Rp. {this.state.historyDetail[0].TotalBelanja} <br/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Recipient Name: {this.state.historyDetail[0].NamaPenerima} <br/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Delivery Address: {this.state.historyDetail[0].AlamatPengiriman} <br/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Postal Code: {this.state.historyDetail[0].KodePosPenerima} <br/>
+                                            <br/>
+                                            <br/>
+                                        </div>
                                     </ModalBody>
                                     <ModalFooter>
                                         <Button color="success" onClick={() => this.setState({keluarHistory: null, historyMode: false, historyDetail: []})}>OK</Button>

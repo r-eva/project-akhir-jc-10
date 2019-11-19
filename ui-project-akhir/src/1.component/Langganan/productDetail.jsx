@@ -179,7 +179,7 @@ class productDetail extends Component {
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
-                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/33307/carrot-kale-walnuts-tomatoes.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
+                    <MDBCol className="text-center" style={{ backgroundImage: `url(https://images.pexels.com/photos/1410226/pexels-photo-1410226.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)`, backgroundSize: 'cover'}}>
                     <MDBCol className="pt-5 pb-5">
                         <div className="pt-5 pb-5">
                             <div className="pt-5 mt-5">

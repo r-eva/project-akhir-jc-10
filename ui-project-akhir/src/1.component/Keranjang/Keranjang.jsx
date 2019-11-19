@@ -8,6 +8,7 @@ import moment from 'moment'
 import {hitungCart} from '../../redux/1.actions'
 import { MDBJumbotron, MDBCol} from "mdbreact";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { MDBTableHead, MDBTable, MDBTableBody} from 'mdbreact'
 
 
 class Keranjang extends Component {
@@ -132,7 +133,7 @@ class Keranjang extends Component {
 
     submitHistory = () => {
         if (this.state.namaPenerima === '' || this.state.alamatPenerima === '' || this.state.kodePosPenerima === '') {
-            this.setState({messageData: 'Mohon lengkapi seluruh data terlebih dahulu!'})
+            this.setState({messageData: 'Please complete all data required!'})
         } else {
             this.setState({messageData: null, dataLengkap: true})
         }  
@@ -154,7 +155,7 @@ class Keranjang extends Component {
         }
         Axios.post(urlApi + 'history/addToHistory', postingHistory)
         .then((res) => {
-            swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
+            swal ('Thank you for your order!', `Please submit your payment before ${postingHistory.BatasAkhirBayar}.`, 'success')
             
             Axios.post(urlApi + 'history/addHistoryDetail/' + this.props.user.id, {idHistory: res.data[0].id})
             .then((res) => {                
@@ -162,7 +163,7 @@ class Keranjang extends Component {
                     Axios.delete(urlApi + 'cart/deleteCartById/'+ this.state.cart[j].id)
                     .then((res) => {
                         this.props.hitungCart(this.props.user.id)
-                        swal ('Terima kasih telah melakukan pemesanan!', `Lakukan pembayaran sebelum ${postingHistory.BatasAkhirBayar}.`, 'success')
+                        swal ('Thank you for your order!', `Please submit your payment before ${postingHistory.BatasAkhirBayar}.`, 'success')
                     })
                     .catch((err) => {
                         swal ('Eror', 'Server Error', 'error')
@@ -195,19 +196,21 @@ class Keranjang extends Component {
                         <td>{val.discount}%</td>
                     }              
                     <td>
-                        <input type="button" className="btn btn-secondary" value='+' onClick={()=> this.onBtnEditQty('add', idx)}/>
-                        <input type="button" className="btn btn-secondary" value={val.JumlahBox}/>
-                        <input type="button" className="btn btn-secondary" value='-' onClick={()=> this.onBtnEditQty('min', idx)}/>
+                        <div className="d-flex flex-row">
+                            <input type="button" className="btn btn-secondary btn-block" value='+' onClick={()=> this.onBtnEditQty('add', idx)}/>
+                            <input type="button" className="btn btn-secondary btn-block mr-1 ml-1" value={val.JumlahBox}/>
+                            <input type="button" className="btn btn-secondary btn-block" value='-' onClick={()=> this.onBtnEditQty('min', idx)}/>
+                        </div>
                     </td>
                     <td>{val.TanggalMulai}</td>
                     <td>{val.TanggalBerakhir}</td>
                     <td>
                         <select className="browser-default custom-select" ref={`inputChangeDurasi${idx}`} onChange={() => this.changeDurasi(idx)}>
-                            <option>{val.Durasi} hari</option>
-                            {val.Durasi === 2 ? null : <option value="2">2 hari</option>}
-                            {val.Durasi === 5 ? null : <option value="5">5 hari</option>}
-                            {val.Durasi === 10 ? null : <option value="10">10 hari</option>}
-                            {val.Durasi === 20 ? null : <option value="20">20 hari</option>}
+                            <option>{val.Durasi} days</option>
+                            {val.Durasi === 2 ? null : <option value="2">2 days</option>}
+                            {val.Durasi === 5 ? null : <option value="5">5 days</option>}
+                            {val.Durasi === 10 ? null : <option value="10">10 days</option>}
+                            {val.Durasi === 20 ? null : <option value="20">20 days</option>}
                         </select>
                     </td>
                     <td>{val.Durasi * val.JumlahBox * (val.harga - (val.harga * (val.discount/100))) }</td>
@@ -248,25 +251,29 @@ class Keranjang extends Component {
                     :
                     <>
                         <div className="container-fluid">
-                            <table className='table mt-3 mb-5'>
-                                <thead>
-                                <tr className="text-center">
-                                    <th>Nama Paket</th>
-                                    <th>Harga</th>
-                                    <th>Diskon</th>
-                                    <th>Jumlah Box</th>
-                                    <th>Tanggal Mulai</th>
-                                    <th>Tanggal Berakhir</th>
-                                    <th>Durasi</th>
-                                    <th>Total Harga</th>
-                                    <th>Delete</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {this.renderCart()}
-                                </tbody>
-                            </table>
-                            <div className="row mb-5">
+                            <div className="card mb-3">
+                                <div className="card-body">
+                                    <MDBTable hover scrollY maxHeight="60vh">
+                                        <MDBTableHead color="success-color text-center text-white">
+                                            <tr>
+                                                <th className="font-weight-bold">PACKAGE NAME</th>
+                                                <th className="font-weight-bold">PRICE</th>
+                                                <th className="font-weight-bold">DISCOUNT</th>
+                                                <th className="font-weight-bold">AMOUNT OF BOX</th>
+                                                <th className="font-weight-bold">START DATE</th>
+                                                <th className="font-weight-bold">END DATE</th>
+                                                <th className="font-weight-bold">DURATION</th>
+                                                <th className="font-weight-bold">TOTAL</th>
+                                                <th className="font-weight-bold">DELETE</th>
+                                            </tr>
+                                        </MDBTableHead>
+                                        <MDBTableBody>
+                                                {this.renderCart()}
+                                        </MDBTableBody>
+                                    </MDBTable>
+                                </div>
+                            </div>
+                            <div className="row m-5">
                                     <div className="col-12 text-center">
                                         {
                                             this.state.cart.length === 0
@@ -274,7 +281,7 @@ class Keranjang extends Component {
                                             null
                                             :
                                             <>
-                                            <h5 className="font-weight-bold">TOTAL BELANJAAN ANDA: Rp. {this.totalBelanjaan()}</h5>
+                                            <h5 className="font-weight-bold">TOTAL INVOICE VALUE: Rp. {this.totalBelanjaan()}</h5>
                                                 <input type="button" className="btn btn-warning" value="CHECKOUT" onClick={() => this.setState({keluarModal: 1, paymentMode: true})}/> 
                                             </>
                                         }
@@ -284,14 +291,14 @@ class Keranjang extends Component {
                                         ?
                                         <div>
                                             <Modal isOpen={this.state.paymentMode}>
-                                                <ModalHeader>
-                                                    <p className="font font-weight-bold">SILAKAN MASUKKAN DATA ANDA</p>
+                                                <ModalHeader className="bg-warning text-center justify-content-center ">
+                                                    <h5 className="font-weight-bold">PLEASE INPUT YOUR DATA</h5>
                                                 </ModalHeader>
                                                 <ModalBody>
                                                     <div className="row mb-2">
                                                         <div className="col-12">
                                                             <div className="form-group">
-                                                                <label htmlFor="formGroupExampleInput">Nama Penerima:</label>
+                                                                <label htmlFor="formGroupExampleInput">Recipient Name:</label>
                                                                 <input
                                                                     type="text"
                                                                     className="form-control"
@@ -303,7 +310,7 @@ class Keranjang extends Component {
                                                     <div className="row mb-2">
                                                         <div className="col-12">
                                                             <div className="form-group">
-                                                                <label htmlFor="formGroupExampleInput">Alamat Pengiriman:</label>
+                                                                <label htmlFor="formGroupExampleInput">Delivery Address:</label>
                                                                 <input
                                                                     type="text"
                                                                     className="form-control"
@@ -315,7 +322,7 @@ class Keranjang extends Component {
                                                     <div className="row mb-2">
                                                         <div className="col-12">
                                                             <div className="form-group">
-                                                                <label htmlFor="formGroupExampleInput">Kode POS:</label>
+                                                                <label htmlFor="formGroupExampleInput">Postal Code:</label>
                                                                 <input
                                                                     type="text"
                                                                     className="form-control"

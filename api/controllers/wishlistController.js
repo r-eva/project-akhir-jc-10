@@ -3,7 +3,8 @@ const { sqlDB } = require('../database')
 module.exports = {
     getWishListByIdUser:(req, res) => {
         var sql = `SELECT
-                    w.id, w.idUser, w.idPaket, kl.namaPaket
+                    w.id, w.idUser, w.idPaket, kl.namaPaket,
+                    kl.harga, kl.imagePath, kl.discount
                     FROM wishlist w
                     JOIN kategori_langganan kl
                     ON w.idPaket = kl.id
