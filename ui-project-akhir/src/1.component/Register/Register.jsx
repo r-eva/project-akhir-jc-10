@@ -26,8 +26,10 @@ class Register extends Component {
     }
 
     render() {
+        if (this.props.user.role === 'admin' || this.props.user.role !== '')
+        return <Redirect to="/" exact/>
+
         if(!this.props.registerForm.registerSuccess){
-            
         return (
                 <div className="container-fluid background-register">
                 <div className="row justify-content-center">
@@ -79,7 +81,8 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        registerForm: state.registerForm
+        registerForm: state.registerForm,
+        user: state.user
     }
 }
 

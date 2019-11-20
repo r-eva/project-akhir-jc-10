@@ -173,71 +173,72 @@ module.exports = {
             sqlDB.query(sql, (err, result) => {
                 if (err) return res.status(500).send({message: `Database Error`, err})
                 if (result.length > 0) {
-                    return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
-                }
-    
-                var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
-                sqlDB.query(sql, [insertData], (err, results) => {
-                    if(err) {
-                        fs.unlinkSync('./public' + path + '/' + image[0].filename)
-                        return res.status(500).send({message: `Failed to insert new package, image or data you add already exist, please check again!`, err})
-                    }
-    
-                    var sql = `SELECT * FROM all_menu WHERE LOWER(Menu) LIKE LOWER('%${data.Menu}%');`
-                    sqlDB.query(sql, (err, result2) => {
-                        if (err) return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
-                        if (result2.length > 0) {
-
-                            var sql = `SELECT MAX(id) as maximum FROM kategori_langganan;`
-                            sqlDB.query(sql, (err, idLanggananBaru) => {
-                                if (err) return res.status(500).send({message: `Database Error`, err})
-
-                                var sql = `DELETE FROM kategori_langganan WHERE id=${idLanggananBaru[0].maximum}`
-                                sqlDB.query(sql, (err, result3) => {
-                                    if (err) {
-                                        return res.status(500).send({message: `Kesalahan system dalam add kategori!`, err})
-                                    }
-                                    return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
-                                })
-                            })    
+                    return res.status(500).send({message: `Package already exist, please check all package list!`, err})
+                } else {
+                    var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
+                    sqlDB.query(sql, [insertData], (err, results) => {
+                        if(err) {
+                            fs.unlinkSync('./public' + path + '/' + image[0].filename)
+                            return res.status(500).send({message: `Failed to insert new package, image or data you add already exist, please check again!`, err})
                         }
+        
+                        var sql = `SELECT * FROM all_menu WHERE LOWER(Menu) LIKE LOWER('%${data.Menu}%');`
+                        sqlDB.query(sql, (err, result2) => {
+                            if (err) return res.status(500).send({message: `Error checking menu!`, err})
+                            if (result2.length > 0) {
 
-                        var dataMenuBaru = {
-                            Menu: data.Menu,
-                            Deskripsi: data.Deskripsi
-                        }
-                        var sql = `INSERT INTO all_menu SET ?;`
-                        sqlDB.query(sql, [dataMenuBaru], (err, result) => {
-                            if (err) return res.status(500).send({message: `Gagal menambah menu baru`, err})
+                                var sql = `SELECT MAX(id) as maximum FROM kategori_langganan;`
+                                sqlDB.query(sql, (err, idLanggananBaru) => {
+                                    if (err) return res.status(500).send({message: `Database Error`, err})
 
-                            var sql = `SELECT MAX(am.id) as maximumIdMenu, MAX(kl.id) as maximumIdKategori
-                                        FROM all_menu am
-                                        JOIN kategori_langganan kl;`
-
-                            sqlDB.query(sql, (err, resultSemuaIdBaru) => {
-                                if(err) {
-                                    return res.status(500).send(err)
+                                    var sql = `DELETE FROM kategori_langganan WHERE id=${idLanggananBaru[0].maximum}`
+                                    sqlDB.query(sql, (err, result3) => {
+                                        if (err) {
+                                            return res.status(500).send({message: `Kesalahan system dalam add kategori!`, err})
+                                        }
+                                        return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
+                                    })
+                                })    
+                            } else {
+                                
+                                var dataMenuBaru = {
+                                    Menu: data.Menu,
+                                    Deskripsi: data.Deskripsi
                                 }
-                                var idMenuBaru = resultSemuaIdBaru[0].maximumIdMenu
-                                var idKategoriBaru = resultSemuaIdBaru[0].maximumIdKategori
-
-                                var dataConnection = {
-                                    idMenu: idMenuBaru,
-                                    idKategori: idKategoriBaru,
-                                    urutan: 1
-                                }
-
-                                var sql = `INSERT INTO connection_table SET ?;`
-                                sqlDB.query(sql, [dataConnection], (err, results) => {
-                                    if(err) {
-                                        return res.status(500).send({message: `Gagal menambah jadwal`, err})
-                                    }
-                                    res.status(200).send(results)
+                                var sql = `INSERT INTO all_menu SET ?;`
+                                sqlDB.query(sql, [dataMenuBaru], (err, result) => {
+                                    if (err) return res.status(500).send({message: `Gagal menambah menu baru`, err})
+    
+                                    var sql = `SELECT MAX(am.id) as maximumIdMenu, MAX(kl.id) as maximumIdKategori
+                                                FROM all_menu am
+                                                JOIN kategori_langganan kl;`
+    
+                                    sqlDB.query(sql, (err, resultSemuaIdBaru) => {
+                                        if(err) {
+                                            return res.status(500).send(err)
+                                        }
+                                        var idMenuBaru = resultSemuaIdBaru[0].maximumIdMenu
+                                        var idKategoriBaru = resultSemuaIdBaru[0].maximumIdKategori
+    
+                                        var dataConnection = {
+                                            idMenu: idMenuBaru,
+                                            idKategori: idKategoriBaru,
+                                            urutan: 1
+                                        }
+    
+                                        var sql = `INSERT INTO connection_table SET ?;`
+                                        sqlDB.query(sql, [dataConnection], (err, results) => {
+                                            if(err) {
+                                                return res.status(500).send({message: `Gagal menambah jadwal`, err})
+                                            }
+                                            res.status(200).send(results)
+                                        })
+                                    })
                                 })
-                            })
+                            }
                         })
                     })
-                })
+                }
             })
         })
     },

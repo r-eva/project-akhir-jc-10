@@ -18,18 +18,19 @@ class WaitingEmailVerification extends Component {
         })
         .then((res) => {
             this.setState({btnResendEmailClick: false})
-            swal (`${res.data.message}`, `Silakan cek email anda!`, 'success')
+            swal (`${res.data.message}`, `Please check your email!`, 'success')
         })
         .catch((err) => {
-            swal (`Email gagal dikirim.`, `Cek koneksi atau email anda!`, 'error')
+            swal (`Send email verification failed.`, `Please check your email or connection!`, 'error')
         })
     }
 
     render() {
         return (
             <div className="p-5 m-5 text-center">
-                <h1 className="mt-5 pt-5">Silakan Periksa Email Anda untuk konfirmasi</h1>
-                <h4>Klik Button dibawah bila tidak menerima Emailnya</h4>
+                <h1 className="mt-5 pt-5">Thank you for your registration!</h1>
+                <h3 className="mt-2 pt-2">Please check your email to verify.</h3>
+                <h5  className="mt-5 pt-5">If you have not received any email from us, please click button bellow to resend email.</h5>
                 {
                     this.state.btnResendEmailClick
                     ?

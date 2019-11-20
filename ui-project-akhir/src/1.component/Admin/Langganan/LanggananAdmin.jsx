@@ -28,8 +28,8 @@ class LanggananAdmin extends Component {
         tambahJadwalClick: false,
         listAllMenuTambahJadwal: null,
         selectedNewMenu: null,
-        inputNamaMenuBaru: null,
-        inputDeskripsiMenu: null
+        inputNamaMenuBaru: '',
+        inputDeskripsiMenu: ''
     }
 
     toggle = nr => () => {
@@ -120,7 +120,7 @@ class LanggananAdmin extends Component {
                     console.log(err.response)
                 })
         } else {
-            alert('Mohon input image!')
+            alert('Please input image!')
         }
     }
 
@@ -144,7 +144,7 @@ class LanggananAdmin extends Component {
                     console.log(err.response)
                 })
         } else {
-            alert('Mohon input image!')
+            alert('Please input image!')
         }
     }
 
@@ -171,7 +171,7 @@ class LanggananAdmin extends Component {
     onBtnDeletePaketClick = (idPaket, jadwal) => {
         swal({
             title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this package!",
+            text: "Once deleted, you will not be able to recover this package.",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -233,40 +233,47 @@ class LanggananAdmin extends Component {
     }
 
     tambahJadwalMenuBaru = () => {
-        var obj = {
-            idMenu: this.state.selectedNewMenu,
-            idKategori: this.state.selectedProduct.id,
-            urutan: this.state.listJadwal[(this.state.listJadwal.length - 1)].urutan + 1
+        if (this.state.selectedNewMenu === '' || this.state.selectedNewMenu === null) {
+            swal ('Eror', `Please complete all data required!`, 'error')
+        } else {
+            var obj = {
+                idMenu: this.state.selectedNewMenu,
+                idKategori: this.state.selectedProduct.id,
+                urutan: this.state.listJadwal[(this.state.listJadwal.length - 1)].urutan + 1
+            }
+    
+            Axios.post(urlApi + 'jadwal/addConnection/', obj)
+                .then((res)=>{
+                    this.detailProductClicked(this.state.selectedProduct)
+                    this.setState({tambahJadwalClick: false, selectedNewMenu: null})
+                }).catch((err)=> {
+                    console.log(err)
+                })
+            }
         }
-
-        Axios.post(urlApi + 'jadwal/addConnection/', obj)
-        .then((res)=>{
-            this.detailProductClicked(this.state.selectedProduct)
-            this.setState({tambahJadwalClick: false})
-        }).catch((err)=> {
-            console.log(err)
-        })
-
-    }
 
     tambahMenuDanJadwal = () => {
-        var obj = {
-            Menu: this.state.inputNamaMenuBaru,
-            Deskripsi: this.state.inputDeskripsiMenu,
-            idKategori: this.state.selectedProduct.id,
-            urutan: this.state.listJadwal[(this.state.listJadwal.length - 1)].urutan + 1
-        }
-        Axios.post(urlApi + 'jadwal/addMenuBaruDanConnection', obj)
-        .then((res)=>{
-            this.detailProductClicked(this.state.selectedProduct)
-            this.setState({inputNamaMenuBaru: null, inputDeskripsiMenu: null})
-        }).catch((err)=> {
-            if (err.response.data.message) {
-                swal ('Eror', `${err.response.data.message}`, 'error')
-            } else {
-                console.log(err)
+        if (this.state.inputNamaMenuBaru === '' || this.state.inputDeskripsiMenu === '') {
+            swal ('Eror', `Please complete all data required!`, 'error')
+        } else {
+            var obj = {
+                Menu: this.state.inputNamaMenuBaru,
+                Deskripsi: this.state.inputDeskripsiMenu,
+                idKategori: this.state.selectedProduct.id,
+                urutan: this.state.listJadwal[(this.state.listJadwal.length - 1)].urutan + 1
             }
-        })
+            Axios.post(urlApi + 'jadwal/addMenuBaruDanConnection', obj)
+            .then((res)=>{
+                this.detailProductClicked(this.state.selectedProduct)
+                this.setState({inputNamaMenuBaru: '', inputDeskripsiMenu: ''})
+            }).catch((err)=> {
+                if (err.response.data.message) {
+                    swal ('Eror', `${err.response.data.message}`, 'error')
+                } else {
+                    console.log(err)
+                }
+            })
+        }
     }
 
     /////////////////////////////////////////RENDER FUNCTION///////////////////////////////////////////////////////////////
@@ -585,7 +592,7 @@ class LanggananAdmin extends Component {
                                                             <div className="row">
                                                                 <div className="col-7 mt-2 mr-1">
                                                                     <select onChange={this.getMenuTambahJadwal}>
-                                                                        <option>Mohon Pilih Menu</option>
+                                                                        <option>Choose Menu</option>
                                                                         {this.renderPilihanMenuUntukTambah()}
                                                                     </select>
                                                                 </div>

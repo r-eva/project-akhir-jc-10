@@ -31,7 +31,7 @@ export const loginUser = (dataUser) => {
         } else {
             dispatch({
                 type: LOGIN_FAILED,
-                payload: 'Mohon isi Username dan Password'
+                payload: 'Please input username and password'
             })
         }
     }

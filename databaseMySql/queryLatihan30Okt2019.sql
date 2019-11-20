@@ -1,9 +1,9 @@
 	use final_project;
-	select * FROM history_detailProduct;
-	select * FROM history;
-    select * from users;
     SELECT * from kategori_langganan;
     SElect * from all_menu;
+    SELECT * from connection_table;
+    
+    SELECT id FROM all_menu WHERE id NOT IN (SELECT idMenu FROM connection_table);
     
     SELECT kl.id, kl.namaPaket, kl.harga, kl.discount, kl.deskripsi, kl.imagePath, kl.kategori,
                     SUM(Durasi * JumlahBox) as totalTerjual, COUNT(hd.idHistory) as jumlahTransaksi

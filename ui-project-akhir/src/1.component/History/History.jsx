@@ -192,11 +192,9 @@ class History extends Component {
                 {
                     this.state.history.length === 0
                     ?
-                    <h1 className="text-center mt-5" style={{marginBottom: '500px'}}>HISTORY ANDA KOSONG</h1>
+                    <h1 className="text-center mt-5" style={{marginBottom: '500px'}}>YOUR HISTORY IS EMPTY</h1>
                     :
                     <div className="container-fluid">
-
-
                         <div className="card mb-5">
                             <div className="card-body">
                                 <MDBTable hover scrollY maxHeight="100vh">

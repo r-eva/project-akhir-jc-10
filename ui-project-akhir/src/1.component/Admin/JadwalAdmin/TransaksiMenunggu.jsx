@@ -122,7 +122,7 @@ class AdminDashboard extends Component {
                                     </MDBTableBody>
                                 </MDBTable>
                                 :
-                                <h5 className="text-center">Tidak Ada Transaksi Menunggu Konfirmasi</h5>
+                                <h5 className="text-center">NO WAITING CONFIRMATION</h5>
                             }
                         </div>
                     </div>

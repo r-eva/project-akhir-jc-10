@@ -11,42 +11,51 @@ export const registerUser = (user) => {
         if (user.email !== '' && user.username !== ''
             && user.username !== '' && user.confirmEmail !== '' && user.confirmPassword !== '') {
                     if (user.password === user.confirmPassword) {
-                        axios.post(urlApi + 'user/register', {
-                            email: user.email,
-                            password: user.password,
-                            username: user.username,
-                            role: 'user'
-                        })
-                        .then((res) => {
+                        var emailValidator = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+                        if (!emailValidator.test(user.email)) {
                             dispatch({
-                                type: REGISTER_SUCCESS,
-                                payload: res.data.email
+                                type: REGISTER_FAILED,
+                                payload: 'Email address is not valid!'
                             })
-                        })
-                        .catch((err) => {
-                            console.log(err.response)
-                            if (err.response.data.error) {
-                                dispatch({
-                                    type: REGISTER_FAILED,
-                                    payload: err.response.data.message
-                                })
-                            } else if (!err.response.data.error) {
+                        } else {
+                            axios.post(urlApi + 'user/register', {
+                                email: user.email,
+                                password: user.password,
+                                username: user.username,
+                                role: 'user'
+                            })
+                            .then((res) => {
                                 dispatch({
                                     type: REGISTER_SUCCESS,
-                                    payload: err.response.data.email
+                                    payload: res.data.email
                                 })
-                            }
-                        })
+                            })
+                            .catch((err) => {
+                                console.log(err.response)
+                                if (err.response.data.error) {
+                                    dispatch({
+                                        type: REGISTER_FAILED,
+                                        payload: err.response.data.message
+                                    })
+                                } else if (!err.response.data.error) {
+                                    dispatch({
+                                        type: REGISTER_SUCCESS,
+                                        payload: err.response.data.email
+                                    })
+                                }
+                            })
+
+                        }
                     } else {
                         dispatch({
                             type: REGISTER_FAILED,
-                            payload: 'Password dan Repeat Password harus sama!'
+                            payload: 'Password and its confirmed password shall be equal!'
                         })
                     }
         } else {
             dispatch({
                 type: REGISTER_FAILED,
-                payload: 'Lengkapi form dan pastikan password sama!'
+                payload: 'Please complete the form, make sure password you enter is equal with its confirmed pasword!'
             })
         }
     }

@@ -81,7 +81,11 @@ class ManagePaketBaru extends Component {
                         tambahJadwalDariMenuClick: false, listAllMenuTambahJadwal: [],
                         inputNamaMenuBaru: '', inputDeskripsiMenu: '', selectedNewMenu: ''
                     })
-                    swal ('Success','', 'success')
+                    swal ({
+                        icon: "success",
+                        buttons: false,
+                        text: "Package has been add!"
+                    })
                     window.location.reload()
                 }).catch((err) => {
                     swal ('Eror', `${err.response.data.message}`, 'error')
@@ -89,7 +93,7 @@ class ManagePaketBaru extends Component {
                 })
     
             } else {
-                swal ('Eror', 'Mohon input seluruh data yang diperlukan!', 'error')
+                swal ('Eror', 'Please complete all data required!', 'error')
             }
 
         } else {
@@ -124,7 +128,11 @@ class ManagePaketBaru extends Component {
                         tambahJadwalDariMenuClick: false, listAllMenuTambahJadwal: [],
                         inputNamaMenuBaru: '', inputDeskripsiMenu: '', selectedNewMenu: ''
                     })
-                    swal ('Success', '', 'success')
+                    swal ({
+                        icon: "success",
+                        buttons: false,
+                        text: "Package has been add!"
+                    })
                     window.location.reload()
                 }).catch((err) => {
                     swal ('Eror', `${err.response.data.message}`, 'error')
@@ -132,7 +140,7 @@ class ManagePaketBaru extends Component {
                 })
 
             } else {
-                swal ('Eror', 'Mohon input seluruh data yang diperlukan!', 'error')
+                swal ('Eror', 'Please input all data required!', 'error')
             }
         }
     }
@@ -255,10 +263,10 @@ class ManagePaketBaru extends Component {
                                                     :
                                                     <>
                                                         <div className="col-6 text-center">
-                                                            <MDBBtn clasName="px-0" color="secondary" onClick={() => this.getAllMenuTambahJadwal()}>List Menu</MDBBtn>
+                                                            <MDBBtn color="secondary" onClick={() => this.getAllMenuTambahJadwal()}>List Menu</MDBBtn>
                                                         </div>
                                                         <div className="col-6 text-center">
-                                                            <MDBBtn color="secondary" onClick={() => this.setState({tambahJadwalDariMenuClick: false, tambahJadwal: true})}>Add New Menu</MDBBtn>
+                                                            <MDBBtn color="secondary" onClick={() => this.setState({tambahJadwalDariMenuClick: false, tambahJadwal: true})}>New Menu</MDBBtn>
                                                         </div>
                                                     </>
                                                 }

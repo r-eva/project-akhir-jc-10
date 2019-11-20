@@ -39,7 +39,7 @@ module.exports = {
             }
     
             transporter.sendMail(mailOption, (err, result) => {
-                if (err) return res.status(500).send({message: 'Kirim email gagal!', err, error: false, email: emailVerification})
+                if (err) return res.status(500).send({message: 'Send Email Failed!', err, error: false, email: emailVerification})
                 res.status(200).send({status: 'Send Email Success!', result, email: emailVerification})
             })
         })
@@ -71,13 +71,13 @@ module.exports = {
             from: "ANNORA Catering and Resto <reginaevadewi@gmail.com>",
             to: bukaEmail,
             subject: 'Email Confirmation',
-            html: `Verified your email by clicking this link
+            html: `Please verify your email by clicking this link
             <a href="http://localhost:3000/emailverified?email=${req.body.email}">Verified<a/>`
         }
     
         transporter.sendMail(mailOption, (err, result) => {
-            if (err) return res.status(500).send({message: 'Kirim email confirmation gagal!', err})
-            res.status(200).send({message: 'Send Email Success', result})
+            if (err) return res.status(500).send({message: 'Send verification email failed!', err})
+            res.status(200).send({message: 'Send verification email success.', result})
         })
     }, 
     login: (req, res) => {
