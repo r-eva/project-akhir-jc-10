@@ -129,7 +129,7 @@ class productDetail extends Component {
         if (this.state.inputTanggalMulai === '' || this.refs.inputDurasi.value === "Choose") {
             swal({icon: "warning", text: "Please complete all data required!"})
         } else if (moment(this.state.inputTanggalMulai).weekday() === moment().day("Sunday").weekday() || moment(this.state.inputTanggalMulai).weekday() === moment().day("Saturday").weekday()) {
-            swal({icon: "warning", text: "Please input the starting date other than Saturday and Sunday!"})
+            swal({icon: "warning", text: "Please input start date other than Saturday and Sunday!"})
         } else if (moment(this.state.inputTanggalMulai).format('L') === moment(new Date()).format('L') && moment(new Date()).format('H') > 8 && moment(new Date()).format('s') > 0) {
             swal({icon: "warning", text: "Order for today shall be no later than 08.00 am."})
         }

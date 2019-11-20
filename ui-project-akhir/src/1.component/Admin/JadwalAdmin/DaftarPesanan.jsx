@@ -83,7 +83,7 @@ class DaftarPesanan extends Component {
                             </MDBTableBody>
                             </MDBTable>
                             :
-                            <h5 className="text-center">Belum Ada Pesanan Hari Ini</h5>
+                            <h3 className="text-center h3-responsive">No Order</h3>
                         }       
                     </div>
                 </div>

@@ -103,19 +103,25 @@ class Transaksi extends Component {
                                 <h3>USER TRANSACTION RANKING</h3>
                             </div>
                             <div className="card-body mx-3">
-                                <MDBTable hover className="text-white text-center" scrollY maxHeight="60vh">
-                                    <MDBTableHead color="text-center text-white" style={{backgroundColor: '#60217B'}}>
-                                        <tr>
-                                            <th>Username</th>
-                                            <th>UserId</th>
-                                            <th>Total Spending</th>
-                                            <th>Total Transaction</th>
-                                        </tr>
-                                    </MDBTableHead>
-                                    <MDBTableBody>
-                                        {this.renderTransaksiUsers()}
-                                    </MDBTableBody>
-                                </MDBTable>
+                                {
+                                    this.state.daftarUserTerbaik.length === 0
+                                    ?
+                                    <h3 className="text-center h3-responsive">User Has Not Order Any Package This Month</h3>
+                                    :
+                                    <MDBTable hover className="text-white text-center" scrollY maxHeight="60vh">
+                                        <MDBTableHead color="text-center text-white" style={{backgroundColor: '#60217B'}}>
+                                            <tr>
+                                                <th>Username</th>
+                                                <th>UserId</th>
+                                                <th>Total Spending</th>
+                                                <th>Total Transaction</th>
+                                            </tr>
+                                        </MDBTableHead>
+                                        <MDBTableBody>
+                                            {this.renderTransaksiUsers()}
+                                        </MDBTableBody>
+                                    </MDBTable>
+                                }
                             </div>
                         </div>
                     </div>

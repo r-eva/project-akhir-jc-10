@@ -90,7 +90,7 @@ class History extends Component {
                         ?
                         <>  
                             {
-                                val.Status === 'Waiting for Admin Confirmation' || val.Status === 'PAID OFF'
+                                val.Status === 'Waiting for Admin Confirmation' || val.Status === 'PAID OFF' || val.Status === 'REJECT BY ADMIN'
                                 ?
                                 <>
                                 <td><input type="button" className="btn btn-dark btn-block" value="Cancel" disabled/></td>
@@ -146,7 +146,7 @@ class History extends Component {
                     this.submitPembayaranSukses(this.state.belanjaDiproses.id)
                 }).catch(err => {
                     console.log(err.response)
-                    swal ('Eror', 'Failed to upload your payment receipt!', 'error')
+                    swal ('Eror', 'Failed to upload your payment receipt, please check format of your file!', 'error')
                 })
         }
         
@@ -259,7 +259,7 @@ class History extends Component {
                                         <div className="font-weight-bold">
                                             &nbsp;&nbsp;&nbsp;&nbsp;TOTAL: Rp. {this.state.historyDetail[0].TotalBelanja} <br/>
                                             &nbsp;&nbsp;&nbsp;&nbsp;Recipient Name: {this.state.historyDetail[0].NamaPenerima} <br/>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;Delivery Address: {this.state.historyDetail[0].AlamatPengiriman} <br/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Delivery Address: {this.state.historyDetail[0].AlamatPenerima} <br/>
                                             &nbsp;&nbsp;&nbsp;&nbsp;Postal Code: {this.state.historyDetail[0].KodePosPenerima} <br/>
                                             <br/>
                                             <br/>

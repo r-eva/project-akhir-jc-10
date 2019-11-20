@@ -48,7 +48,22 @@ class AdminDashboard extends Component {
         .then((res)=>{
             window.location.reload()
             this.getDataTransaksiMenunggu()
-            swal ('Transaksi Sukses dikonfirmasi!', `Silakan Cek list pesanan.`, 'success')
+            swal ('Transaction confirmed!', `Please check list of order.`, 'success')
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+    rejectPembayaran = (id) => {
+        Axios.put(urlApi + 'admin/rejectPembayaran/' + id)
+        .then((res)=>{
+            window.location.reload()
+            this.getDataTransaksiMenunggu()
+            swal({
+                icon: "success",
+                text: 'Transaction rejected!'
+            })
         })
         .catch((err) => {
             console.log(err)
@@ -68,6 +83,7 @@ class AdminDashboard extends Component {
                     </td>
                     <td><input type="button" value="DETAIL" className="btn btn-info btn-block" onClick={() => this.getDetailHistory(val.id)}/></td>
                     <td><input type="button" value="Confirm" className="btn btn-success btn-block" onClick={() => this.confirmPembayaran(val.id)}/></td>
+                    <td><input type="button" value="Reject" className="btn btn-danger btn-block" onClick={() => this.rejectPembayaran(val.id)}/></td>
                 </tr>
             )
         })
@@ -114,7 +130,8 @@ class AdminDashboard extends Component {
                                             <th>Total</th>
                                             <th>Detail</th>
                                             <th>Receipt</th>
-                                            <th>Confirmation</th>
+                                            <th>Confirm</th>
+                                            <th>Cancel</th>
                                         </tr>
                                     </MDBTableHead>
                                     <MDBTableBody>
@@ -122,7 +139,7 @@ class AdminDashboard extends Component {
                                     </MDBTableBody>
                                 </MDBTable>
                                 :
-                                <h5 className="text-center">NO WAITING CONFIRMATION</h5>
+                                <h3 className="text-center h3-responsive">No Waiting Confirmation This Month</h3>
                             }
                         </div>
                     </div>

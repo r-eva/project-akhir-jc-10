@@ -32,5 +32,21 @@ module.exports = {
                 res.status(200).send(result)
             })
         })
+    },
+    rejectPembayaran: (req, res) => {
+        var sql = `SELECT buktiPembayaranPath FROM history WHERE id = ${req.params.id};`
+        sqlDB.query(sql, (err, results) => {
+            if(err) {
+                return res.status(500).send({message: `Gagal menambah jadwal`, err})
+            }
+            fs.unlinkSync('./public' + results[0].buktiPembayaranPath)
+            var sql =  `UPDATE history SET Status="REJECT BY ADMIN" WHERE id=${req.params.id};`
+            sqlDB.query(sql, (err, result) => {
+                if (err) {
+                    return res.status(500).send(err)
+                }
+                res.status(200).send(result)
+            })
+        })
     }
 }

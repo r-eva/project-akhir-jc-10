@@ -118,41 +118,45 @@ module.exports = {
 
             var sql = `SELECT * FROM kategori_langganan WHERE LOWER(namaPaket) LIKE LOWER('%${data.namaPaket}%');`
             sqlDB.query(sql, (err, result) => {
-                if (err) return res.status(500).send({message: `Database Error`, err})
-                if (result.length > 0) {
-                    return res.status(500).send({message: `Menu already exist, please check all menu list!`, err})
+                if (err) {
+                    fs.unlinkSync('./public' + path + '/' + image[0].filename)
+                    return res.status(500).send({message: `Database Error`, err})
                 }
-    
-                var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
-                sqlDB.query(sql, [insertData], (err, results) => {
-                    if(err) {
-                        fs.unlinkSync('./public' + path + '/' + image[0].filename)
-                        return res.status(500).send({message: `Gagal insert paket langganan!`, err})
-                    }
-    
-                    var sql = `SELECT MAX(id) as maximum FROM kategori_langganan;`
-                    sqlDB.query(sql, (err, hasil) => {
+                if (result.length > 0) {
+                    fs.unlinkSync('./public' + path + '/' + image[0].filename)
+                    return res.status(500).send({message: `Package already exist, please check all package list!`, err})
+                } else {
+                    var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
+                    sqlDB.query(sql, [insertData], (err, results) => {
                         if(err) {
+                            fs.unlinkSync('./public' + path + '/' + image[0].filename)
                             return res.status(500).send({message: `Gagal insert paket langganan!`, err})
                         }
-                        var idKategoriInput = hasil[0].maximum
-    
-                        var dataConnection = {
-                            idMenu: data.idMenu,
-                            idKategori: idKategoriInput,
-                            urutan: 1
-                        }
-    
-                        var sql = `INSERT INTO connection_table SET ?;`
-                        sqlDB.query(sql, [dataConnection], (err, results) => {
         
+                        var sql = `SELECT MAX(id) as maximum FROM kategori_langganan;`
+                        sqlDB.query(sql, (err, hasil) => {
                             if(err) {
-                                return res.status(500).send({message: `Gagal insert jadwal!`, err})
+                                return res.status(500).send({message: `Gagal get id paket langganan!`, err})
                             }
-                            res.status(200).send(results)
+                            var idKategoriInput = hasil[0].maximum
+        
+                            var dataConnection = {
+                                idMenu: data.idMenu,
+                                idKategori: idKategoriInput,
+                                urutan: 1
+                            }
+        
+                            var sql = `INSERT INTO connection_table SET ?;`
+                            sqlDB.query(sql, [dataConnection], (err, results) => {
+            
+                                if(err) {
+                                    return res.status(500).send({message: `Gagal insert jadwal!`, err})
+                                }
+                                res.status(200).send(results)
+                            })
                         })
                     })
-                })
+                }
             })
         })
     },
@@ -173,6 +177,7 @@ module.exports = {
             sqlDB.query(sql, (err, result) => {
                 if (err) return res.status(500).send({message: `Database Error`, err})
                 if (result.length > 0) {
+                    fs.unlinkSync('./public' + path + '/' + image[0].filename)
                     return res.status(500).send({message: `Package already exist, please check all package list!`, err})
                 } else {
                     var sql = `INSERT INTO kategori_langganan (namaPaket, harga, discount, deskripsi, imagePath, kategori) VALUES ?;`
@@ -186,7 +191,7 @@ module.exports = {
                         sqlDB.query(sql, (err, result2) => {
                             if (err) return res.status(500).send({message: `Error checking menu!`, err})
                             if (result2.length > 0) {
-
+                                fs.unlinkSync('./public' + path + '/' + image[0].filename)
                                 var sql = `SELECT MAX(id) as maximum FROM kategori_langganan;`
                                 sqlDB.query(sql, (err, idLanggananBaru) => {
                                     if (err) return res.status(500).send({message: `Database Error`, err})
@@ -200,7 +205,6 @@ module.exports = {
                                     })
                                 })    
                             } else {
-                                
                                 var dataMenuBaru = {
                                     Menu: data.Menu,
                                     Deskripsi: data.Deskripsi
@@ -325,8 +329,7 @@ module.exports = {
                     WHERE h.Status = 'PAID OFF' 
                     && h.TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && h.TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}'
                     GROUP BY namaPaket
-                    ORDER BY totalTerjual DESC
-                    LIMIT 4;`
+                    ORDER BY totalTerjual DESC;`
         sqlDB.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send(err)

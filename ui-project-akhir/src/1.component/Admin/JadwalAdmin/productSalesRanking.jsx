@@ -44,19 +44,27 @@ class productSalesRanking extends Component {
                         <h3>PRODUCT SALES RANKING</h3>
                     </div>
                     <div className="card-body mx-3">
-                        <MDBTable hover className="text-center" scrollY maxHeight="60vh">
-                            <MDBTableHead color="text-center text-white" style={{backgroundColor: '#0085C7'}}>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Package Name</th>
-                                    <th>Total Sales</th>
-                                    <th>Transaction Amount</th>
-                                </tr>
-                            </MDBTableHead>
-                            <MDBTableBody>
-                                {this.renderProdukRanking()}
-                            </MDBTableBody>
-                        </MDBTable>
+                        {
+                            this.state.produkTerbaik.length === 0
+                            ?
+                            <h3 className="text-center h3-responsive">No Product Sold This Month</h3>
+                            :
+                            <MDBTable hover className="text-center" scrollY maxHeight="60vh">
+                                <MDBTableHead color="text-center text-white" style={{backgroundColor: '#0085C7'}}>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Package Name</th>
+                                        <th>Total Sales</th>
+                                        <th>Transaction Amount</th>
+                                    </tr>
+                                </MDBTableHead>
+                                <MDBTableBody>
+                                    {this.renderProdukRanking()}
+                                </MDBTableBody>
+                            </MDBTable>
+                        }
+
+                        
                     </div>
                 </div>
         );

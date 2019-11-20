@@ -3,7 +3,8 @@ const moment = require('moment')
 
 module.exports = {
     getSeluruhPesananBulanIni: (req, res) => {
-        var sql = `SELECT * FROM history WHERE TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}';`
+        var sql = `SELECT * FROM history WHERE TanggalTransaksi >= '${moment().startOf('month').format('YYYY-MM-DD')}' && TanggalTransaksi <= '${moment().endOf('month').format('YYYY-MM-DD')}'
+        && Status = 'PAID OFF';`
         sqlDB.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send(err)

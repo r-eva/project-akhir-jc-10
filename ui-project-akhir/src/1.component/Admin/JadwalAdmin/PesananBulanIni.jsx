@@ -100,7 +100,7 @@ class PesananBulanIni extends Component {
                                 </div>
                             </> 
                             :
-                            <h5 className="text-center">Belum Ada Pesanan Bulan Ini</h5>
+                            <h3 className="text-center h3-responsive">No Transaction This Month</h3>
                         }       
                     </div>
                 </div>
