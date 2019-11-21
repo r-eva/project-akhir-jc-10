@@ -101,29 +101,29 @@ class productDetail extends Component {
     }
 
     toggleWishlist = () => {
-        var obj = {
-            idPaket: this.props.match.params.id,
-            idUser: this.props.user.id
-            
-        }
-        Axios.post(urlApi + 'wishlist/getWishListByIdUserPaket/', obj)
-        .then(res => {
-            if(this.state.wishlist){
-                Axios.delete(urlApi + 'wishlist/deleteWishlistById/' + res.data[0].id)
-                .then(res => {
-                    this.setState({wishlist: false})
-                })
-                .catch(err => console.log(err))
-            }else{
-                Axios.post(urlApi + 'wishlist/addToWishlist/', obj)
-                .then(res => {
-                    this.setState({wishlist: true})
-                })
-                .catch(err => console.log(err))
+            var obj = {
+                idPaket: this.props.match.params.id,
+                idUser: this.props.user.id
+                
             }
-        })
-        .catch(err => console.log(err))
-    }
+            Axios.post(urlApi + 'wishlist/getWishListByIdUserPaket/', obj)
+            .then(res => {
+                if(this.state.wishlist){
+                    Axios.delete(urlApi + 'wishlist/deleteWishlistById/' + res.data[0].id)
+                    .then(res => {
+                        this.setState({wishlist: false})
+                    })
+                    .catch(err => console.log(err))
+                }else{
+                    Axios.post(urlApi + 'wishlist/addToWishlist/', obj)
+                    .then(res => {
+                        this.setState({wishlist: true})
+                    })
+                    .catch(err => console.log(err))
+                }
+            })
+            .catch(err => console.log(err))
+        }
 
     onTambahKeranjangBtnClick = () => {
         if (this.state.inputTanggalMulai === '' || this.refs.inputDurasi.value === "Choose") {
@@ -217,8 +217,15 @@ class productDetail extends Component {
                                 ? 
                                 <MDBIcon icon="heart"  onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/> 
                                 :
-                                <MDBIcon far icon="heart" onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/>
-                                
+                                <>
+                                {
+                                    this.props.user.id === 0
+                                    ?
+                                    <Link to='/Login' style={{textDecoration: 'none'}}><MDBIcon far icon="heart" onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/></Link>
+                                    :
+                                    <MDBIcon far icon="heart" onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/>
+                                }
+                                </>
                             }
                             </h1>
                             {

@@ -23,26 +23,29 @@ module.exports = {
             if (err) return res.status(500).send({message: `Database Error`, err, error: true})
             if (result.length > 0) {
                 return res.status(500).send({message: `Email has been taken!`, err, error: true})
+            } else {
+                sql = `INSERT INTO users SET ?;`
+                sqlDB.query(sql, req.body, (err, result) => {
+                    if (err) return res.status(500).send({message: `Database Error`, err, error: true})
+            
+                    var mailOption = {
+                        from: `ANNORA Catering and Resto <reginaevadewi@gmail.com>`,
+                        to: req.body.email,
+                        subject: 'Email Verification',
+                        html: `Verify your email by clicking this link 
+                            <a href="http://localhost:3000/emailverified?email=${emailVerification}">Verification</a>`
+                    }
+            
+                    transporter.sendMail(mailOption, (err, result) => {
+                        if (err) return res.status(500).send({message: 'Send Email Failed!', err, error: false, email: emailVerification})
+                        res.status(200).send({status: 'Send Email Success!', result, email: emailVerification})
+                    })
+        })
+
             }
         })
     
-        sql = `INSERT INTO users SET ?;`
-        sqlDB.query(sql, req.body, (err, result) => {
-            if (err) return res.status(500).send({message: `Database Error`, err, error: true})
-    
-            var mailOption = {
-                from: `ANNORA Catering and Resto <reginaevadewi@gmail.com>`,
-                to: req.body.email,
-                subject: 'Email Verification',
-                html: `Verify your email by clicking this link 
-                    <a href="http://localhost:3000/emailverified?email=${emailVerification}">Verification</a>`
-            }
-    
-            transporter.sendMail(mailOption, (err, result) => {
-                if (err) return res.status(500).send({message: 'Send Email Failed!', err, error: false, email: emailVerification})
-                res.status(200).send({status: 'Send Email Success!', result, email: emailVerification})
-            })
-        })
+        
     },
     confirmEmail: (req, res) => {
 
