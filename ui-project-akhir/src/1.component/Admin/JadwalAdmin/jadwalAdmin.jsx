@@ -135,14 +135,6 @@ class jadwalAdmin extends Component {
                                                     <div className="col-7 text-right">
                                                         <div className="row">
                                                             <div className="col-6">
-                                                                {/* {
-                                                                    moment().format("dddd") === 'Sunday' || moment().format("dddd") === 'Saturday'
-                                                                    ?
-                                                                    <button className="btn btn-dark btn-block p-1 m-0" disabled>Back</button>
-                                                                    :
-                                                                    
-                                                                } */}
-
                                                                 {
                                                                     this.state.tanggalDitambahkan === 0
                                                                     ?
