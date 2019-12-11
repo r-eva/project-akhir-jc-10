@@ -36,7 +36,7 @@ class Login extends Component {
     }
 
     render() {
-        if (this.props.user.status === 'Verified') return <Redirect to="/" exact/>
+        if (this.props.user.status !== '') return <Redirect to="/" exact/>
         return (
             <div className="container-fluid background-image">
                <div className="row justify-content-center">

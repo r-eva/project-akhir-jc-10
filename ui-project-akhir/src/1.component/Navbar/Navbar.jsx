@@ -1,5 +1,7 @@
 import React from 'react';
 import './Navigation.css'
+import Axios from 'axios'
+import {urlApi} from '../../helpers/database'
 import {connect} from 'react-redux'
 import {userLogout, hitungCart} from '../../redux/1.actions/userAction'
 import {Link} from 'react-router-dom'
@@ -19,9 +21,6 @@ class Navbar extends React.Component {
         this.setState({ isOpenDropdown: !this.state.isOpenDropdown });
       }
 
-    componentDidMount() {
-        this.props.hitungCart(this.props.user.id)
-    }
 
     componentDidUpdate(){
         if (this.state.cart !== this.props.jumlahCart) {
@@ -42,6 +41,17 @@ class Navbar extends React.Component {
         this.setState({
         collapse: !this.state.collapse,
         });
+    }
+
+    getEncryptedEmail = () => {
+        Axios.get(urlApi + 'user/userDashboard/' + this.props.user.email)
+            .then((res) => {
+                this.setState({encryptedEmail: res.data})
+                console.log(this.state.encryptedEmail)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     render() {
@@ -137,21 +147,40 @@ class Navbar extends React.Component {
                                                 Hello, {this.props.user.username}
                                             </MDBDropdownToggle>
                                             <MDBDropdownMenu right style={{border: 'none'}}>
-                                                <MDBDropdownItem  style={{color: 'black'}}>
-                                                    <Link to="/History" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
-                                                        HISTORY
-                                                    </Link>
-                                                </MDBDropdownItem >
-                                                <MDBDropdownItem  style={{color: 'black'}}>
-                                                    <Link to="/Keranjang" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
-                                                        CART
-                                                    </Link>
-                                                </MDBDropdownItem >
-                                                <MDBDropdownItem  style={{color: 'black'}}>
-                                                    <Link to="/Wishlist" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
-                                                        WISHLIST
-                                                    </Link>
-                                                </MDBDropdownItem >
+                                                {
+                                                    this.props.user.status === "Verified"
+                                                    ?
+                                                    <>
+                                                        <MDBDropdownItem  style={{color: 'black'}}>
+                                                        <Link to="/History" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
+                                                            HISTORY
+                                                        </Link>
+                                                        </MDBDropdownItem >
+                                                        <MDBDropdownItem  style={{color: 'black'}}>
+                                                            <Link to="/Keranjang" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
+                                                                CART
+                                                            </Link>
+                                                        </MDBDropdownItem >
+                                                        <MDBDropdownItem  style={{color: 'black'}}>
+                                                            <Link to="/Wishlist" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
+                                                                WISHLIST
+                                                            </Link>
+                                                        </MDBDropdownItem >
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <MDBDropdownItem  style={{color: 'black'}}>
+                                                            <Link to="/Wishlist" style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
+                                                                WISHLIST
+                                                            </Link>
+                                                        </MDBDropdownItem >
+                                                        <MDBDropdownItem  style={{color: 'black'}}>
+                                                            <Link to={`/waitingemailverification?email=${this.props.user.encryptedEmail}`} style={{marginLeft: -16, marginRight: 50}} className="font-weight-bold">
+                                                                    VERIFICATION
+                                                            </Link>
+                                                        </MDBDropdownItem >
+                                                    </>
+                                                }
                                                 <MDBDropdownItem divider/>
                                                 <MDBDropdownItem style={{marginLeft: -5, color: 'black', fontSize: '15px'}} onClick={this.props.userLogout} className="font-weight-bold">
                                                     LOGOUT

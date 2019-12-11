@@ -86,6 +86,18 @@ class jadwalAdmin extends Component {
         })
     }
 
+    cekHari = () => {
+        if (moment().add(this.state.tanggalDitambahkan, 'days').format("dddd") === "Sunday") {
+            this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 1})
+            return <h6>{moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
+        } else if (moment().add(this.state.tanggalDitambahkan, 'days').format("dddd") === "Saturday") {
+            this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 2})
+            return <h6>{moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
+        } else {
+            return <h6>{moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
+        }
+    }
+
     ////////////////////////////////////////////////FUNGSI RENDER///////////////////////////////////////////////////////
 
     renderJadwalMemasak = () => {
@@ -118,17 +130,34 @@ class jadwalAdmin extends Component {
                                             <div className="card-body">
                                                 <div className="row my-3">
                                                     <div className="col-5">
-                                                        <h6>{moment().add(this.state.tanggalDitambahkan, 'days').format("D MMMM YYYY")}</h6>
+                                                        {this.cekHari()}
                                                     </div>
                                                     <div className="col-7 text-right">
                                                         <div className="row">
                                                             <div className="col-6">
+                                                                {/* {
+                                                                    moment().format("dddd") === 'Sunday' || moment().format("dddd") === 'Saturday'
+                                                                    ?
+                                                                    <button className="btn btn-dark btn-block p-1 m-0" disabled>Back</button>
+                                                                    :
+                                                                    
+                                                                } */}
+
                                                                 {
                                                                     this.state.tanggalDitambahkan === 0
                                                                     ?
                                                                     <button className="btn btn-dark btn-block p-1 m-0" disabled>Back</button>
                                                                     :
-                                                                    <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan - 1})}>Back</button>
+                                                                    <>
+                                                                    {
+                                                                        moment().add(this.state.tanggalDitambahkan - 1, 'days').format("dddd") === 'Sunday' 
+                                                                        ?
+                                                                        <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan - 3})}>Back</button>
+                                                                        :
+                                                                        <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan - 1})}>Back</button>
+                                                                    }
+                                                                    </>
+                                                                    
                                                                 }
                                                             
                                                             </div>
@@ -138,7 +167,15 @@ class jadwalAdmin extends Component {
                                                                     ?
                                                                     <button className="btn btn-dark btn-block p-1 m-0" disabled>Next</button>
                                                                     :
-                                                                    <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 1})}>Next</button>
+                                                                    <>
+                                                                    {
+                                                                        moment().add(this.state.tanggalDitambahkan + 1, 'days').format("dddd") === 'Saturday' 
+                                                                        ?
+                                                                        <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 3})}>Next</button>
+                                                                        :
+                                                                        <button className="btn btn-success btn-block p-1 m-0" onClick={() => this.setState({tanggalDitambahkan: this.state.tanggalDitambahkan + 1})}>Next</button>
+                                                                    }
+                                                                    </>
                                                                 }
                                                             </div>
                                                         </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios'
 import { urlApi } from '../../helpers/database';
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {hitungCart} from '../../redux/1.actions'
 import moment from 'moment'
 import './productDetail.css'
@@ -71,15 +71,22 @@ class productDetail extends Component {
             return (
                 <div key={val.tanggal}>
                     <div className="row">
-                        <div className="col-3">
-                            <p style={{fontWeight: 'bolder'}}>{val.tanggal}</p>
-                        </div>
-                        <div className="col-9">
-                            <p className='mb-0 pb-0'>{val.Menu}</p>
-                            <p className="mt-0 pb-0">{val.Deskripsi}</p>
-                        </div>
+                        {
+                            val.tanggal.includes('Saturday') || val.tanggal.includes('Sunday')
+                            ?
+                            null
+                            :
+                            <>
+                            <div className="col-3">
+                                <p style={{fontWeight: 'bolder'}}>{val.tanggal}</p>
+                            </div>
+                            <div className="col-9">
+                                <p className='mb-0 pb-0'>{val.Menu}</p>
+                                <p className="mt-0 pb-0">{val.Deskripsi}</p>
+                            </div>
+                            </>
+                        }
                     </div>
-                    
                 </div>
             )
         })
@@ -150,7 +157,7 @@ class productDetail extends Component {
                         cnt = cnt + 1;
                     }
                 }
-         
+                
                  var objKeranjang = {
                      idUser: this.props.user.id,
                      idPaket: this.state.dataPaketLangganan.id,
@@ -176,6 +183,8 @@ class productDetail extends Component {
     }
 
     render() {
+        if (this.props.user.role === 'admin')
+        return <Redirect to="/jadwalAdmin" exact/>
         return (
             <div>
                 <MDBJumbotron style={{ padding: 0 }}>
@@ -221,7 +230,7 @@ class productDetail extends Component {
                                 {
                                     this.props.user.id === 0
                                     ?
-                                    <Link to='/Login' style={{textDecoration: 'none'}}><MDBIcon far icon="heart" onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/></Link>
+                                    <Link to='/Login' style={{textDecoration: 'none'}}><MDBIcon far icon="heart" style={{color:'red',fontSize:32, cursor:'pointer'}}/></Link>
                                     :
                                     <MDBIcon far icon="heart" onClick={this.toggleWishlist} style={{color:'red',fontSize:32, cursor:'pointer'}}/>
                                 }
@@ -328,7 +337,23 @@ class productDetail extends Component {
                                     {
                                         this.props.user.id !== 0
                                         ?
-                                        <input type="button" onClick={this.onTambahKeranjangBtnClick} className='btn btn-success btn-block mb-5 mb-md-0' value="ADD TO CART"/>
+                                        <>
+                                            {
+                                                this.props.user.status === 'Unverified'
+                                                ?
+                                                <>
+                                                {
+                                                    this.state.encryptedEmail !== ''
+                                                    ?
+                                                    <Link to={`/waitingemailverification?email=${this.props.user.encryptedEmail}`} style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block mb-5 mb-md-0' value="ADD TO CART"/></Link>
+                                                    :
+                                                    <input  type="button" className='btn btn-success btn-block mb-5 mb-md-0' value="ADD TO CART"/>
+                                                }
+                                                </>
+                                                :
+                                                <input type="button" onClick={this.onTambahKeranjangBtnClick} className='btn btn-success btn-block mb-5 mb-md-0' value="ADD TO CART"/>
+                                            }
+                                        </>
                                         :
                                         <Link to='/Login' style={{textDecoration: 'none'}}><input  type="button" className='btn btn-success btn-block mb-5 mb-md-0' value="Tambah ke Keranjang"/></Link>
                                     }

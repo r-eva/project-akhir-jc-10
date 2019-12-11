@@ -155,26 +155,9 @@ class Keranjang extends Component {
         }
         Axios.post(urlApi + 'history/addToHistory', postingHistory)
         .then((res) => {
-            swal ('Thank you for your order!', `Please submit your payment before ${postingHistory.BatasAkhirBayar}.`, 'success')
-            
-            Axios.post(urlApi + 'history/addHistoryDetail/' + this.props.user.id, {idHistory: res.data[0].id})
-            .then((res) => {                
-                for (var j = 0; j < this.state.cart.length; j++) {
-                    Axios.delete(urlApi + 'cart/deleteCartById/'+ this.state.cart[j].id)
-                    .then((res) => {
-                        this.props.hitungCart(this.props.user.id)
-                        swal ('Thank you for your order!', `Please submit your payment before ${postingHistory.BatasAkhirBayar}.`, 'success')
-                    })
-                    .catch((err) => {
-                        swal ('Eror', 'Server Error', 'error')
-                    })
-                }
+            this.props.hitungCart(this.props.user.id)
+            swal ('Thank you for your order!', `Please submit your payment before ${postingHistory.BatasAkhirBayar}.`, 'success')  
                 return this.setState({cart: [], keluarModal: 0, paymentMode: false})
-            })
-            .catch((err) => {
-                swal ('Eror', 'Server Error', 'error')
-                console.log(err)
-            })      
         })
         .catch((err) => {
             swal ('Eror', 'Server Error', 'error')

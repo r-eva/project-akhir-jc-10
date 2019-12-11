@@ -66,7 +66,6 @@ class Register extends Component {
                                                     }
                                                 </div>
                                             </MDBCardBody>
-                                            
                                         </MDBCard>
                                 </div>
                             </MDBCol>

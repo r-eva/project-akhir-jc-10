@@ -125,7 +125,7 @@ class AdminDashboard extends Component {
                                 <MDBTable hover className="text-white" scrollY maxHeight="50vh">
                                     <MDBTableHead color="text-center text-white" style={{backgroundColor: '#0085C7'}}>
                                         <tr>
-                                            <th>Username</th>
+                                            <th>UserId</th>
                                             <th>Transaction Date</th>
                                             <th>Total</th>
                                             <th>Detail</th>

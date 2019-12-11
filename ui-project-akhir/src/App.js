@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {keepLogin, checkLocalStorage} from './redux/1.actions/userAction'
+import ScrollToTop from './helpers/scrollTop'
 import Navigation from './1.component/Navbar/Navbar';
 import Footer from './1.component/Footer/Footer';
 import Main from './1.component/Main/Main';
@@ -42,6 +43,7 @@ class App extends Component {
         }
         return (
             <div>
+                <ScrollToTop/>
                 <Navigation/>
                 <Switch>
                     <Route exact path='/' component={Main}/>

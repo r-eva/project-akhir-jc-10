@@ -7,18 +7,58 @@ module.exports = {
         var historyTambahan = req.body
         if (historyTambahan) {
             var sql = `INSERT INTO history SET ?;`
-            sqlDB.query(sql, [historyTambahan], (err) => {
+            sqlDB.query(sql, historyTambahan, (err, result) => {
                 if(err) {
                     return res.status(500).send(err)
                 }
 
-                sql = `SELECT * FROM history WHERE TotalBelanja=${historyTambahan.TotalBelanja} && UserId=${historyTambahan.UserId} && TanggalTransaksi='${historyTambahan.TanggalTransaksi}'`
-                sqlDB.query(sql, (err, results1) => {
-                    if(err) {
+                var idHistorySubmit = result.insertId
+        
+                var sql = `SELECT * FROM cart WHERE idUser = ${sqlDB.escape(req.body.UserId)};`
+                sqlDB.query(sql, (err, result) => {
+                    if (err) {
                         return res.status(500).send(err)
                     }
-                    res.status(200).send(results1)
+                    var insertdata = []
+                    for (i = 0; i < result.length; i++) {
+                        insertdata.push([result[i].idUser, result[i].idPaket, result[i].TanggalMulai,
+                                        result[i].TanggalBerakhir, result[i].Durasi,
+                                        result[i].JumlahBox, idHistorySubmit])
+                    }
+                   
+                    sql = `INSERT INTO history_detailProduct (idUser, idPaket,
+                            TanggalMulai, TanggalBerakhir, Durasi, JumlahBox, idHistory) VALUES ?`
+                    sqlDB.query(sql, [insertdata], (err, results) => {
+                        if (err) {
+                            return res.status(500).send(err)
+                        } 
+        
+                        sql = `SELECT * FROM history WHERE id = ${idHistorySubmit}`
+                        sqlDB.query(sql, (err, result4) => {
+                            if (err) {
+                                return res.status(500).send(err)
+                            }  
+        
+                            sql = `CREATE EVENT event${result4[0].id}
+                            ON SCHEDULE AT "${result4[0].BatasAkhirBayar}"
+                            DO UPDATE history SET Cancel=1 , Status="Canceled By System" WHERE id=${result4[0].id};`
+                            sqlDB.query(sql, (err, results3) => {
+                                if (err) {
+                                    return res.status(500).send(err)
+                                } 
+                                
+                                var sql = `DELETE from cart where idUser=${req.body.UserId}`
+                                sqlDB.query(sql,(err,result)=>{
+                                    if(err){
+                                        return res.status(500).send(err)
+                                    }
+                                    res.status(200).send(result)
+                                })
+                            })
+                        })
+                    })
                 })
+
             })
         } else {
             res.status(500).send('Tolong isi query history!')

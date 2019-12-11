@@ -6,11 +6,13 @@ import {connect} from 'react-redux'
 import {confirmLogin} from '../../redux/1.actions/userAction'
 import {MDBBtn} from 'mdbreact'
 import {Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 class EmailVerified extends Component {
     
     state = { 
-        message: 'Verifying Email, Please Wait...'
+        message: 'Verifying Email, Please Wait...',
+        encryptedEmail: ''
     }
 
     componentDidMount() {
@@ -29,12 +31,14 @@ class EmailVerified extends Component {
     }
 
     render() {
+        if (this.props.user.role === 'admin' || this.props.user.role === '')
+        return <Redirect to="/" exact/>
         return (
             <div className="pt-5 text-center mt-5 pt-5">
                 <h1 className="mx-5 px-5 mt-5 pt-5">{this.state.message}</h1>
                 <div className="row justify-content-center mx-5 px-5 py-5">
                     <div className="col-6">
-                        <Link to='/'><MDBBtn color="success" className="mb-5 pb-3 btn btn-block" type="submit">GO CATERING</MDBBtn></Link>
+                        <Link to='/'><MDBBtn color="success" className="mb-5 pb-3 btn btn-block font-weight-bold" type="submit">GO CATERING</MDBBtn></Link>
                     </div>
                 </div>
             </div>
@@ -42,5 +46,10 @@ class EmailVerified extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
 
-export default connect(null, {confirmLogin})(EmailVerified);
+export default connect(mapStateToProps, {confirmLogin})(EmailVerified);

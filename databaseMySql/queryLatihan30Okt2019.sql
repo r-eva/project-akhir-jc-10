@@ -1,7 +1,4 @@
-	use final_project;
-    SELECT * from kategori_langganan;
-    SElect * from all_menu;
-    SELECT * from connection_table;
+
     
     SELECT id FROM all_menu WHERE id NOT IN (SELECT idMenu FROM connection_table);
     
@@ -150,3 +147,15 @@ SELECT * FROM cart WHERE idUser = 3;
 
 DROP EVENT event123;
 DROP EVENT event115;
+
+use final_project;
+SELECT * from history;
+select * from history_detailproduct;
+select * from users;
+
+SELECT u.username, count(hd.idHistory), h.TanggalTransaksi
+from history h
+JOIN history_detailproduct hd
+JOIN users u
+ON h.id = hd.idHistory && u.id = hd.idUser
+GROUP BY username;

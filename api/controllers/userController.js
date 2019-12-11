@@ -40,15 +40,11 @@ module.exports = {
                         if (err) return res.status(500).send({message: 'Send Email Failed!', err, error: false, email: emailVerification})
                         res.status(200).send({status: 'Send Email Success!', result, email: emailVerification})
                     })
-        })
-
+                })
             }
         })
-    
-        
     },
     confirmEmail: (req, res) => {
-
         var mykey = crypto.createDecipher('aes-128-cbc', secret);
         var bukaEmail = mykey.update(req.body.email, 'hex', 'utf8')
         bukaEmail += mykey.final('utf8')
@@ -98,7 +94,14 @@ module.exports = {
                 return res.status(500).send({message: 'Email atau password salah!'})
             }
             var token = createJWTToken({...result[0]})
-            res.status(200).send({...result[0], token})
+            if (result[0].status === 'Unverified') {
+                var mykey = crypto.createCipher('aes-128-cbc', secret);
+                var encryptedEmail = mykey.update(email, 'utf8', 'hex')
+                encryptedEmail += mykey.final('hex')
+                res.status(200).send({...result[0], token, encryptedEmail})
+            } else {
+                res.status(200).send({...result[0], token})
+            }
         })
     },
     keepLogin: (req, res) => {
@@ -112,5 +115,11 @@ module.exports = {
             }
             res.status(200).send(result)
         })
+    },
+    userDashboard: (req, res) => {
+        var mykey = crypto.createCipher('aes-128-cbc', secret);
+        var emailVerification = mykey.update(req.params.email, 'utf8', 'hex')
+        emailVerification += mykey.final('hex')
+        res.status(200).send(emailVerification)
     }
 }

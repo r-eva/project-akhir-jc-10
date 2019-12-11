@@ -3,6 +3,8 @@ import queryString from 'query-string'
 import axios from 'axios'
 import {urlApi} from '../../helpers/database'
 import swal from 'sweetalert'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 class WaitingEmailVerification extends Component {
     
@@ -26,11 +28,13 @@ class WaitingEmailVerification extends Component {
     }
 
     render() {
+        if (this.props.user.role === 'admin' || this.props.user.role === '')
+        return <Redirect to="/" exact/>
         return (
             <div className="p-5 m-5 text-center">
                 <h1 className="mt-5 pt-5">Thank you for your registration!</h1>
-                <h3 className="mt-2 pt-2">Please check your email to verify.</h3>
-                <h5  className="mt-5 pt-5">If you have not received any email from us, please click button bellow to resend email.</h5>
+                <h3 className="mt-2 pt-2">Please check your email to verify your account before shopping.</h3>
+                <h5  className="mt-2 pt-2">If you have not received any email from us, please click button bellow to resend email.</h5>
                 {
                     this.state.btnResendEmailClick
                     ?
@@ -45,4 +49,10 @@ class WaitingEmailVerification extends Component {
     }
 }
 
-export default WaitingEmailVerification;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(WaitingEmailVerification);

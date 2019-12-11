@@ -212,7 +212,7 @@ class Main extends Component {
                             <MDBCol>
                                 <MDBCard className="mb-4 mb-md-0">
                                     <MDBView hover zoom>
-                                        <MDBCardImage className="img-fluid" src={HealtyImg1} style={{width: '150'}} waves/>
+                                        <Link to='/product-detail/13'><MDBCardImage className="img-fluid" src={HealtyImg1} style={{width: '150'}} waves/></Link>
                                     </MDBView>
                                     <MDBCardBody>
                                     <MDBCardTitle>High Protein Vegan Meal</MDBCardTitle>
@@ -228,10 +228,10 @@ class Main extends Component {
                             <MDBCol>
                                 <MDBCard className="mb-4 mb-md-0">
                                     <MDBView hover zoom>
-                                        <MDBCardImage className="img-fluid" src={HealtyImg2} style={{width: '150'}} waves/>
+                                        <Link to='/product-detail/8'><MDBCardImage className="img-fluid" src={HealtyImg2} style={{width: '150'}} waves/></Link>
                                     </MDBView>
                                     <MDBCardBody>
-                                    <MDBCardTitle>Non-Collesterol</MDBCardTitle>
+                                    <MDBCardTitle>Less Collesterol</MDBCardTitle>
                                     <MDBCardText>
                                      We offer a diet rich in vegetables, poultry, fish, and nuts to low your cholesterol.
                                     </MDBCardText>
@@ -244,7 +244,7 @@ class Main extends Component {
                             <MDBCol>
                                 <MDBCard className="mb-4 mb-md-0">
                                     <MDBView hover zoom>
-                                        <MDBCardImage className="img-fluid" src={HealtyImg3} style={{width: '150'}} waves/>
+                                        <Link to='/product-detail/2'><MDBCardImage className="img-fluid" src={HealtyImg3} style={{width: '150'}} waves/></Link>
                                     </MDBView>
                                     <MDBCardBody>
                                     <MDBCardTitle>Low-Carb</MDBCardTitle>
@@ -272,7 +272,7 @@ class Main extends Component {
                                     this.state.randomMealBox.length > 0
                                     ?
                                     <MDBView hover zoom>
-                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[0].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                        <Link to={"/product-detail/" + this.state.randomMealBox[0].id}><img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[0].imagePath}`} alt="Javanese" style={{width: '150'}}/></Link>
                                     </MDBView>
                                     :
                                     null
@@ -297,7 +297,7 @@ class Main extends Component {
                                     this.state.randomMealBox.length > 0
                                     ?
                                     <MDBView hover zoom>
-                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[1].imagePath}`} alt="Javanese" style={{width: '150'}}/>
+                                        <Link to={"/product-detail/" + this.state.randomMealBox[1].id}><img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomMealBox[1].imagePath}`} alt="Javanese" style={{width: '150'}}/></Link>
                                     </MDBView>
                                     :
                                     null
@@ -336,7 +336,7 @@ class Main extends Component {
                                     this.state.randomSweet.length > 0
                                     ?
                                     <MDBView hover zoom>
-                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[1].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                        <Link to={"/product-detail/" + this.state.randomSweet[1].id}><img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[1].imagePath}`} alt="Sweet" style={{width: '150'}}/></Link>
                                     </MDBView>
                                     :
                                     null
@@ -361,7 +361,7 @@ class Main extends Component {
                                     this.state.randomSweet.length > 0
                                     ?
                                     <MDBView hover zoom>
-                                        <img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[0].imagePath}`} alt="Sweet" style={{width: '150'}}/>
+                                        <Link to={"/product-detail/" + this.state.randomSweet[0].id}><img className="card-img-top card-img-top-new" src={`${urlApi}${this.state.randomSweet[0].imagePath}`} alt="Sweet" style={{width: '150'}}/></Link>
                                     </MDBView>
                                     :
                                     null

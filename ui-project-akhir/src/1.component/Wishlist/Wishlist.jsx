@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Redirect} from 'react-router-dom'
 import { MDBTableHead, MDBTable, MDBTableBody} from 'mdbreact'
+import swal from 'sweetalert'
 
 class Wishlist extends Component {
 
@@ -29,6 +30,15 @@ class Wishlist extends Component {
         })
     }
 
+    deleteWishList = (id) => {
+        Axios.delete(urlApi + 'wishlist/deleteWishlistById/' + id)
+        .then(res => {
+            this.getDataWishlist()
+            swal({icon: "success", text: "Product deleted from wishlist."})
+        }) 
+        .catch(err => console.log(err))
+    }
+
     renderWishlist = () => {
         let jsx = this.state.data.map((val, idx) => {
             return (
@@ -42,6 +52,7 @@ class Wishlist extends Component {
                     </td>
                     <td>{val.harga}</td>
                     <td>{val.discount}</td>
+                    <td><button type="button" className="btn btn-danger" onClick={() => this.deleteWishList(val.id)}>Delete</button></td>
                 </tr>
             )
         })
@@ -87,6 +98,7 @@ class Wishlist extends Component {
                                                 <th className="font-weight-bold">IMAGE</th>
                                                 <th className="font-weight-bold">PRICE</th>
                                                 <th className="font-weight-bold">DISCOUNT</th>
+                                                <th className="font-weight-bold">Delete</th>
                                             </tr>
                                         </MDBTableHead>
                                         <MDBTableBody>

@@ -7,6 +7,7 @@ const INITIAL_STATE = {
     status: '',
     role: '',
     token: '',
+    encryptedEmail: '',
     userChecker: false
 }
 
